@@ -1,0 +1,16 @@
+{
+  "name": "st-core-ui-hooks",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Git hooks locais para validacao de nome de branch",
+  "scripts": {
+    "prepare": "husky",
+    "build:hooks": "tsc --project tsconfig.json",
+    "validate:branch-name": "npm run build:hooks --silent && node dist/scripts/validate-branch-name.js"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "husky": "^9.1.7",
+    "typescript": "^6.0.3"
+  }
+}
