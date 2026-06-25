@@ -12,7 +12,6 @@ Para que o semantic-release funcione, você precisa configurar um token do GitHu
 2. Clique em "Generate new token (classic)"
 3. Configure as seguintes permissões:
    - `repo` (Full control of private repositories)
-   - `write:packages` (Upload packages to GitHub Package Registry)
    - `read:user` (Read user profile data)
 
 ### 2. Token da npm
