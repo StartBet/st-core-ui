@@ -15,14 +15,28 @@ export const allowedPrefixes = [
   "style/"
 ] as const;
 
-const resolveGitDir = (): string => {
-  const dotGitPath = resolve(process.cwd(), ".git");
+export type GitDependencies = {
+  cwd?: () => string;
+  dirnamePath?: typeof dirname;
+  readFile?: (filePath: string) => string;
+  resolvePath?: typeof resolve;
+  statIsDirectory?: (filePath: string) => boolean;
+};
 
-  if (statSync(dotGitPath).isDirectory()) {
+export const resolveGitDir = ({
+  cwd = process.cwd,
+  dirnamePath = dirname,
+  readFile = (filePath: string) => readFileSync(filePath, "utf8").trim(),
+  resolvePath = resolve,
+  statIsDirectory = (filePath: string) => statSync(filePath).isDirectory()
+}: GitDependencies = {}): string => {
+  const dotGitPath = resolvePath(cwd(), ".git");
+
+  if (statIsDirectory(dotGitPath)) {
     return dotGitPath;
   }
 
-  const gitDirPointer = readFileSync(dotGitPath, "utf8").trim();
+  const gitDirPointer = readFile(dotGitPath);
   const gitDirPrefix = "gitdir:";
 
   if (!gitDirPointer.startsWith(gitDirPrefix)) {
@@ -30,12 +44,21 @@ const resolveGitDir = (): string => {
   }
 
   const gitDir = gitDirPointer.slice(gitDirPrefix.length).trim();
-  return resolve(dirname(dotGitPath), gitDir);
+  return resolvePath(dirnamePath(dotGitPath), gitDir);
 };
 
-export const getCurrentBranchName = (): string => {
-  const headFilePath = resolve(resolveGitDir(), "HEAD");
-  const headContent = readFileSync(headFilePath, "utf8").trim();
+export type BranchNameDependencies = GitDependencies & {
+  resolveGitDirectory?: () => string;
+};
+
+export const getCurrentBranchName = ({
+  readFile = (filePath: string) => readFileSync(filePath, "utf8").trim(),
+  resolveGitDirectory,
+  ...gitDependencies
+}: BranchNameDependencies = {}): string => {
+  const gitDirectory = resolveGitDirectory ?? (() => resolveGitDir(gitDependencies));
+  const headFilePath = resolve(gitDirectory(), "HEAD");
+  const headContent = readFile(headFilePath);
   const branchRefPrefix = "ref: refs/heads/";
 
   if (headContent.startsWith(branchRefPrefix)) {

@@ -1,14 +1,22 @@
-import { describe, expect, it, vi } from "vitest";
+import { resolve } from "node:path";
+
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
   formatErrorMessage,
+  getCurrentBranchName,
   getInvalidBranchMessageLines,
   hasAllowedPrefix,
   isDetachedHead,
+  resolveGitDir,
   runBranchNameValidation
 } from "./validate-branch-name";
 
 describe("validate-branch-name", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it("should accept a branch name with an allowed prefix", () => {
     expect(hasAllowedPrefix("chore/update-branch-policy")).toBe(true);
   });
@@ -44,6 +52,73 @@ describe("validate-branch-name", () => {
     expect(formatErrorMessage({ reason: "git command failed" })).toBe(
       '{"reason":"git command failed"}'
     );
+  });
+
+  it("should return the fallback message when the error cannot be stringified", () => {
+    const circularError: Record<string, unknown> = {};
+    circularError.self = circularError;
+
+    expect(formatErrorMessage(circularError)).toBe("Erro desconhecido ao validar o nome da branch.");
+  });
+
+  it("should resolve the git directory when .git is a directory", () => {
+    const repositoryPath = "/repo";
+    const dotGitPath = resolve(repositoryPath, ".git");
+    const readFile = vi.fn<(filePath: string) => string>();
+
+    expect(
+      resolveGitDir({
+        cwd: () => repositoryPath,
+        readFile,
+        statIsDirectory: () => true
+      })
+    ).toBe(dotGitPath);
+    expect(readFile).not.toHaveBeenCalled();
+  });
+
+  it("should resolve the git directory from a gitdir pointer file", () => {
+    const repositoryPath = "/repo";
+    const dotGitPath = resolve(repositoryPath, ".git");
+    const nestedGitDir = "../.git/worktrees/feature";
+    const readFile = vi.fn<(filePath: string) => string>().mockReturnValue(`gitdir: ${nestedGitDir}`);
+
+    expect(
+      resolveGitDir({
+        cwd: () => repositoryPath,
+        readFile,
+        statIsDirectory: () => false
+      })
+    ).toBe(resolve(repositoryPath, nestedGitDir));
+    expect(readFile).toHaveBeenCalledWith(dotGitPath);
+  });
+
+  it("should throw when the gitdir pointer is invalid", () => {
+    expect(
+      () =>
+        resolveGitDir({
+          cwd: () => "/repo",
+          readFile: () => "not-a-gitdir-pointer",
+          statIsDirectory: () => false
+        })
+    ).toThrow("Nao foi possivel localizar o diretorio do Git.");
+  });
+
+  it("should read the current branch name from HEAD", () => {
+    expect(
+      getCurrentBranchName({
+        readFile: () => "ref: refs/heads/chore/update-branch-policy",
+        resolveGitDirectory: () => "/repo/.git"
+      })
+    ).toBe("chore/update-branch-policy");
+  });
+
+  it("should return detached HEAD when HEAD does not point to a branch ref", () => {
+    expect(
+      getCurrentBranchName({
+        readFile: () => "a1b2c3d4",
+        resolveGitDirectory: () => "/repo/.git"
+      })
+    ).toBe("HEAD");
   });
 
   it("should log guidance and exit when the branch name is invalid", () => {
@@ -105,5 +180,20 @@ describe("validate-branch-name", () => {
 
     expect(exit).not.toHaveBeenCalled();
     expect(logError).not.toHaveBeenCalled();
+  });
+
+  it("should use the default logger and exit implementation when dependencies are omitted", () => {
+    const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
+    const processExitSpy = vi
+      .spyOn(process, "exit")
+      .mockImplementation((() => undefined) as (code?: string | number | null | undefined) => never);
+
+    runBranchNameValidation({
+      getBranchName: () => "invalid/update-branch-policy"
+    });
+
+    expect(processExitSpy).toHaveBeenCalledWith(1);
+    expect(consoleErrorSpy).toHaveBeenCalledWith("Erro: o nome da branch nao segue o padrao esperado.");
+    expect(consoleErrorSpy).toHaveBeenCalledWith("Branch atual: invalid/update-branch-policy");
   });
 });
