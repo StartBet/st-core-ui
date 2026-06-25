@@ -11,7 +11,7 @@
     "lint-staged": "lint-staged",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "validate:branch-name": "npm run build:hooks --silent && node dist/scripts/validate-branch-name.js",
+    "validate:branch-name": "npm run build:hooks --silent && node dist/scripts/validate-branch-name/index.js",
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage"

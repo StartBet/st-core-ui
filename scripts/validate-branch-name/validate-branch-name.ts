@@ -1,18 +1,18 @@
-import { readFileSync, statSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { readFileSync, statSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
 
 export const allowedPrefixes = [
-  "feature/",
-  "feat/",
-  "fix/",
-  "hotfix/",
-  "chore/",
-  "refactor/",
-  "perf/",
-  "docs/",
-  "test/",
-  "ci/",
-  "style/"
+  'feature/',
+  'feat/',
+  'fix/',
+  'hotfix/',
+  'chore/',
+  'refactor/',
+  'perf/',
+  'docs/',
+  'test/',
+  'ci/',
+  'style/'
 ] as const;
 
 export type GitDependencies = {
@@ -26,21 +26,21 @@ export type GitDependencies = {
 export const resolveGitDir = ({
   cwd = process.cwd,
   dirnamePath = dirname,
-  readFile = (filePath: string) => readFileSync(filePath, "utf8").trim(),
+  readFile = (filePath: string) => readFileSync(filePath, 'utf8').trim(),
   resolvePath = resolve,
   statIsDirectory = (filePath: string) => statSync(filePath).isDirectory()
 }: GitDependencies = {}): string => {
-  const dotGitPath = resolvePath(cwd(), ".git");
+  const dotGitPath = resolvePath(cwd(), '.git');
 
   if (statIsDirectory(dotGitPath)) {
     return dotGitPath;
   }
 
   const gitDirPointer = readFile(dotGitPath);
-  const gitDirPrefix = "gitdir:";
+  const gitDirPrefix = 'gitdir:';
 
   if (!gitDirPointer.startsWith(gitDirPrefix)) {
-    throw new Error("Nao foi possivel localizar o diretorio do Git.");
+    throw new Error('Nao foi possivel localizar o diretorio do Git.');
   }
 
   const gitDir = gitDirPointer.slice(gitDirPrefix.length).trim();
@@ -52,23 +52,25 @@ export type BranchNameDependencies = GitDependencies & {
 };
 
 export const getCurrentBranchName = ({
-  readFile = (filePath: string) => readFileSync(filePath, "utf8").trim(),
+  readFile = (filePath: string) => readFileSync(filePath, 'utf8').trim(),
   resolveGitDirectory,
   ...gitDependencies
 }: BranchNameDependencies = {}): string => {
-  const gitDirectory = resolveGitDirectory ?? (() => resolveGitDir(gitDependencies));
-  const headFilePath = resolve(gitDirectory(), "HEAD");
+  const gitDirectory =
+    resolveGitDirectory ?? (() => resolveGitDir(gitDependencies));
+  const headFilePath = resolve(gitDirectory(), 'HEAD');
   const headContent = readFile(headFilePath);
-  const branchRefPrefix = "ref: refs/heads/";
+  const branchRefPrefix = 'ref: refs/heads/';
 
   if (headContent.startsWith(branchRefPrefix)) {
     return headContent.slice(branchRefPrefix.length);
   }
 
-  return "HEAD";
+  return 'HEAD';
 };
 
-export const isDetachedHead = (branchName: string): boolean => branchName === "HEAD";
+export const isDetachedHead = (branchName: string): boolean =>
+  branchName === 'HEAD';
 
 export const hasAllowedPrefix = (branchName: string): boolean =>
   allowedPrefixes.some((prefix) => branchName.startsWith(prefix));
@@ -78,44 +80,44 @@ export const formatErrorMessage = (error: unknown): string => {
     return error.message;
   }
 
-  if (typeof error === "string") {
+  if (typeof error === 'string') {
     return error;
   }
 
   try {
     return JSON.stringify(error);
   } catch {
-    return "Erro desconhecido ao validar o nome da branch.";
+    return 'Erro desconhecido ao validar o nome da branch.';
   }
 };
 
 export const getInvalidBranchMessageLines = (branchName: string): string[] => {
-  const suggestedName = "feat/nome-da-sua-branch";
+  const suggestedName = 'feat/nome-da-sua-branch';
 
   return [
-    "",
-    "Erro: o nome da branch nao segue o padrao esperado.",
+    '',
+    'Erro: o nome da branch nao segue o padrao esperado.',
     `Branch atual: ${branchName}`,
-    "",
-    "Prefixos permitidos:",
+    '',
+    'Prefixos permitidos:',
     ...allowedPrefixes.map((prefix) => `- ${prefix}`),
-    "",
-    "Exemplo valido:",
+    '',
+    'Exemplo valido:',
     `- ${suggestedName}`,
-    "",
-    "Como corrigir o nome da branch mantendo seus commits:",
-    "1. Renomeie a branch atual:",
+    '',
+    'Como corrigir o nome da branch mantendo seus commits:',
+    '1. Renomeie a branch atual:',
     `   git branch -m ${suggestedName}`,
-    "2. Confirme que voce esta na branch correta:",
-    "   git branch --show-current",
-    "3. Faca o push da branch renomeada:",
+    '2. Confirme que voce esta na branch correta:',
+    '   git branch --show-current',
+    '3. Faca o push da branch renomeada:',
     `   git push -u origin ${suggestedName}`,
-    "",
-    "Se existir uma operacao do Git em andamento, conclua ou aborte antes:",
-    "   git status",
-    "   git revert --continue",
-    "   git revert --abort",
-    ""
+    '',
+    'Se existir uma operacao do Git em andamento, conclua ou aborte antes:',
+    '   git status',
+    '   git revert --continue',
+    '   git revert --abort',
+    ''
   ];
 };
 
@@ -125,7 +127,10 @@ export type ValidationDependencies = {
   logError?: (message: string) => void;
 };
 
-const printLines = (lines: string[], logError: (message: string) => void): void => {
+const printLines = (
+  lines: string[],
+  logError: (message: string) => void
+): void => {
   lines.forEach((line) => logError(line));
 };
 
@@ -142,7 +147,7 @@ export const runBranchNameValidation = ({
     const branchName = getBranchName();
 
     if (isDetachedHead(branchName)) {
-      logError("Aviso: repositorio em detached HEAD. Push bloqueado.");
+      logError('Aviso: repositorio em detached HEAD. Push bloqueado.');
       exit(1);
       return;
     }
@@ -153,12 +158,8 @@ export const runBranchNameValidation = ({
       return;
     }
   } catch (error: unknown) {
-    logError("Erro ao validar o nome da branch.");
+    logError('Erro ao validar o nome da branch.');
     logError(formatErrorMessage(error));
     exit(1);
   }
 };
-
-if (require.main === module) {
-  runBranchNameValidation();
-}

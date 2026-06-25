@@ -1,6 +1,14 @@
-# Padrao de nomes de branch
+# Validate Branch Name
 
-Este repositorio bloqueia `git push` localmente via `husky` quando a branch nao segue um dos prefixos abaixo:
+Este modulo centraliza a validacao de nomes de branch usada no hook de `pre-push`.
+
+## Estrutura
+
+- `../validate-branch-name.ts`: modulo principal com a regra de validacao e funcoes exportadas
+- `../validate-branch-name.test.ts`: testes automatizados do modulo principal
+- `index.ts`: entrypoint que executa `runBranchNameValidation()`
+
+## Prefixos permitidos
 
 - `feature/`
 - `feat/`
