@@ -1,22 +1,32 @@
-import { coverageConfigDefaults, defineConfig } from "vitest/config";
+import { fileURLToPath, URL } from 'node:url';
+
+import vue from '@vitejs/plugin-vue';
+import { coverageConfigDefaults, defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
   test: {
-    environment: "happy-dom",
+    environment: 'happy-dom',
     include: [
-      "app/**/*.{test,spec}.{ts,tsx}",
-      "scripts/**/*.{test,spec}.{ts,tsx}",
-      "tests/**/*.{test,spec}.{ts,tsx}"
+      'scripts/**/*.{test,spec}.{ts,tsx}',
+      'src/**/*.{test,spec}.{ts,tsx}',
+      'tests/**/*.{test,spec}.{ts,tsx}'
     ],
     passWithNoTests: true,
     coverage: {
-      provider: "v8",
-      reporter: ["text", "lcov"],
+      provider: 'v8',
+      reporter: ['text', 'lcov'],
       exclude: [
         ...coverageConfigDefaults.exclude,
-        "dist/**",
-        "docs/**",
-        ".husky/**"
+        '.storybook/**',
+        'dist/**',
+        '.husky/**',
+        'src/**/*.stories.ts'
       ]
     }
   }

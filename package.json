@@ -1,17 +1,39 @@
 {
-  "name": "st-core-ui-hooks",
-  "version": "1.0.0",
+  "name": "st-core-ui",
+  "version": "0.0.1",
   "private": true,
-  "description": "Git hooks locais para validacao de nome de branch",
+  "description": "Biblioteca de componentes Vue 3 com Vite, Tailwind CSS e Storybook",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "src/style.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./style.css": "./src/style.css"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "prepare": "husky",
-    "build:hooks": "tsc --project tsconfig.json",
+    "build": "npm run build:lib && npm run build:hooks",
+    "build:lib": "vue-tsc --project tsconfig.lib.json --declaration --emitDeclarationOnly --outDir dist/types && vite build",
+    "build:hooks": "tsc --project tsconfig.scripts.json",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint-staged": "lint-staged",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "validate:branch-name": "npm run build:hooks --silent && node dist/scripts/validate-branch-name/index.js",
+    "validate:branch-name": "npm run build:hooks --silent && node .cache/hooks-dist/scripts/validate-branch-name/index.js",
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage"
@@ -20,20 +42,37 @@
     "@commitlint/cli": "^21.0.0",
     "@commitlint/config-conventional": "^21.0.0",
     "@eslint/js": "^10.0.1",
+    "@storybook/addon-a11y": "^8.6.14",
+    "@storybook/addon-essentials": "^8.6.14",
+    "@storybook/addon-interactions": "^8.6.14",
+    "@storybook/test": "^8.6.14",
+    "@storybook/vue3-vite": "^8.6.14",
+    "@tailwindcss/vite": "^4.3.1",
     "@types/node": "^26.0.0",
     "@typescript-eslint/eslint-plugin": "^8.62.0",
     "@typescript-eslint/parser": "^8.62.0",
+    "@vitejs/plugin-vue": "^5.2.4",
     "@vitest/coverage-v8": "^4.1.9",
+    "@vue/test-utils": "^2.4.11",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^10.5.0",
+    "eslint-plugin-vue": "^10.9.2",
     "globals": "^17.7.0",
     "happy-dom": "^20.10.6",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.8",
     "prettier": "^3.8.4",
+    "storybook": "^8.6.14",
+    "tailwindcss": "^4.3.1",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.9"
+    "vite": "^6.4.1",
+    "vitest": "^4.1.9",
+    "vue": "^3.5.39",
+    "vue-tsc": "^3.3.5"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
   },
   "config": {
     "comitizen": {
