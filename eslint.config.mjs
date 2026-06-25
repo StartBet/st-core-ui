@@ -8,7 +8,7 @@ export default [
   {
     ignores: [
       '.cache/**',
-      '.storybook-static/**',
+      'storybook-static/**',
       'coverage/**',
       'dist/**',
       'node_modules/**'
