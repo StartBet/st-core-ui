@@ -1,6 +1,6 @@
 import { execSync } from "node:child_process";
 
-const allowedPrefixes = [
+export const allowedPrefixes = [
   "feature/",
   "feat/",
   "fix/",
@@ -14,18 +14,18 @@ const allowedPrefixes = [
   "style/"
 ] as const;
 
-const getCurrentBranchName = (): string => {
+export const getCurrentBranchName = (): string => {
   return execSync("git rev-parse --abbrev-ref HEAD", {
     encoding: "utf8"
   }).trim();
 };
 
-const isDetachedHead = (branchName: string): boolean => branchName === "HEAD";
+export const isDetachedHead = (branchName: string): boolean => branchName === "HEAD";
 
-const hasAllowedPrefix = (branchName: string): boolean =>
+export const hasAllowedPrefix = (branchName: string): boolean =>
   allowedPrefixes.some((prefix) => branchName.startsWith(prefix));
 
-const formatErrorMessage = (error: unknown): string => {
+export const formatErrorMessage = (error: unknown): string => {
   if (error instanceof Error) {
     return error.message;
   }
@@ -41,48 +41,76 @@ const formatErrorMessage = (error: unknown): string => {
   }
 };
 
-const printErrorAndExit = (branchName: string): never => {
+export const getInvalidBranchMessageLines = (branchName: string): string[] => {
   const suggestedName = "feat/nome-da-sua-branch";
 
-  console.error("");
-  console.error("Erro: o nome da branch nao segue o padrao esperado.");
-  console.error(`Branch atual: ${branchName}`);
-  console.error("");
-  console.error("Prefixos permitidos:");
-  allowedPrefixes.forEach((prefix) => console.error(`- ${prefix}`));
-  console.error("");
-  console.error("Exemplo valido:");
-  console.error(`- ${suggestedName}`);
-  console.error("");
-  console.error("Como corrigir o nome da branch mantendo seus commits:");
-  console.error("1. Renomeie a branch atual:");
-  console.error(`   git branch -m ${suggestedName}`);
-  console.error("2. Confirme que voce esta na branch correta:");
-  console.error("   git branch --show-current");
-  console.error("3. Faca o push da branch renomeada:");
-  console.error(`   git push -u origin ${suggestedName}`);
-  console.error("");
-  console.error("Se existir uma operacao do Git em andamento, conclua ou aborte antes:");
-  console.error("   git status");
-  console.error("   git revert --continue");
-  console.error("   git revert --abort");
-  console.error("");
-  process.exit(1);
+  return [
+    "",
+    "Erro: o nome da branch nao segue o padrao esperado.",
+    `Branch atual: ${branchName}`,
+    "",
+    "Prefixos permitidos:",
+    ...allowedPrefixes.map((prefix) => `- ${prefix}`),
+    "",
+    "Exemplo valido:",
+    `- ${suggestedName}`,
+    "",
+    "Como corrigir o nome da branch mantendo seus commits:",
+    "1. Renomeie a branch atual:",
+    `   git branch -m ${suggestedName}`,
+    "2. Confirme que voce esta na branch correta:",
+    "   git branch --show-current",
+    "3. Faca o push da branch renomeada:",
+    `   git push -u origin ${suggestedName}`,
+    "",
+    "Se existir uma operacao do Git em andamento, conclua ou aborte antes:",
+    "   git status",
+    "   git revert --continue",
+    "   git revert --abort",
+    ""
+  ];
 };
 
-try {
-  const branchName = getCurrentBranchName();
+export type ValidationDependencies = {
+  exit?: (code: number) => void;
+  getBranchName?: () => string;
+  logError?: (message: string) => void;
+};
 
-  if (isDetachedHead(branchName)) {
-    console.error("Aviso: repositorio em detached HEAD. Push bloqueado.");
-    process.exit(1);
-  }
+const printLines = (lines: string[], logError: (message: string) => void): void => {
+  lines.forEach((line) => logError(line));
+};
 
-  if (!hasAllowedPrefix(branchName)) {
-    printErrorAndExit(branchName);
+export const runBranchNameValidation = ({
+  exit = (code: number) => {
+    process.exit(code);
+  },
+  getBranchName = getCurrentBranchName,
+  logError = (message: string) => {
+    console.error(message);
   }
-} catch (error: unknown) {
-  console.error("Erro ao validar o nome da branch.");
-  console.error(formatErrorMessage(error));
-  process.exit(1);
+}: ValidationDependencies = {}): void => {
+  try {
+    const branchName = getBranchName();
+
+    if (isDetachedHead(branchName)) {
+      logError("Aviso: repositorio em detached HEAD. Push bloqueado.");
+      exit(1);
+      return;
+    }
+
+    if (!hasAllowedPrefix(branchName)) {
+      printLines(getInvalidBranchMessageLines(branchName), logError);
+      exit(1);
+      return;
+    }
+  } catch (error: unknown) {
+    logError("Erro ao validar o nome da branch.");
+    logError(formatErrorMessage(error));
+    exit(1);
+  }
+};
+
+if (require.main === module) {
+  runBranchNameValidation();
 }
