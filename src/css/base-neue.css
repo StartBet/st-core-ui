@@ -1,0 +1,298 @@
+@layer base {
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-100.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-100-italic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-200.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-200-italic.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-300.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-300-italic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-400.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-400-italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-500.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-500-italic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-600.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-600-italic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-700.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-700-italic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-800.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-800-italic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-900.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue';
+    src: url('../assets/fonts/base-neue-900-italic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-100.ttf')
+      format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-100-italic.ttf')
+      format('truetype');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-200.ttf')
+      format('truetype');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-200-talic.ttf')
+      format('truetype');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-300.ttf')
+      format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-300-italic.ttf')
+      format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-400.ttf')
+      format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-400-italic.ttf')
+      format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-500.ttf')
+      format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-500-italic.ttf')
+      format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-600.ttf')
+      format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-600-italic.ttf')
+      format('truetype');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-700.ttf')
+      format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-700-italic.ttf')
+      format('truetype');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-800.ttf')
+      format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-800-italic.ttf')
+      format('truetype');
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Condensed';
+    src: url('../assets/fonts/condensed/base-neue-condensed-900.ttf')
+      format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+}
