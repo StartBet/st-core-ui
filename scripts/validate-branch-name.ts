@@ -1,4 +1,5 @@
-import { execSync } from "node:child_process";
+import { readFileSync, statSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 
 export const allowedPrefixes = [
   "feature/",
@@ -14,10 +15,34 @@ export const allowedPrefixes = [
   "style/"
 ] as const;
 
+const resolveGitDir = (): string => {
+  const dotGitPath = resolve(process.cwd(), ".git");
+
+  if (statSync(dotGitPath).isDirectory()) {
+    return dotGitPath;
+  }
+
+  const gitDirPointer = readFileSync(dotGitPath, "utf8").trim();
+  const gitDirPrefix = "gitdir:";
+
+  if (!gitDirPointer.startsWith(gitDirPrefix)) {
+    throw new Error("Nao foi possivel localizar o diretorio do Git.");
+  }
+
+  const gitDir = gitDirPointer.slice(gitDirPrefix.length).trim();
+  return resolve(dirname(dotGitPath), gitDir);
+};
+
 export const getCurrentBranchName = (): string => {
-  return execSync("git rev-parse --abbrev-ref HEAD", {
-    encoding: "utf8"
-  }).trim();
+  const headFilePath = resolve(resolveGitDir(), "HEAD");
+  const headContent = readFileSync(headFilePath, "utf8").trim();
+  const branchRefPrefix = "ref: refs/heads/";
+
+  if (headContent.startsWith(branchRefPrefix)) {
+    return headContent.slice(branchRefPrefix.length);
+  }
+
+  return "HEAD";
 };
 
 export const isDetachedHead = (branchName: string): boolean => branchName === "HEAD";
