@@ -6,11 +6,17 @@
   "scripts": {
     "prepare": "husky",
     "build:hooks": "tsc --project tsconfig.json",
-    "validate:branch-name": "npm run build:hooks --silent && node dist/scripts/validate-branch-name.js"
+    "validate:branch-name": "npm run build:hooks --silent && node dist/scripts/validate-branch-name.js",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@types/node": "^26.0.0",
+    "@vitest/coverage-v8": "^4.1.9",
+    "happy-dom": "^20.10.6",
     "husky": "^9.1.7",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
   }
 }
