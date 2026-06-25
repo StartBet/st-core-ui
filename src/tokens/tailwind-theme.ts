@@ -5,154 +5,191 @@ type TailwindPluginApi = {
   theme: (path: string) => unknown;
 };
 
-const scale = (
+type ScaleValue = 0 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950;
+
+const toneScaleValues = [
+  100, 200, 300, 400, 500, 600, 700, 800, 900, 950
+] as const;
+const neutralScaleValues = [0, ...toneScaleValues] as const;
+
+const sizeScale = {
+  'ds-xs': '0.75rem',
+  'ds-sm': '0.875rem',
+  'ds-base': '1rem',
+  'ds-md': '1.125rem',
+  'ds-lg': '1.25rem',
+  'ds-xl': '1.5rem',
+  'ds-2xl': '1.875rem',
+  'ds-3xl': '2.25rem',
+  'ds-4xl': '3rem',
+  'ds-5xl': '3.75rem',
+  'ds-6xl': '4.5rem',
+  'ds-7xl': '5rem'
+} as const;
+
+const spacingScale = {
+  ...sizeScale,
+  'ds-1': '8px',
+  'ds-2': '16px',
+  'ds-3': '24px',
+  'ds-4': '32px',
+  'ds-5': '40px',
+  'ds-6': '48px',
+  'ds-7': '56px',
+  'ds-8': '64px',
+  'ds-9': '72px',
+  'ds-10': '80px',
+  'ds-11': '88px',
+  'ds-12': '96px',
+  'ds-15': '120px',
+  'ds-16': '128px',
+  'ds-20': '160px',
+  'ds-24': '192px',
+  'ds-30': '240px',
+  'ds-32': '256px',
+  'ds-40': '320px',
+  'ds-48': '384px',
+  'ds-56': '448px',
+  'ds-64': '512px',
+  'ds-72': '584px',
+  'ds-80': '640px',
+  'ds-96': '768px',
+  'ds-128': '1024px',
+  'ds-144': '1152px',
+  'ds-160': '1280px',
+  'ds-168': '1344px',
+  'ds-240': '1920px'
+} as const;
+
+const colorScalePrefixes = {
+  'brand-primary': 'brand-primary',
+  'brand-secondary': 'brand-secondary',
+  info: 'info-color',
+  system: 'system-color',
+  positive: 'positive-color',
+  attention: 'attention-color',
+  negative: 'negative-color',
+  blue: 'blue-color',
+  ocean: 'ocean-color',
+  green: 'green-color',
+  yellow: 'yellow-color',
+  orange: 'orange-color',
+  red: 'red-color',
+  pink: 'pink-color',
+  purple: 'purple-color'
+} as const;
+
+const tokenObject = <const T extends Record<string, string>>(
+  tokens: T
+): { [K in keyof T]: string } =>
+  Object.fromEntries(
+    Object.entries(tokens).map(([key, token]) => [key, cssVar(token)])
+  ) as { [K in keyof T]: string };
+
+const scale = <const T extends readonly ScaleValue[]>(
   prefix: string,
-  values: readonly (
-    | 0
-    | 100
-    | 200
-    | 300
-    | 400
-    | 500
-    | 600
-    | 700
-    | 800
-    | 900
-    | 950
-  )[]
-) =>
+  values: T
+): { [K in T[number]]: string } =>
   Object.fromEntries(
     values.map((value) => [value, cssVar(`--${prefix}-${value}`)])
-  );
+  ) as { [K in T[number]]: string };
 
-const shadowScale = scale(
-  'shadow-scale',
-  [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-);
-const lightScale = scale(
-  'light-scale',
-  [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-);
+const createScaleGroup = <
+  const TPrefixes extends Record<string, string>,
+  const TValues extends readonly ScaleValue[] = typeof toneScaleValues
+>(
+  prefixes: TPrefixes,
+  values?: TValues
+): { [K in keyof TPrefixes]: { [V in TValues[number]]: string } } => {
+  const resolvedValues = (values ?? toneScaleValues) as TValues;
+
+  return Object.fromEntries(
+    Object.entries(prefixes).map(([key, prefix]) => [
+      key,
+      scale(prefix, resolvedValues)
+    ])
+  ) as { [K in keyof TPrefixes]: { [V in TValues[number]]: string } };
+};
+
+const textStyle = (
+  fontSize: string,
+  lineHeight: string,
+  fontWeight: string,
+  letterSpacing = '0'
+) => [fontSize, { lineHeight, letterSpacing, fontWeight }] as const;
+
+const createTextShadowUtilities = (shadows?: Record<string, string>) =>
+  Object.entries(shadows ?? {}).map(([key, value]) => ({
+    [`.text-shadow-${key}`]: {
+      textShadow: value
+    }
+  }));
 
 export const stTailwindTheme = {
   colors: {
-    brand: cssVar('--color-brand'),
-    primary: cssVar('--color-primary'),
-    secondary: cssVar('--color-secondary'),
-    info: cssVar('--color-info'),
-    system: cssVar('--color-system'),
-    warning: cssVar('--color-warning'),
-    positive: cssVar('--color-positive'),
-    negative: cssVar('--color-negative'),
+    ...tokenObject({
+      brand: '--color-brand',
+      primary: '--color-primary',
+      secondary: '--color-secondary',
+      info: '--color-info',
+      system: '--color-system',
+      warning: '--color-warning',
+      positive: '--color-positive',
+      negative: '--color-negative'
+    }),
     surface: {
-      0: cssVar('--color-surface-0'),
-      1: cssVar('--color-surface-1'),
-      2: cssVar('--color-surface-2'),
-      3: cssVar('--color-surface-3'),
-      4: cssVar('--color-surface-4'),
-      shadow: {
-        0: cssVar('--color-surface-shadow-0'),
-        1: cssVar('--color-surface-shadow-1'),
-        2: cssVar('--color-surface-shadow-2'),
-        3: cssVar('--color-surface-shadow-3')
-      },
-      primary: cssVar('--color-surface-primary'),
-      secondary: cssVar('--color-surface-secondary'),
-      info: cssVar('--color-surface-info'),
-      system: cssVar('--color-surface-system'),
-      warning: cssVar('--color-surface-warning'),
-      positive: cssVar('--color-surface-positive'),
-      negative: cssVar('--color-surface-negative')
+      ...tokenObject({
+        0: '--color-surface-0',
+        1: '--color-surface-1',
+        2: '--color-surface-2',
+        3: '--color-surface-3',
+        4: '--color-surface-4',
+        primary: '--color-surface-primary',
+        secondary: '--color-surface-secondary',
+        info: '--color-surface-info',
+        system: '--color-surface-system',
+        warning: '--color-surface-warning',
+        positive: '--color-surface-positive',
+        negative: '--color-surface-negative'
+      }),
+      shadow: tokenObject({
+        0: '--color-surface-shadow-0',
+        1: '--color-surface-shadow-1',
+        2: '--color-surface-shadow-2',
+        3: '--color-surface-shadow-3'
+      })
     },
-    content: {
-      default: cssVar('--color-content-default'),
-      disable: cssVar('--color-content-disable'),
-      ghost: cssVar('--color-content-ghost'),
-      bright: cssVar('--color-content-bright'),
-      din: cssVar('--color-content-din'),
-      primary: cssVar('--color-content-primary'),
-      secondary: cssVar('--color-content-secondary'),
-      info: cssVar('--color-content-info'),
-      system: cssVar('--color-content-system'),
-      warning: cssVar('--color-content-warning'),
-      positive: cssVar('--color-content-positive'),
-      negative: cssVar('--color-content-negative')
-    },
-    border: {
-      1: cssVar('--color-border-1'),
-      2: cssVar('--color-border-2'),
-      3: cssVar('--color-border-3')
-    },
-    focus: cssVar('--color-focus'),
-    pressed: cssVar('--color-pressed'),
-    hover: cssVar('--color-hover'),
+    content: tokenObject({
+      default: '--color-content-default',
+      disable: '--color-content-disable',
+      ghost: '--color-content-ghost',
+      bright: '--color-content-bright',
+      din: '--color-content-din',
+      primary: '--color-content-primary',
+      secondary: '--color-content-secondary',
+      info: '--color-content-info',
+      system: '--color-content-system',
+      warning: '--color-content-warning',
+      positive: '--color-content-positive',
+      negative: '--color-content-negative'
+    }),
+    border: tokenObject({
+      1: '--color-border-1',
+      2: '--color-border-2',
+      3: '--color-border-3'
+    }),
+    ...tokenObject({
+      focus: '--color-focus',
+      pressed: '--color-pressed',
+      hover: '--color-hover'
+    }),
     st: {
-      'brand-primary': scale(
-        'brand-primary',
-        [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-      ),
-      'brand-secondary': scale(
-        'brand-secondary',
-        [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-      ),
-      neutral: scale(
-        'neutral-color',
-        [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-      ),
-      info: scale(
-        'info-color',
-        [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-      ),
-      system: scale(
-        'system-color',
-        [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-      ),
-      positive: scale(
-        'positive-color',
-        [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-      ),
-      attention: scale(
-        'attention-color',
-        [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-      ),
-      negative: scale(
-        'negative-color',
-        [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-      ),
-      blue: scale(
-        'blue-color',
-        [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-      ),
-      ocean: scale(
-        'ocean-color',
-        [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-      ),
-      green: scale(
-        'green-color',
-        [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-      ),
-      yellow: scale(
-        'yellow-color',
-        [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-      ),
-      orange: scale(
-        'orange-color',
-        [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-      ),
-      red: scale(
-        'red-color',
-        [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-      ),
-      pink: scale(
-        'pink-color',
-        [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-      ),
-      purple: scale(
-        'purple-color',
-        [100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
-      ),
-      'shadow-scale': shadowScale,
-      'light-scale': lightScale
+      ...createScaleGroup(colorScalePrefixes),
+      neutral: scale('neutral-color', neutralScaleValues),
+      ...createScaleGroup({
+        'shadow-scale': 'shadow-scale',
+        'light-scale': 'light-scale'
+      })
     }
   },
   fontFamily: {
@@ -161,58 +198,17 @@ export const stTailwindTheme = {
     body: ['Montserrat', 'sans-serif']
   },
   fontSize: {
-    'ds-xs': '0.75rem',
-    'ds-sm': '0.875rem',
-    'ds-base': '1rem',
-    'ds-md': '1.125rem',
-    'ds-lg': '1.25rem',
-    'ds-xl': '1.5rem',
-    'ds-2xl': '1.875rem',
-    'ds-3xl': '2.25rem',
-    'ds-4xl': '3rem',
-    'ds-5xl': '3.75rem',
-    'ds-6xl': '4.5rem',
-    'ds-7xl': '5rem',
-    'heading-1': [
-      '3rem',
-      { lineHeight: '1.1', letterSpacing: '0', fontWeight: '800' }
-    ],
-    'heading-2': [
-      '2.25rem',
-      { lineHeight: '1.1', letterSpacing: '0', fontWeight: '800' }
-    ],
-    'heading-3': [
-      '1.875rem',
-      { lineHeight: '1.25', letterSpacing: '0', fontWeight: '800' }
-    ],
-    'heading-4': [
-      '1.5rem',
-      { lineHeight: '1.25', letterSpacing: '0', fontWeight: '800' }
-    ],
-    'highlight-large': [
-      '1.5rem',
-      { lineHeight: '1.5', letterSpacing: '0', fontWeight: '600' }
-    ],
-    'highlight-medium': [
-      '1.125rem',
-      { lineHeight: '1.5', letterSpacing: '0', fontWeight: '600' }
-    ],
-    'body-large': [
-      '1.125rem',
-      { lineHeight: '1.75', letterSpacing: '0', fontWeight: '400' }
-    ],
-    'body-medium': [
-      '1rem',
-      { lineHeight: '1.75', letterSpacing: '0', fontWeight: '400' }
-    ],
-    'body-small': [
-      '0.875rem',
-      { lineHeight: '1.5', letterSpacing: '0', fontWeight: '400' }
-    ],
-    'hero-title': [
-      '3rem',
-      { lineHeight: '1.5', letterSpacing: '0', fontWeight: '800' }
-    ]
+    ...sizeScale,
+    'heading-1': textStyle('3rem', '1.1', '800'),
+    'heading-2': textStyle('2.25rem', '1.1', '800'),
+    'heading-3': textStyle('1.875rem', '1.25', '800'),
+    'heading-4': textStyle('1.5rem', '1.25', '800'),
+    'highlight-large': textStyle('1.5rem', '1.5', '600'),
+    'highlight-medium': textStyle('1.125rem', '1.5', '600'),
+    'body-large': textStyle('1.125rem', '1.75', '400'),
+    'body-medium': textStyle('1rem', '1.75', '400'),
+    'body-small': textStyle('0.875rem', '1.5', '400'),
+    'hero-title': textStyle('3rem', '1.5', '800')
   },
   lineHeight: {
     'ds-tight': '1.1',
@@ -254,50 +250,7 @@ export const stTailwindTheme = {
       '0 0 24px var(--color-shadow-pressed)'
     ]
   },
-  spacing: {
-    'ds-xs': '0.75rem',
-    'ds-sm': '0.875rem',
-    'ds-base': '1rem',
-    'ds-md': '1.125rem',
-    'ds-lg': '1.25rem',
-    'ds-xl': '1.5rem',
-    'ds-2xl': '1.875rem',
-    'ds-3xl': '2.25rem',
-    'ds-4xl': '3rem',
-    'ds-5xl': '3.75rem',
-    'ds-6xl': '4.5rem',
-    'ds-7xl': '5rem',
-    'ds-1': '8px',
-    'ds-2': '16px',
-    'ds-3': '24px',
-    'ds-4': '32px',
-    'ds-5': '40px',
-    'ds-6': '48px',
-    'ds-7': '56px',
-    'ds-8': '64px',
-    'ds-9': '72px',
-    'ds-10': '80px',
-    'ds-11': '88px',
-    'ds-12': '96px',
-    'ds-15': '120px',
-    'ds-16': '128px',
-    'ds-20': '160px',
-    'ds-24': '192px',
-    'ds-30': '240px',
-    'ds-32': '256px',
-    'ds-40': '320px',
-    'ds-48': '384px',
-    'ds-56': '448px',
-    'ds-64': '512px',
-    'ds-72': '584px',
-    'ds-80': '640px',
-    'ds-96': '768px',
-    'ds-128': '1024px',
-    'ds-144': '1152px',
-    'ds-160': '1280px',
-    'ds-168': '1344px',
-    'ds-240': '1920px'
-  },
+  spacing: spacingScale,
   textShadow: {
     'ds-small': '-1px 1px transparent, -2px 2px var(--shadow-scale-950)',
     'ds-medium': '-1px 1px transparent, -3px 3px var(--shadow-scale-950)',
@@ -356,14 +309,11 @@ export const stTailwindTheme = {
 
 export const stTailwindPlugins = [
   function ({ addUtilities, theme }: TailwindPluginApi) {
-    const shadows = theme('textShadow') as Record<string, string> | undefined;
-    const utilities = Object.entries(shadows ?? {}).map(([key, value]) => ({
-      [`.text-shadow-${key}`]: {
-        textShadow: value
-      }
-    }));
-
-    addUtilities(utilities);
+    addUtilities(
+      createTextShadowUtilities(
+        theme('textShadow') as Record<string, string> | undefined
+      )
+    );
   }
 ];
 
