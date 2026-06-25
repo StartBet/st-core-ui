@@ -12,7 +12,8 @@
   "types": "./dist/types/index.d.ts",
   "files": [
     "dist",
-    "src/style.css"
+    "src/css",
+    "src/assets/fonts"
   ],
   "exports": {
     ".": {
@@ -20,7 +21,9 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./style.css": "./src/style.css"
+    "./style.css": "./src/css/style.css",
+    "./tokens.css": "./src/css/tokens.css",
+    "./base-neue.css": "./src/css/base-neue.css"
   },
   "sideEffects": [
     "*.css"

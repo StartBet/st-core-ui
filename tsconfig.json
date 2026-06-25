@@ -27,6 +27,7 @@
     "src/**/*.d.ts",
     "src/**/*.vue",
     "src/**/*.stories.ts",
+    "tailwind.config.ts",
     "vite.config.ts",
     "vitest.config.ts"
   ],
