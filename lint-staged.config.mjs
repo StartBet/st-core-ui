@@ -7,7 +7,7 @@ const quoteFiles = (files) =>
     .join(' ');
 
 export default {
-  '*.{js,cjs,mjs,ts,cts,mts,tsx}': (files) => {
+  '*.{js,cjs,mjs,ts,cts,mts,tsx,vue}': (files) => {
     if (files.length === 0) {
       return [];
     }
@@ -20,7 +20,7 @@ export default {
       'npm run test:run'
     ];
   },
-  '*.{json,md,yml,yaml,mjs}': (files) => {
+  '*.{json,md,yml,yaml,mjs,css}': (files) => {
     if (files.length === 0) {
       return [];
     }

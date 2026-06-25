@@ -1,19 +1,31 @@
 import js from '@eslint/js';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
+import vue from 'eslint-plugin-vue';
 import globals from 'globals';
 
 export default [
   {
-    ignores: ['coverage/**', 'dist/**', 'docs/**', 'node_modules/**']
+    ignores: [
+      '.cache/**',
+      '.storybook-static/**',
+      'coverage/**',
+      'dist/**',
+      'node_modules/**'
+    ]
   },
   js.configs.recommended,
+  ...vue.configs['flat/essential'].map((config) => ({
+    ...config,
+    files: ['**/*.vue']
+  })),
   {
-    files: ['**/*.{js,cjs,mjs,ts,cts,mts,tsx}'],
+    files: ['**/*.{js,cjs,mjs,ts,cts,mts,tsx,vue}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
       globals: {
+        ...globals.browser,
         ...globals.node
       }
     }
@@ -36,7 +48,25 @@ export default [
     }
   },
   {
-    files: ['**/*.{test,spec}.{js,ts,tsx}', '**/__tests__/**/*.{js,ts,tsx}'],
+    files: ['**/*.vue'],
+    languageOptions: {
+      parserOptions: {
+        parser: tsParser,
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        extraFileExtensions: ['.vue']
+      }
+    },
+    rules: {
+      'no-undef': 'off',
+      'vue/multi-word-component-names': 'off'
+    }
+  },
+  {
+    files: [
+      '**/*.{test,spec,stories}.{js,ts,tsx}',
+      '**/__tests__/**/*.{js,ts,tsx}'
+    ],
     languageOptions: {
       globals: {
         ...globals.node,

@@ -4,6 +4,7 @@ dist/
 build/
 coverage/
 .cache/
+storybook-static/
 
 .env
 .env.*
