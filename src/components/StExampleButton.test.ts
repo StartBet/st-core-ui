@@ -37,6 +37,19 @@ describe('StExampleButton', () => {
     expect(button.classes()).toContain('hover:bg-slate-50');
   });
 
+  it('should fall back to the primary styles when the runtime variant is invalid', () => {
+    const wrapper = mount(StExampleButton, {
+      props: {
+        variant: 'unexpected' as never
+      }
+    });
+    const button = wrapper.get('button');
+
+    expect(button.classes()).toContain('bg-slate-900');
+    expect(button.classes()).toContain('text-white');
+    expect(button.classes()).toContain('hover:bg-slate-700');
+  });
+
   it('should render slot content instead of the fallback label', () => {
     const wrapper = mount(StExampleButton, {
       props: {
