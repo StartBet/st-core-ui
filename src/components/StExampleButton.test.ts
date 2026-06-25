@@ -16,9 +16,9 @@ describe('StExampleButton', () => {
     const wrapper = mount(StExampleButton);
     const button = wrapper.get('button');
 
-    expect(button.classes()).toContain('bg-slate-900');
-    expect(button.classes()).toContain('text-white');
-    expect(button.classes()).toContain('hover:bg-slate-700');
+    expect(button.classes()).toContain('bg-primary');
+    expect(button.classes()).toContain('text-content-bright');
+    expect(button.classes()).toContain('hover:bg-st-brand-primary-700');
   });
 
   it('should apply the secondary styles when requested', () => {
@@ -31,10 +31,10 @@ describe('StExampleButton', () => {
     const button = wrapper.get('button');
 
     expect(button.text()).toBe('Secondary action');
-    expect(button.classes()).toContain('bg-white');
-    expect(button.classes()).toContain('text-slate-900');
-    expect(button.classes()).toContain('ring-slate-300');
-    expect(button.classes()).toContain('hover:bg-slate-50');
+    expect(button.classes()).toContain('bg-surface-0');
+    expect(button.classes()).toContain('text-content-default');
+    expect(button.classes()).toContain('ring-border-1');
+    expect(button.classes()).toContain('hover:bg-surface-1');
   });
 
   it('should fall back to the primary styles when the runtime variant is invalid', () => {
@@ -45,9 +45,9 @@ describe('StExampleButton', () => {
     });
     const button = wrapper.get('button');
 
-    expect(button.classes()).toContain('bg-slate-900');
-    expect(button.classes()).toContain('text-white');
-    expect(button.classes()).toContain('hover:bg-slate-700');
+    expect(button.classes()).toContain('bg-primary');
+    expect(button.classes()).toContain('text-content-bright');
+    expect(button.classes()).toContain('hover:bg-st-brand-primary-700');
   });
 
   it('should render slot content instead of the fallback label', () => {
