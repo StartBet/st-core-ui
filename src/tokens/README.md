@@ -4,6 +4,8 @@
 
 Além dos arquivos CSS, a biblioteca exporta `stTailwindTheme` e `stTailwindPlugins` para reaproveitar os mesmos tokens no `tailwind.config.ts`.
 
+Ao usar esse tema no projeto consumidor, importe tambem `@startbet/st-core-ui/tokens.css` na entrada da aplicacao para disponibilizar as variaveis CSS consumidas pelo tema.
+
 Exemplo:
 
 ```ts
@@ -18,4 +20,13 @@ export default {
   },
   plugins: stTailwindPlugins
 } satisfies Config;
+```
+
+```ts
+import { createApp } from 'vue';
+import App from './App.vue';
+
+import '@startbet/st-core-ui/tokens.css';
+
+createApp(App).mount('#app');
 ```
