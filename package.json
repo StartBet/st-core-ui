@@ -13,7 +13,10 @@
   "files": [
     "dist",
     "src/css",
-    "src/assets/fonts"
+    "src/assets/fonts",
+    "src/tokens/index.ts",
+    "src/tokens/tailwind-theme.ts",
+    "tailwind.config.ts"
   ],
   "exports": {
     ".": {
@@ -21,6 +24,7 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
+    "./tailwind.config": "./tailwind.config.ts",
     "./style.css": "./src/css/style.css",
     "./tokens.css": "./src/css/tokens.css",
     "./base-neue.css": "./src/css/base-neue.css"
