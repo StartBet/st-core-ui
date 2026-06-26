@@ -18,7 +18,7 @@ describe('StExampleButton', () => {
 
     expect(button.classes()).toContain('bg-primary');
     expect(button.classes()).toContain('text-content-bright');
-    expect(button.classes()).toContain('hover:bg-st-brand-primary-700');
+    expect(button.classes()).toContain('hover:bg-hover');
   });
 
   it('should apply the secondary styles when requested', () => {
@@ -47,7 +47,7 @@ describe('StExampleButton', () => {
 
     expect(button.classes()).toContain('bg-primary');
     expect(button.classes()).toContain('text-content-bright');
-    expect(button.classes()).toContain('hover:bg-st-brand-primary-700');
+    expect(button.classes()).toContain('hover:bg-hover');
   });
 
   it('should render slot content instead of the fallback label', () => {

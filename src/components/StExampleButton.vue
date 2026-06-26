@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const variantClasses: Record<Variant, string> = {
-  primary: 'bg-primary text-content-bright hover:bg-st-brand-primary-700',
+  primary: 'bg-primary text-content-bright hover:bg-hover',
   secondary:
     'bg-surface-0 text-content-default ring-1 ring-inset ring-border-1 hover:bg-surface-1'
 };
