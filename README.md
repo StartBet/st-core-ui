@@ -6,13 +6,13 @@ O pacote foi pensado para ser consumido em projetos Vue/Nuxt e tambem expõe tok
 
 ## Recursos
 
-- Componentes Vue 3 empacotados para consumo externo
-- Tokens CSS publicados para reutilizacao em outros projetos
-- Fontes locais `Base Neue` e `Montserrat`
-- Tema Tailwind exportavel com `stTailwindTheme` e `stTailwindPlugins`
-- Storybook para documentacao e desenvolvimento visual
-- Testes com Vitest e `@vue/test-utils`
-- Release automatizada com `semantic-release`
+- Componentes Vue 3 empacotados para consumo externo.
+- Tokens CSS publicados para reutilizacao em outros projetos.
+- Fontes locais `Base Neue` e `Montserrat`.
+- Tema Tailwind exportavel com `stTailwindTheme` e `stTailwindPlugins`.
+- Storybook para documentacao e desenvolvimento visual.
+- Testes com Vitest e `@vue/test-utils`.
+- Release automatizada com `semantic-release`.
 
 ## Instalacao
 
@@ -116,8 +116,8 @@ refactor(theme): reorganizar tema tailwind
 
 Branches configuradas:
 
-- `main`: release de producao
-- `develop`: prerelease beta
+- `main`: release de producao.
+- `develop`: prerelease beta.
 
 ## Estrutura
 
