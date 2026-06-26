@@ -181,7 +181,7 @@
 
   @font-face {
     font-family: 'Base Neue Condensed';
-    src: url('../assets/fonts/condensed/base-neue-condensed-200-talic.ttf')
+    src: url('../assets/fonts/condensed/base-neue-condensed-200-italic.ttf')
       format('truetype');
     font-weight: 200;
     font-style: italic;
