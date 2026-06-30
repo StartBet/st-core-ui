@@ -16,6 +16,7 @@ describe('StExampleButton', () => {
     const wrapper = mount(StExampleButton);
     const button = wrapper.get('button');
 
+    expect(button.classes()).toContain('font-highlight');
     expect(button.classes()).toContain('bg-primary');
     expect(button.classes()).toContain('text-content-bright');
     expect(button.classes()).toContain('hover:bg-hover');

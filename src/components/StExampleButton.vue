@@ -27,7 +27,7 @@ const resolvedVariantClass = computed(
 <template>
   <button
     type="button"
-    class="inline-flex items-center justify-center rounded-ds-1 px-ds-4 py-ds-2 text-body-small font-medium transition-colors"
+    class="inline-flex items-center justify-center rounded-ds-1 px-ds-4 py-ds-2 text-body-small font-highlight font-medium transition-colors"
     :class="resolvedVariantClass"
   >
     <slot>
