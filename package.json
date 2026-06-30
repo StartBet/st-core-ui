@@ -27,7 +27,8 @@
     "./tailwind.config": "./tailwind.config.ts",
     "./style.css": "./src/css/style.css",
     "./tokens.css": "./src/css/tokens.css",
-    "./base-neue.css": "./src/css/base-neue.css"
+    "./base-neue.css": "./src/css/base-neue.css",
+    "./montserrat.css": "./src/css/montserrat.css"
   },
   "sideEffects": [
     "*.css"
