@@ -14,9 +14,9 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const variantClasses: Record<Variant, string> = {
-  primary: 'bg-primary text-content-bright hover:bg-hover',
+  primary: 'bg-st-primary text-st-content-bright hover:bg-st-hover',
   secondary:
-    'bg-surface-0 text-content-default ring-1 ring-inset ring-border-1 hover:bg-surface-1'
+    'bg-st-surface-0 text-st-content-default ring-1 ring-inset ring-st-border-1 hover:bg-st-surface-1'
 };
 
 const resolvedVariantClass = computed(
@@ -27,7 +27,7 @@ const resolvedVariantClass = computed(
 <template>
   <button
     type="button"
-    class="inline-flex items-center justify-center rounded-ds-1 px-ds-4 py-ds-2 text-body-small font-medium transition-colors"
+    class="inline-flex items-center justify-center rounded-st-1 px-st-4 py-st-2 text-st-body-small font-st-highlight font-medium transition-colors"
     :class="resolvedVariantClass"
   >
     <slot>

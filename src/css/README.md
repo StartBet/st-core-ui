@@ -10,9 +10,9 @@ Este diretório concentra os arquivos CSS publicados pela `@startbet/st-core-ui`
 
 ## Como importar em um projeto Vue
 
-### 1. Importação completa
+### 1. Projeto novo ou simples
 
-Use quando quiser carregar a base visual da biblioteca, incluindo Tailwind, tokens e fontes.
+Use quando quiser carregar a base visual da biblioteca com a menor configuracao possivel, incluindo Tailwind, tokens e fontes.
 
 ```ts
 import '@startbet/st-core-ui/style.css';
@@ -29,9 +29,22 @@ import '@startbet/st-core-ui/style.css';
 createApp(App).mount('#app');
 ```
 
-### 2. Importar somente tokens
+### 2. Projeto existente com Tailwind proprio
 
-Use quando o projeto consumidor já possui seu próprio pipeline Tailwind e precisa apenas reutilizar as variáveis CSS da biblioteca.
+Use quando o projeto consumidor ja possui seu proprio pipeline Tailwind e precisa apenas reutilizar as variaveis CSS da biblioteca sem substituir a configuracao local.
+
+Nesse cenario, prefira importar `tokens.css` no CSS global principal que ja contem as diretivas `@tailwind`.
+
+Exemplo em `app/assets/css/main.css` ou equivalente:
+
+```css
+@import '@startbet/st-core-ui/tokens.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+Depois faca o merge de `stTailwindTheme` e `stTailwindPlugins` no `tailwind.config` existente do projeto consumidor.
 
 ```ts
 import '@startbet/st-core-ui/tokens.css';
@@ -47,6 +60,7 @@ import '@startbet/st-core-ui/base-neue.css';
 
 ## Recomendações
 
-- Prefira `style.css` quando quiser a experiência completa da biblioteca.
-- Prefira `tokens.css` quando o projeto já controla o Tailwind e só precisa das variáveis.
-- Use `base-neue.css` apenas quando a necessidade for exclusivamente tipográfica.
+- Prefira `style.css` em projetos novos ou simples.
+- Prefira `tokens.css` em projetos que ja possuem configuracao Tailwind propria.
+- Nao substitua o `tailwind.config` do consumidor quando ele ja existir; faca apenas merge do tema e dos plugins exportados pela biblioteca.
+- Use `base-neue.css` apenas quando a necessidade for exclusivamente tipografica.

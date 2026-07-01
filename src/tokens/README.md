@@ -4,9 +4,9 @@
 
 Além dos arquivos CSS, a biblioteca exporta `stTailwindTheme` e `stTailwindPlugins` para reaproveitar os mesmos tokens no `tailwind.config.ts`.
 
-Ao usar esse tema no projeto consumidor, importe tambem `@startbet/st-core-ui/tokens.css` na entrada da aplicacao para disponibilizar as variaveis CSS consumidas pelo tema.
+## Cenario 1: projeto novo ou simples
 
-Exemplo:
+Se o projeto consumidor ainda nao possui uma configuracao Tailwind relevante, voce pode usar um exemplo minimo:
 
 ```ts
 import type { Config } from 'tailwindcss';
@@ -22,11 +22,48 @@ export default {
 } satisfies Config;
 ```
 
-```ts
-import { createApp } from 'vue';
-import App from './App.vue';
-
-import '@startbet/st-core-ui/tokens.css';
-
-createApp(App).mount('#app');
+```css
+@import '@startbet/st-core-ui/tokens.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 ```
+
+## Cenario 2: projeto existente com Tailwind proprio
+
+Se o consumidor ja possui `tailwind.config` e plugins locais, nao substitua essa configuracao. Faca somente merge do que a biblioteca exporta.
+
+Exemplo:
+
+```ts
+import { stTailwindPlugins, stTailwindTheme } from '@startbet/st-core-ui';
+import forms from '@tailwindcss/forms';
+
+export default {
+  theme: {
+    extend: {
+      ...stTailwindTheme,
+      spacing: {
+        ...stTailwindTheme.spacing,
+        header: '72px'
+      }
+    }
+  },
+  plugins: [forms, ...stTailwindPlugins]
+};
+```
+
+No CSS global principal do projeto, importe os tokens antes das diretivas Tailwind:
+
+```css
+@import '@startbet/st-core-ui/tokens.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+## Recomendacoes
+
+- Use `stTailwindTheme` dentro de `theme.extend` em projetos existentes.
+- Adicione `stTailwindPlugins` junto dos plugins ja usados pelo consumidor.
+- Nao importe `tokens.css` em `main.ts` ou `app.vue` quando o projeto consumidor ja processa Tailwind em um arquivo CSS global; prefira o CSS global principal.

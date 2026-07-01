@@ -27,7 +27,8 @@
     "./tailwind.config": "./tailwind.config.ts",
     "./style.css": "./src/css/style.css",
     "./tokens.css": "./src/css/tokens.css",
-    "./base-neue.css": "./src/css/base-neue.css"
+    "./base-neue.css": "./src/css/base-neue.css",
+    "./montserrat.css": "./src/css/montserrat.css"
   },
   "sideEffects": [
     "*.css"
@@ -67,13 +68,13 @@
     "@storybook/addon-interactions": "^8.6.14",
     "@storybook/test": "^8.6.14",
     "@storybook/vue3-vite": "^8.6.14",
-    "@tailwindcss/vite": "^4.3.1",
     "@types/node": "^26.0.0",
     "@typescript-eslint/eslint-plugin": "^8.62.0",
     "@typescript-eslint/parser": "^8.62.0",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vitest/coverage-v8": "^4.1.9",
     "@vue/test-utils": "^2.4.11",
+    "autoprefixer": "^10.5.2",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^10.5.0",
@@ -82,10 +83,12 @@
     "happy-dom": "^20.10.6",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.8",
+    "postcss": "^8.5.15",
+    "postcss-import": "^16.1.1",
     "prettier": "^3.8.4",
     "semantic-release": "^24.2.9",
     "storybook": "^8.6.14",
-    "tailwindcss": "^4.3.1",
+    "tailwindcss": "^3.4.19",
     "typescript": "^6.0.3",
     "vite": "^6.4.1",
     "vitest": "^4.1.9",

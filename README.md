@@ -22,7 +22,9 @@ npm install @startbet/st-core-ui
 
 ## Uso
 
-### Componentes
+### Cenario 1: projeto novo ou simples
+
+Use esse fluxo quando o projeto consumidor ainda nao possui uma configuracao Tailwind propria relevante e voce quer carregar rapidamente a base visual da biblioteca.
 
 ```ts
 import { createApp } from 'vue';
@@ -43,12 +45,76 @@ import { StExampleButton } from '@startbet/st-core-ui';
 </template>
 ```
 
-### Tokens CSS
+### Cenario 2: projeto existente com Tailwind proprio
 
-Use quando o projeto consumidor ja possui seu proprio pipeline Tailwind e precisa apenas das variaveis CSS da biblioteca.
+Use esse fluxo quando o projeto consumidor ja controla o proprio `tailwind.config` e voce nao quer sobrescrever a configuracao local.
+
+Nesse caso:
+
+- mantenha a configuracao atual do projeto consumidor
+- faca merge de `stTailwindTheme` em `theme.extend`
+- adicione `stTailwindPlugins` junto com os plugins locais
+- carregue `tokens.css` no CSS global principal do projeto
+- nao use `style.css` como entrada principal nesse cenario
+
+Exemplo de merge em um `tailwind.config.js` existente:
 
 ```ts
-import '@startbet/st-core-ui/tokens.css';
+import { stTailwindPlugins, stTailwindTheme } from '@startbet/st-core-ui';
+
+export default {
+  content: ['./app/**/*.{vue,js,ts}', './components/**/*.{vue,js,ts}'],
+  theme: {
+    extend: {
+      colors: {
+        ...stTailwindTheme.colors
+      },
+      fontFamily: {
+        ...stTailwindTheme.fontFamily
+      },
+      fontSize: {
+        ...stTailwindTheme.fontSize
+      },
+      lineHeight: {
+        ...stTailwindTheme.lineHeight
+      },
+      letterSpacing: {
+        ...stTailwindTheme.letterSpacing
+      },
+      borderRadius: {
+        ...stTailwindTheme.borderRadius
+      },
+      boxShadow: {
+        ...stTailwindTheme.boxShadow
+      },
+      dropShadow: {
+        ...stTailwindTheme.dropShadow
+      },
+      spacing: {
+        ...stTailwindTheme.spacing
+      },
+      textShadow: {
+        ...stTailwindTheme.textShadow
+      },
+      keyframes: {
+        ...stTailwindTheme.keyframes
+      },
+      animation: {
+        ...stTailwindTheme.animation
+      }
+    }
+  },
+  plugins: [...stTailwindPlugins]
+};
+```
+
+Exemplo de import dos tokens no CSS global principal:
+
+```css
+@import '@startbet/st-core-ui/tokens.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 ```
 
 ### Fontes
@@ -62,6 +128,8 @@ import '@startbet/st-core-ui/base-neue.css';
 ## Integracao Com Tailwind
 
 O pacote exporta `stTailwindTheme` e `stTailwindPlugins` para reutilizacao no `tailwind.config.ts`.
+
+Para projetos novos ou simples, um exemplo minimo seria:
 
 ```ts
 import type { Config } from 'tailwindcss';
@@ -77,10 +145,28 @@ export default {
 } satisfies Config;
 ```
 
-Ao usar essa integracao, carregue tambem os tokens CSS na entrada da aplicacao:
+Para projetos existentes, prefira fazer merge em vez de substituir a configuracao local:
 
 ```ts
-import '@startbet/st-core-ui/tokens.css';
+import { stTailwindPlugins, stTailwindTheme } from '@startbet/st-core-ui';
+
+export default {
+  theme: {
+    extend: {
+      ...stTailwindTheme
+    }
+  },
+  plugins: [...stTailwindPlugins]
+};
+```
+
+Ao usar essa integracao, carregue tambem os tokens CSS no CSS global principal da aplicacao:
+
+```css
+@import '@startbet/st-core-ui/tokens.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 ```
 
 ## Exports Publicos
