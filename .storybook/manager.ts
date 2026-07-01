@@ -6,5 +6,5 @@ import './manager.css';
 import '../src/css/tokens.css';
 
 addons.setConfig({
-  theme: createStorybookTheme('dark', { brandImage })
+  theme: createStorybookTheme({ brandImage })
 });

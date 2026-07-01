@@ -1,12 +1,15 @@
 import type { Preview } from '@storybook/vue3';
-import {
-  createStorybookTheme,
-  storybookThemeItems,
-  type StorybookThemeMode
-} from './storybook-theme';
+import { createStorybookTheme } from './storybook-theme';
 
 import './preview.css';
 import '../src/css/style.css';
+
+const storybookThemeItems = [
+  { value: 'dark', title: 'Dark' },
+  { value: 'light', title: 'Light' }
+] as const;
+
+type StorybookThemeMode = (typeof storybookThemeItems)[number]['value'];
 
 const applyPreviewTheme = (theme: StorybookThemeMode) => {
   if (typeof document === 'undefined') {
@@ -48,7 +51,7 @@ const preview: Preview = {
       }
     },
     docs: {
-      theme: createStorybookTheme('dark')
+      theme: createStorybookTheme()
     },
     layout: 'centered'
   },
