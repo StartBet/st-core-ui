@@ -1,3 +1,10 @@
+# [0.2.0](https://github.com/StartBet/st-core-ui/compare/v0.1.0...v0.2.0) (2026-07-01)
+
+
+### Features
+
+* **config:** integration front startbet ([#12](https://github.com/StartBet/st-core-ui/issues/12)) ([5566fc2](https://github.com/StartBet/st-core-ui/commit/5566fc20b8bf2af173f519e214d2d8557086ea59))
+
 # [0.1.0](https://github.com/StartBet/st-core-ui/compare/v0.0.1...v0.1.0) (2026-06-26)
 
 
