@@ -13,52 +13,52 @@ const toneScaleValues = [
 const neutralScaleValues = [0, ...toneScaleValues] as const;
 
 const sizeScale = {
-  'ds-xs': '0.75rem',
-  'ds-sm': '0.875rem',
-  'ds-base': '1rem',
-  'ds-md': '1.125rem',
-  'ds-lg': '1.25rem',
-  'ds-xl': '1.5rem',
-  'ds-2xl': '1.875rem',
-  'ds-3xl': '2.25rem',
-  'ds-4xl': '3rem',
-  'ds-5xl': '3.75rem',
-  'ds-6xl': '4.5rem',
-  'ds-7xl': '5rem'
+  'st-xs': '0.75rem',
+  'st-sm': '0.875rem',
+  'st-base': '1rem',
+  'st-md': '1.125rem',
+  'st-lg': '1.25rem',
+  'st-xl': '1.5rem',
+  'st-2xl': '1.875rem',
+  'st-3xl': '2.25rem',
+  'st-4xl': '3rem',
+  'st-5xl': '3.75rem',
+  'st-6xl': '4.5rem',
+  'st-7xl': '5rem'
 } as const;
 
 const spacingScale = {
   ...sizeScale,
-  'ds-1': '8px',
-  'ds-2': '16px',
-  'ds-3': '24px',
-  'ds-4': '32px',
-  'ds-5': '40px',
-  'ds-6': '48px',
-  'ds-7': '56px',
-  'ds-8': '64px',
-  'ds-9': '72px',
-  'ds-10': '80px',
-  'ds-11': '88px',
-  'ds-12': '96px',
-  'ds-15': '120px',
-  'ds-16': '128px',
-  'ds-20': '160px',
-  'ds-24': '192px',
-  'ds-30': '240px',
-  'ds-32': '256px',
-  'ds-40': '320px',
-  'ds-48': '384px',
-  'ds-56': '448px',
-  'ds-64': '512px',
-  'ds-72': '584px',
-  'ds-80': '640px',
-  'ds-96': '768px',
-  'ds-128': '1024px',
-  'ds-144': '1152px',
-  'ds-160': '1280px',
-  'ds-168': '1344px',
-  'ds-240': '1920px'
+  'st-1': '8px',
+  'st-2': '16px',
+  'st-3': '24px',
+  'st-4': '32px',
+  'st-5': '40px',
+  'st-6': '48px',
+  'st-7': '56px',
+  'st-8': '64px',
+  'st-9': '72px',
+  'st-10': '80px',
+  'st-11': '88px',
+  'st-12': '96px',
+  'st-15': '120px',
+  'st-16': '128px',
+  'st-20': '160px',
+  'st-24': '192px',
+  'st-30': '240px',
+  'st-32': '256px',
+  'st-40': '320px',
+  'st-48': '384px',
+  'st-56': '448px',
+  'st-64': '512px',
+  'st-72': '584px',
+  'st-80': '640px',
+  'st-96': '768px',
+  'st-128': '1024px',
+  'st-144': '1152px',
+  'st-160': '1280px',
+  'st-168': '1344px',
+  'st-240': '1920px'
 } as const;
 
 const colorScalePrefixes = {
@@ -91,7 +91,7 @@ const scale = <const T extends readonly ScaleValue[]>(
   values: T
 ): { [K in T[number]]: string } =>
   Object.fromEntries(
-    values.map((value) => [value, cssVar(`--${prefix}-${value}`)])
+    values.map((value) => [value, cssVar(`--st-${prefix}-${value}`)])
   ) as { [K in T[number]]: string };
 
 const createScaleGroup = <
@@ -128,60 +128,60 @@ const createTextShadowUtilities = (shadows?: Record<string, string>) =>
 export const stTailwindTheme = {
   colors: {
     ...tokenObject({
-      brand: '--color-brand',
-      primary: '--color-primary',
-      secondary: '--color-secondary',
-      info: '--color-info',
-      system: '--color-system',
-      warning: '--color-warning',
-      positive: '--color-positive',
-      negative: '--color-negative'
+      'st-brand': '--st-color-brand',
+      'st-primary': '--st-color-primary',
+      'st-secondary': '--st-color-secondary',
+      'st-info': '--st-color-info',
+      'st-system': '--st-color-system',
+      'st-warning': '--st-color-warning',
+      'st-positive': '--st-color-positive',
+      'st-negative': '--st-color-negative'
     }),
-    surface: {
+    'st-surface': {
       ...tokenObject({
-        0: '--color-surface-0',
-        1: '--color-surface-1',
-        2: '--color-surface-2',
-        3: '--color-surface-3',
-        4: '--color-surface-4',
-        primary: '--color-surface-primary',
-        secondary: '--color-surface-secondary',
-        info: '--color-surface-info',
-        system: '--color-surface-system',
-        warning: '--color-surface-warning',
-        positive: '--color-surface-positive',
-        negative: '--color-surface-negative'
+        0: '--st-color-surface-0',
+        1: '--st-color-surface-1',
+        2: '--st-color-surface-2',
+        3: '--st-color-surface-3',
+        4: '--st-color-surface-4',
+        primary: '--st-color-surface-primary',
+        secondary: '--st-color-surface-secondary',
+        info: '--st-color-surface-info',
+        system: '--st-color-surface-system',
+        warning: '--st-color-surface-warning',
+        positive: '--st-color-surface-positive',
+        negative: '--st-color-surface-negative'
       }),
       shadow: tokenObject({
-        0: '--color-surface-shadow-0',
-        1: '--color-surface-shadow-1',
-        2: '--color-surface-shadow-2',
-        3: '--color-surface-shadow-3'
+        0: '--st-color-surface-shadow-0',
+        1: '--st-color-surface-shadow-1',
+        2: '--st-color-surface-shadow-2',
+        3: '--st-color-surface-shadow-3'
       })
     },
-    content: tokenObject({
-      default: '--color-content-default',
-      disable: '--color-content-disable',
-      ghost: '--color-content-ghost',
-      bright: '--color-content-bright',
-      din: '--color-content-din',
-      primary: '--color-content-primary',
-      secondary: '--color-content-secondary',
-      info: '--color-content-info',
-      system: '--color-content-system',
-      warning: '--color-content-warning',
-      positive: '--color-content-positive',
-      negative: '--color-content-negative'
+    'st-content': tokenObject({
+      default: '--st-color-content-default',
+      disable: '--st-color-content-disable',
+      ghost: '--st-color-content-ghost',
+      bright: '--st-color-content-bright',
+      din: '--st-color-content-din',
+      primary: '--st-color-content-primary',
+      secondary: '--st-color-content-secondary',
+      info: '--st-color-content-info',
+      system: '--st-color-content-system',
+      warning: '--st-color-content-warning',
+      positive: '--st-color-content-positive',
+      negative: '--st-color-content-negative'
     }),
-    border: tokenObject({
-      1: '--color-border-1',
-      2: '--color-border-2',
-      3: '--color-border-3'
+    'st-border': tokenObject({
+      1: '--st-color-border-1',
+      2: '--st-color-border-2',
+      3: '--st-color-border-3'
     }),
     ...tokenObject({
-      focus: '--color-focus',
-      pressed: '--color-pressed',
-      hover: '--color-hover'
+      'st-focus': '--st-color-focus',
+      'st-pressed': '--st-color-pressed',
+      'st-hover': '--st-color-hover'
     }),
     st: {
       ...createScaleGroup(colorScalePrefixes),
@@ -193,79 +193,79 @@ export const stTailwindTheme = {
     }
   },
   fontFamily: {
-    heading: ['"Base Neue Condensed"', 'sans-serif'],
-    highlight: ['"Base Neue Condensed"', 'sans-serif'],
-    body: ['Montserrat', 'sans-serif']
+    'st-heading': ['"Base Neue Condensed"', 'sans-serif'],
+    'st-highlight': ['"Base Neue Condensed"', 'sans-serif'],
+    'st-body': ['Montserrat', 'sans-serif']
   },
   fontSize: {
     ...sizeScale,
-    'heading-1': textStyle('3rem', '1.1', '800'),
-    'heading-2': textStyle('2.25rem', '1.1', '800'),
-    'heading-3': textStyle('1.875rem', '1.25', '800'),
-    'heading-4': textStyle('1.5rem', '1.25', '800'),
-    'highlight-large': textStyle('1.5rem', '1.5', '600'),
-    'highlight-medium': textStyle('1.125rem', '1.5', '600'),
-    'body-large': textStyle('1.125rem', '1.75', '400'),
-    'body-medium': textStyle('1rem', '1.75', '400'),
-    'body-small': textStyle('0.875rem', '1.5', '400'),
-    'hero-title': textStyle('3rem', '1.5', '800')
+    'st-heading-1': textStyle('3rem', '1.1', '800'),
+    'st-heading-2': textStyle('2.25rem', '1.1', '800'),
+    'st-heading-3': textStyle('1.875rem', '1.25', '800'),
+    'st-heading-4': textStyle('1.5rem', '1.25', '800'),
+    'st-highlight-large': textStyle('1.5rem', '1.5', '600'),
+    'st-highlight-medium': textStyle('1.125rem', '1.5', '600'),
+    'st-body-large': textStyle('1.125rem', '1.75', '400'),
+    'st-body-medium': textStyle('1rem', '1.75', '400'),
+    'st-body-small': textStyle('0.875rem', '1.5', '400'),
+    'st-hero-title': textStyle('3rem', '1.5', '800')
   },
   lineHeight: {
-    'ds-tight': '1.1',
-    'ds-snug': '1.25',
-    'ds-normal': '1.5',
-    'ds-relaxed': '1.75',
-    'ds-loose': '2'
+    'st-tight': '1.1',
+    'st-snug': '1.25',
+    'st-normal': '1.5',
+    'st-relaxed': '1.75',
+    'st-loose': '2'
   },
   letterSpacing: {
-    'ds-tight': '-0.025em',
-    'ds-normal': '0',
-    'ds-wide': '0.025em',
-    'ds-wider': '0.05em'
+    'st-tight': '-0.025em',
+    'st-normal': '0',
+    'st-wide': '0.025em',
+    'st-wider': '0.05em'
   },
   borderRadius: {
-    'ds-1': '8px',
-    'ds-2': '16px'
+    'st-1': '8px',
+    'st-2': '16px'
   },
   boxShadow: {
-    'paper-0': '0 0 0 0 transparent',
-    'paper-1':
-      '0 1px 3px 0 var(--color-shadow-0), 0 1px 2px 0 var(--color-shadow-1)',
-    'paper-2':
-      '0 4px 6px -1px var(--color-shadow-0), 0 2px 4px -1px var(--color-shadow-1)',
-    'paper-3':
-      '0 10px 15px -3px var(--color-shadow-0), 0 4px 6px -2px var(--color-shadow-1)',
-    'paper-4':
-      '0 20px 25px -5px var(--color-shadow-0), 0 10px 10px -5px var(--color-shadow-1)',
-    'action-hover': '0 0 16px 2px var(--color-shadow-hover)',
-    'action-pressed': '0 0 16px 4px var(--color-shadow-pressed)'
+    'st-paper-0': '0 0 0 0 transparent',
+    'st-paper-1':
+      '0 1px 3px 0 var(--st-color-shadow-0), 0 1px 2px 0 var(--st-color-shadow-1)',
+    'st-paper-2':
+      '0 4px 6px -1px var(--st-color-shadow-0), 0 2px 4px -1px var(--st-color-shadow-1)',
+    'st-paper-3':
+      '0 10px 15px -3px var(--st-color-shadow-0), 0 4px 6px -2px var(--st-color-shadow-1)',
+    'st-paper-4':
+      '0 20px 25px -5px var(--st-color-shadow-0), 0 10px 10px -5px var(--st-color-shadow-1)',
+    'st-action-hover': '0 0 16px 2px var(--st-color-shadow-hover)',
+    'st-action-pressed': '0 0 16px 4px var(--st-color-shadow-pressed)'
   },
   dropShadow: {
-    'action-hover': [
-      '0 0 8px var(--color-shadow-hover)',
-      '0 0 16px var(--color-shadow-hover)'
+    'st-action-hover': [
+      '0 0 8px var(--st-color-shadow-hover)',
+      '0 0 16px var(--st-color-shadow-hover)'
     ],
-    'action-pressed': [
-      '0 0 16px var(--color-shadow-pressed)',
-      '0 0 24px var(--color-shadow-pressed)'
+    'st-action-pressed': [
+      '0 0 16px var(--st-color-shadow-pressed)',
+      '0 0 24px var(--st-color-shadow-pressed)'
     ]
   },
   spacing: spacingScale,
   textShadow: {
-    'ds-small': '-1px 1px transparent, -2px 2px var(--shadow-scale-950)',
-    'ds-medium': '-1px 1px transparent, -3px 3px var(--shadow-scale-950)',
-    'ds-large': '-2px 2px transparent, -4px 4px var(--shadow-scale-950)',
-    'action-hover': '0 0 16px var(--color-shadow-hover)',
-    'action-pressed': '0 0 16px var(--color-shadow-pressed)'
+    'st-small': '-1px 1px transparent, -2px 2px var(--st-shadow-scale-950)',
+    'st-medium': '-1px 1px transparent, -3px 3px var(--st-shadow-scale-950)',
+    'st-large': '-2px 2px transparent, -4px 4px var(--st-shadow-scale-950)',
+    'st-action-hover': '0 0 16px var(--st-color-shadow-hover)',
+    'st-action-pressed': '0 0 16px var(--st-color-shadow-pressed)'
   },
   keyframes: {
-    'loading-arrow': {
+    'st-loading-arrow': {
       '0%': { transform: 'translateX(-200%)' },
       '33%': { transform: 'translateX(0%)' },
       '66%': { transform: 'translateX(0%)' },
       '100%': { transform: 'translateX(200%)' }
     },
-    's10-1': {
+    'st-s10-1': {
       '0%': {
         clipPath: 'polygon(50% 50%,0 0,50% 0%,50% 0%,50% 0%,50% 0%,50% 0%)'
       },
@@ -293,7 +293,7 @@ export const stTailwindTheme = {
           'polygon(50% 50%,50% 100%,50% 100%,50% 100%,50% 100%,50% 100%,0% 100%)'
       }
     },
-    's10-2': {
+    'st-s10-2': {
       '0%': { transform: 'scaleY(1) rotate(0deg)' },
       '49.9%': { transform: 'scaleY(1) rotate(135deg)' },
       '50%': { transform: 'scaleY(-1) rotate(0deg)' },
@@ -301,9 +301,9 @@ export const stTailwindTheme = {
     }
   },
   animation: {
-    'loading-arrow': 'loading-arrow 1.5s ease-in-out infinite',
-    'spinner-infinite':
-      's10-1 0.8s infinite linear alternate, s10-2 1.6s linear infinite'
+    'st-loading-arrow': 'st-loading-arrow 1.5s ease-in-out infinite',
+    'st-spinner-infinite':
+      'st-s10-1 0.8s infinite linear alternate, st-s10-2 1.6s linear infinite'
   }
 } as const;
 

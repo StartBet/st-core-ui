@@ -24,18 +24,24 @@ describe('tailwind theme tokens', () => {
   });
 
   it('should expose CSS variable based semantic colors, scales and fonts', () => {
-    expect(stTailwindTheme.colors.primary).toBe('var(--color-primary)');
-    expect(stTailwindTheme.colors.surface[0]).toBe('var(--color-surface-0)');
-    expect(stTailwindTheme.colors.st['brand-primary'][700]).toBe(
-      'var(--brand-primary-700)'
+    expect(stTailwindTheme.colors['st-primary']).toBe(
+      'var(--st-color-primary)'
     );
-    expect(stTailwindTheme.colors.st.neutral[0]).toBe('var(--neutral-color-0)');
-    expect(stTailwindTheme.fontFamily.heading).toEqual([
+    expect(stTailwindTheme.colors['st-surface'][0]).toBe(
+      'var(--st-color-surface-0)'
+    );
+    expect(stTailwindTheme.colors.st['brand-primary'][700]).toBe(
+      'var(--st-brand-primary-700)'
+    );
+    expect(stTailwindTheme.colors.st.neutral[0]).toBe(
+      'var(--st-neutral-color-0)'
+    );
+    expect(stTailwindTheme.fontFamily['st-heading']).toEqual([
       '"Base Neue Condensed"',
       'sans-serif'
     ]);
-    expect(stTailwindTheme.fontSize['ds-base']).toBe('1rem');
-    expect(stTailwindTheme.spacing['ds-base']).toBe('1rem');
+    expect(stTailwindTheme.fontSize['st-base']).toBe('1rem');
+    expect(stTailwindTheme.spacing['st-base']).toBe('1rem');
   });
 
   it('should keep the utility plugin for text shadows available', () => {
@@ -45,19 +51,19 @@ describe('tailwind theme tokens', () => {
 
   it('should register text shadow utilities from the theme configuration', () => {
     const addUtilities = runTextShadowPlugin({
-      'ds-small': '0 0 4px var(--shadow-scale-950)',
-      'action-hover': '0 0 16px var(--color-shadow-hover)'
+      'st-small': '0 0 4px var(--st-shadow-scale-950)',
+      'st-action-hover': '0 0 16px var(--st-color-shadow-hover)'
     });
 
     expect(addUtilities).toHaveBeenCalledWith([
       {
-        '.text-shadow-ds-small': {
-          textShadow: '0 0 4px var(--shadow-scale-950)'
+        '.text-shadow-st-small': {
+          textShadow: '0 0 4px var(--st-shadow-scale-950)'
         }
       },
       {
-        '.text-shadow-action-hover': {
-          textShadow: '0 0 16px var(--color-shadow-hover)'
+        '.text-shadow-st-action-hover': {
+          textShadow: '0 0 16px var(--st-color-shadow-hover)'
         }
       }
     ]);
