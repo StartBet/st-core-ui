@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/StartBet/st-core-ui/compare/v0.2.0...v0.3.0) (2026-07-01)
+
+
+### Features
+
+* **storybook:** styling and config ([#13](https://github.com/StartBet/st-core-ui/issues/13)) ([b159fa3](https://github.com/StartBet/st-core-ui/commit/b159fa315fb78dbac1d8d9aecd350cf03f088966))
+
 # [0.2.0](https://github.com/StartBet/st-core-ui/compare/v0.1.0...v0.2.0) (2026-07-01)
 
 
