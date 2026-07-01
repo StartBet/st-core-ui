@@ -185,7 +185,10 @@ export const stTailwindTheme = {
     }),
     st: {
       ...createScaleGroup(colorScalePrefixes),
-      neutral: scale('neutral-color', neutralScaleValues),
+      neutral: {
+        ...scale('neutral-color', neutralScaleValues),
+        0: cssVar('--st-neutral-color-0')
+      },
       ...createScaleGroup({
         'shadow-scale': 'shadow-scale',
         'light-scale': 'light-scale'
