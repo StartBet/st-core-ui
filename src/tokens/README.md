@@ -37,17 +37,19 @@ Exemplo:
 
 ```ts
 import { stTailwindPlugins, stTailwindTheme } from '@startbet/st-core-ui';
+import forms from '@tailwindcss/forms';
 
 export default {
   theme: {
     extend: {
       ...stTailwindTheme,
       spacing: {
+        ...stTailwindTheme.spacing,
         header: '72px'
       }
     }
   },
-  plugins: [...stTailwindPlugins]
+  plugins: [forms, ...stTailwindPlugins]
 };
 ```
 
