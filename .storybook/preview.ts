@@ -41,6 +41,11 @@ const preview: Preview = {
     actions: {
       argTypesRegex: '^on[A-Z].*'
     },
+    options: {
+      storySort: {
+        order: ['Overview', 'Components']
+      }
+    },
     backgrounds: {
       disable: true
     },
