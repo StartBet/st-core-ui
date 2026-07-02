@@ -22,7 +22,7 @@ const meta = {
     setup() {
       return {
         description:
-          'Biblioteca de componentes Vue 3 com Vite, Tailwind CSS e Storybook. O pacote foi pensado para ser consumido em projetos Vue/Nuxt e tambem expõe tokens de design, estilos CSS e configuracao Tailwind reutilizavel.',
+          'Biblioteca de componentes Vue 3 com Vite, Tailwind CSS e Storybook. O pacote foi pensado para ser consumido em projetos Vue/Nuxt e também expõe tokens de design, estilos CSS e configuração Tailwind reutilizável.',
         packageName: packageJson.name,
         packageVersion: packageJson.version
       };
