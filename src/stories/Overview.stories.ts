@@ -14,13 +14,9 @@ const meta = {
     actions: {
       disable: true
     },
-    interactions: {
-      disable: true
-    },
     a11y: {
       disable: true
-    },
-    options: { selectedPanel: 'storybook/interactions/panel' }
+    }
   },
   render: () => ({
     setup() {
