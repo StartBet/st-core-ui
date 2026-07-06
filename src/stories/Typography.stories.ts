@@ -21,68 +21,77 @@ const fontFamilies = [
   }
 ] as const;
 
-const typographyVariants = [
-  {
-    token: 'text-st-hero-title',
-    sample: 'Hero Title',
-    meta: '3rem / 1.5 / 800',
-    className: 'font-st-heading text-st-hero-title'
-  },
-  {
-    token: 'text-st-heading-1',
-    sample: 'Heading 1',
-    meta: '3rem / 1.1 / 800',
-    className: 'font-st-heading text-st-heading-1'
-  },
-  {
-    token: 'text-st-heading-2',
-    sample: 'Heading 2',
-    meta: '2.25rem / 1.1 / 800',
-    className: 'font-st-heading text-st-heading-2'
-  },
-  {
-    token: 'text-st-heading-3',
-    sample: 'Heading 3',
-    meta: '1.875rem / 1.25 / 800',
-    className: 'font-st-heading text-st-heading-3'
-  },
-  {
-    token: 'text-st-heading-4',
-    sample: 'Heading 4',
-    meta: '1.5rem / 1.25 / 800',
-    className: 'font-st-heading text-st-heading-4'
-  },
-  {
-    token: 'text-st-highlight-large',
-    sample: 'Highlight Large',
-    meta: '1.5rem / 1.5 / 600',
-    className: 'font-st-highlight text-st-highlight-large italic'
-  },
-  {
-    token: 'text-st-highlight-medium',
-    sample: 'Highlight Medium',
-    meta: '1.125rem / 1.5 / 600',
-    className: 'font-st-highlight text-st-highlight-medium italic'
-  },
-  {
-    token: 'text-st-body-large',
-    sample: 'Body Large',
-    meta: '1.125rem / 1.75 / 400',
-    className: 'font-st-body text-st-body-large'
-  },
-  {
-    token: 'text-st-body-medium',
-    sample: 'Body Medium',
-    meta: '1rem / 1.75 / 400',
-    className: 'font-st-body text-st-body-medium'
-  },
-  {
-    token: 'text-st-body-small',
-    sample: 'Body Small',
-    meta: '0.875rem / 1.5 / 400',
-    className: 'font-st-body text-st-body-small'
-  }
+const typographyVariantDefs = [
+  [
+    'text-st-hero-title',
+    'Hero Title',
+    '3rem / 1.5 / 800',
+    'font-st-heading text-st-hero-title'
+  ],
+  [
+    'text-st-heading-1',
+    'Heading 1',
+    '3rem / 1.1 / 800',
+    'font-st-heading text-st-heading-1'
+  ],
+  [
+    'text-st-heading-2',
+    'Heading 2',
+    '2.25rem / 1.1 / 800',
+    'font-st-heading text-st-heading-2'
+  ],
+  [
+    'text-st-heading-3',
+    'Heading 3',
+    '1.875rem / 1.25 / 800',
+    'font-st-heading text-st-heading-3'
+  ],
+  [
+    'text-st-heading-4',
+    'Heading 4',
+    '1.5rem / 1.25 / 800',
+    'font-st-heading text-st-heading-4'
+  ],
+  [
+    'text-st-highlight-large',
+    'Highlight Large',
+    '1.5rem / 1.5 / 600',
+    'font-st-highlight text-st-highlight-large italic'
+  ],
+  [
+    'text-st-highlight-medium',
+    'Highlight Medium',
+    '1.125rem / 1.5 / 600',
+    'font-st-highlight text-st-highlight-medium italic'
+  ],
+  [
+    'text-st-body-large',
+    'Body Large',
+    '1.125rem / 1.75 / 400',
+    'font-st-body text-st-body-large'
+  ],
+  [
+    'text-st-body-medium',
+    'Body Medium',
+    '1rem / 1.75 / 400',
+    'font-st-body text-st-body-medium'
+  ],
+  [
+    'text-st-body-small',
+    'Body Small',
+    '0.875rem / 1.5 / 400',
+    'font-st-body text-st-body-small'
+  ]
 ] as const;
+
+const typographyVariants = typographyVariantDefs.map(
+  ([token, sample, meta, className]) => ({
+    token,
+    sample,
+    meta,
+    className
+  })
+);
 
 const meta = {
   title: 'Typography',

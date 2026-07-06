@@ -31,128 +31,72 @@ const createSystemicToken = (token: string, example: string) => ({
   }
 });
 
-const primaryPalettes = [
-  {
-    name: 'Brand Primary',
-    prefix: '--st-brand-primary-*',
-    description: 'Escala principal da identidade da biblioteca.',
-    swatches: createScaleSwatches('brand-primary', toneSteps)
-  },
-  {
-    name: 'Brand Secondary',
-    prefix: '--st-brand-secondary-*',
-    description: 'Escala secundaria usada como apoio e contraste.',
-    swatches: createScaleSwatches('brand-secondary', toneSteps)
-  },
-  {
-    name: 'Neutral',
-    prefix: '--st-neutral-color-*',
-    description: 'Escala neutra para fundos, textos e composicao.',
-    swatches: createScaleSwatches('neutral-color', neutralSteps)
-  },
-  {
-    name: 'Info',
-    prefix: '--st-info-color-*',
-    description: 'Escala base de informacao.',
-    swatches: createScaleSwatches('info-color', toneSteps)
-  },
-  {
-    name: 'System',
-    prefix: '--st-system-color-*',
-    description: 'Escala sistemica de apoio.',
-    swatches: createScaleSwatches('system-color', toneSteps)
-  },
-  {
-    name: 'Positive',
-    prefix: '--st-positive-color-*',
-    description: 'Escala de confirmacao e sucesso.',
-    swatches: createScaleSwatches('positive-color', toneSteps)
-  },
-  {
-    name: 'Attention',
-    prefix: '--st-attention-color-*',
-    description: 'Escala de alerta e atencao.',
-    swatches: createScaleSwatches('attention-color', toneSteps)
-  },
-  {
-    name: 'Negative',
-    prefix: '--st-negative-color-*',
-    description: 'Escala de erro e risco.',
-    swatches: createScaleSwatches('negative-color', toneSteps)
-  },
-  {
-    name: 'Shadow Scale',
-    prefix: '--st-shadow-scale-*',
-    description: 'Escala translucida para profundidade e sombra.',
-    swatches: createScaleSwatches('shadow-scale', toneSteps)
-  },
-  {
-    name: 'Light Scale',
-    prefix: '--st-light-scale-*',
-    description: 'Escala translucida clara para contraste e brilho.',
-    swatches: createScaleSwatches('light-scale', toneSteps)
-  },
-  {
-    name: 'Bright Scale',
-    prefix: '--st-bright-scale-*',
-    description: 'Escala translucida clara derivada do branco.',
-    swatches: createScaleSwatches('bright-scale', toneSteps)
-  },
-  {
-    name: 'Din Scale',
-    prefix: '--st-din-scale-*',
-    description: 'Escala translucida escura derivada do preto.',
-    swatches: createScaleSwatches('din-scale', toneSteps)
-  },
-  {
-    name: 'Blue',
-    prefix: '--st-blue-color-*',
-    description: 'Escala cromatica azul.',
-    swatches: createScaleSwatches('blue-color', toneSteps)
-  },
-  {
-    name: 'Ocean',
-    prefix: '--st-ocean-color-*',
-    description: 'Escala cromatica ocean.',
-    swatches: createScaleSwatches('ocean-color', toneSteps)
-  },
-  {
-    name: 'Green',
-    prefix: '--st-green-color-*',
-    description: 'Escala cromatica verde.',
-    swatches: createScaleSwatches('green-color', toneSteps)
-  },
-  {
-    name: 'Yellow',
-    prefix: '--st-yellow-color-*',
-    description: 'Escala cromatica amarela.',
-    swatches: createScaleSwatches('yellow-color', toneSteps)
-  },
-  {
-    name: 'Orange',
-    prefix: '--st-orange-color-*',
-    description: 'Escala cromatica laranja.',
-    swatches: createScaleSwatches('orange-color', toneSteps)
-  },
-  {
-    name: 'Red',
-    prefix: '--st-red-color-*',
-    description: 'Escala cromatica vermelha.',
-    swatches: createScaleSwatches('red-color', toneSteps)
-  },
-  {
-    name: 'Pink',
-    prefix: '--st-pink-color-*',
-    description: 'Escala cromatica rosa.',
-    swatches: createScaleSwatches('pink-color', toneSteps)
-  },
-  {
-    name: 'Purple',
-    prefix: '--st-purple-color-*',
-    description: 'Escala cromatica roxa.',
-    swatches: createScaleSwatches('purple-color', toneSteps)
-  }
+const primaryPaletteDefs = [
+  [
+    'Brand Primary',
+    'brand-primary',
+    'Escala principal da identidade da biblioteca.',
+    toneSteps
+  ],
+  [
+    'Brand Secondary',
+    'brand-secondary',
+    'Escala secundaria usada como apoio e contraste.',
+    toneSteps
+  ],
+  [
+    'Neutral',
+    'neutral-color',
+    'Escala neutra para fundos, textos e composicao.',
+    neutralSteps
+  ],
+  ['Info', 'info-color', 'Escala base de informacao.', toneSteps],
+  ['System', 'system-color', 'Escala sistemica de apoio.', toneSteps],
+  ['Positive', 'positive-color', 'Escala de confirmacao e sucesso.', toneSteps],
+  ['Attention', 'attention-color', 'Escala de alerta e atencao.', toneSteps],
+  ['Negative', 'negative-color', 'Escala de erro e risco.', toneSteps],
+  [
+    'Shadow Scale',
+    'shadow-scale',
+    'Escala translucida para profundidade e sombra.',
+    toneSteps
+  ],
+  [
+    'Light Scale',
+    'light-scale',
+    'Escala translucida clara para contraste e brilho.',
+    toneSteps
+  ],
+  [
+    'Bright Scale',
+    'bright-scale',
+    'Escala translucida clara derivada do branco.',
+    toneSteps
+  ],
+  [
+    'Din Scale',
+    'din-scale',
+    'Escala translucida escura derivada do preto.',
+    toneSteps
+  ],
+  ['Blue', 'blue-color', 'Escala cromatica azul.', toneSteps],
+  ['Ocean', 'ocean-color', 'Escala cromatica ocean.', toneSteps],
+  ['Green', 'green-color', 'Escala cromatica verde.', toneSteps],
+  ['Yellow', 'yellow-color', 'Escala cromatica amarela.', toneSteps],
+  ['Orange', 'orange-color', 'Escala cromatica laranja.', toneSteps],
+  ['Red', 'red-color', 'Escala cromatica vermelha.', toneSteps],
+  ['Pink', 'pink-color', 'Escala cromatica rosa.', toneSteps],
+  ['Purple', 'purple-color', 'Escala cromatica roxa.', toneSteps]
 ] as const;
+
+const primaryPalettes = primaryPaletteDefs.map(
+  ([name, prefix, description, steps]) => ({
+    name,
+    prefix: `--st-${prefix}-*`,
+    description,
+    swatches: createScaleSwatches(prefix, steps)
+  })
+);
 
 const systemicGroups = [
   {
