@@ -1,3 +1,10 @@
+# [0.7.0](https://github.com/StartBet/st-core-ui/compare/v0.6.0...v0.7.0) (2026-07-06)
+
+
+### Features
+
+* **st-paper:** new st paper ([#18](https://github.com/StartBet/st-core-ui/issues/18)) ([6a62eee](https://github.com/StartBet/st-core-ui/commit/6a62eeefa4526d734d695c53a063e93c0669ce8b))
+
 # [0.6.0](https://github.com/StartBet/st-core-ui/compare/v0.5.0...v0.6.0) (2026-07-06)
 
 
