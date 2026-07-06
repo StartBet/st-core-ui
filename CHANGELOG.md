@@ -1,3 +1,10 @@
+# [0.5.0](https://github.com/StartBet/st-core-ui/compare/v0.4.0...v0.5.0) (2026-07-06)
+
+
+### Features
+
+* **storybook:** new page get started ([#15](https://github.com/StartBet/st-core-ui/issues/15)) ([cbf85ea](https://github.com/StartBet/st-core-ui/commit/cbf85eaa634808bd3e83e6f29a6f4f0181a73764))
+
 # [0.4.0](https://github.com/StartBet/st-core-ui/compare/v0.3.0...v0.4.0) (2026-07-02)
 
 

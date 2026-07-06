@@ -1,6 +1,6 @@
 {
   "name": "@startbet/st-core-ui",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": false,
   "description": "Biblioteca de componentes Vue 3 com Vite, Tailwind CSS e Storybook",
   "repository": {
