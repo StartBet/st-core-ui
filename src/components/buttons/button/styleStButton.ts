@@ -4,6 +4,7 @@ import type {
   ButtonSize,
   ButtonVariant
 } from './StButton.interface';
+import { interactionsHoverPressed } from '../../../utils/compositions';
 
 const sizeClasses: Record<
   ButtonSize,
@@ -80,10 +81,9 @@ export const buildButtonClasses = (
 
   const base = [
     'relative inline-flex items-center rounded-st-1 font-st-body font-semibold transition-all duration-200 ease-in-out',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-st-focus focus-visible:ring-offset-2 focus-visible:ring-offset-st-surface-3',
     disabled ? 'cursor-not-allowed' : 'cursor-pointer',
     isIconOnly ? 'justify-center' : 'justify-between',
-    disabled ? undefined : 'hover:opacity-90 active:opacity-80'
+    disabled ? undefined : interactionsHoverPressed
   ]
     .filter(Boolean)
     .join(' ');

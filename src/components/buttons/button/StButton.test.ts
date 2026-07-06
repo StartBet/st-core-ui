@@ -18,6 +18,8 @@ describe('StButton', () => {
     expect(list).toContain('h-10');
     expect(list).toContain('bg-st-primary');
     expect(list).toContain('text-st-content-bright');
+    expect(list).toContain('overflow-hidden');
+    expect(list).toContain('hover:shadow-st-action-hover');
   });
 
   it('aplica variant outline + color secondary', () => {
@@ -63,6 +65,7 @@ describe('StButton', () => {
     expect(list).toContain('bg-st-surface-3');
     expect(list).toContain('text-st-content-disable');
     expect(list).toContain('border-st-border-2');
+    expect(list).not.toContain('hover:shadow-st-action-hover');
     expect(wrapper.attributes('disabled')).toBeDefined();
   });
 
