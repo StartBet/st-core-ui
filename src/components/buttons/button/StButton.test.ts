@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
+import { h } from 'vue';
 
 import StButton from './StButton.vue';
 
@@ -77,5 +78,33 @@ describe('StButton', () => {
     const list = classList(wrapper.attributes('class'));
 
     expect(list).toContain('w-full');
+  });
+
+  it('ignora slot default com apenas espaços e mantém modo icon only', () => {
+    const wrapper = mount(StButton, {
+      props: { iconRight: '->' },
+      slots: { default: '   ' }
+    });
+    const list = classList(wrapper.attributes('class'));
+
+    expect(list).toContain('w-10');
+    expect(wrapper.find('[aria-label="icon"]').text()).toBe('->');
+    expect(wrapper.text()).not.toContain('   ');
+  });
+
+  it('renderiza adornos por slot e considera conteúdo vnode como conteúdo válido', () => {
+    const wrapper = mount(StButton, {
+      slots: {
+        default: () => h('strong', 'Apostar'),
+        startAdornment: () => h('span', { class: 'slot-start' }, 'S'),
+        endAdornment: () => h('span', { class: 'slot-end' }, 'E')
+      }
+    });
+    const list = classList(wrapper.attributes('class'));
+
+    expect(list).not.toContain('w-10');
+    expect(wrapper.find('.slot-start').exists()).toBe(true);
+    expect(wrapper.find('.slot-end').exists()).toBe(true);
+    expect(wrapper.text()).toContain('Apostar');
   });
 });
