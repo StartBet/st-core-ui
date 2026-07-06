@@ -1,3 +1,10 @@
+# [0.8.0](https://github.com/StartBet/st-core-ui/compare/v0.7.0...v0.8.0) (2026-07-06)
+
+
+### Features
+
+* **badge:** new st badge ([#19](https://github.com/StartBet/st-core-ui/issues/19)) ([a998efa](https://github.com/StartBet/st-core-ui/commit/a998efab80e14ed9ce375b6a8f0a94bb2ea6059e))
+
 # [0.7.0](https://github.com/StartBet/st-core-ui/compare/v0.6.0...v0.7.0) (2026-07-06)
 
 
