@@ -1,3 +1,15 @@
+# [0.6.0](https://github.com/StartBet/st-core-ui/compare/v0.5.0...v0.6.0) (2026-07-06)
+
+
+### Bug Fixes
+
+* **st-button-example:** delet component example to the lib ([#17](https://github.com/StartBet/st-core-ui/issues/17)) ([7e6747e](https://github.com/StartBet/st-core-ui/commit/7e6747efc65c6e59e3503dd45846306065672ba6))
+
+
+### Features
+
+* **typography:** new st typography ([#16](https://github.com/StartBet/st-core-ui/issues/16)) ([6ed81ff](https://github.com/StartBet/st-core-ui/commit/6ed81ff8d8ed6a28e0df888188d4ace15688a7f1))
+
 # [0.5.0](https://github.com/StartBet/st-core-ui/compare/v0.4.0...v0.5.0) (2026-07-06)
 
 
