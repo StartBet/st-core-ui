@@ -1,37 +1,4 @@
-export type SizeValue =
-  | 'auto'
-  | 'full'
-  | 'fit-content'
-  | 'min-content'
-  | 'max-content'
-  | '1'
-  | '2'
-  | '3'
-  | '4'
-  | '5'
-  | '6'
-  | '7'
-  | '8'
-  | '9'
-  | '10'
-  | '11'
-  | '12'
-  | '16'
-  | '20'
-  | '24'
-  | '32'
-  | '40'
-  | '48'
-  | '56'
-  | '64'
-  | '72'
-  | '80'
-  | '96'
-  | '128'
-  | '144'
-  | '160'
-  | '168'
-  | '240';
+import type { SizeValue } from '../../types';
 
 export type PaperVariant =
   | 'surface-0'
@@ -45,11 +12,7 @@ export type PaperVariant =
   | 'surface-positive'
   | 'surface-negative'
   | 'surface-primary'
-  | 'surface-secondary'
-  | 'surface-shadow-0'
-  | 'surface-shadow-1'
-  | 'surface-shadow-2'
-  | 'surface-shadow-3';
+  | 'surface-secondary';
 
 export type PaperBorder =
   | 'none'

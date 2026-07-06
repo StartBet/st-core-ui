@@ -3,9 +3,9 @@ import type {
   PaperBorderRadius,
   PaperClassProps,
   PaperElevation,
-  PaperVariant,
-  SizeValue
+  PaperVariant
 } from './StPaper.interface';
+import type { SizeValue } from '../../types';
 
 type ResponsivePrefix = 'sm' | 'md' | 'lg';
 type SpacingRule = 'p' | 'm';
@@ -22,11 +22,7 @@ const variantClasses: Record<PaperVariant, string> = {
   'surface-positive': 'bg-st-surface-positive',
   'surface-negative': 'bg-st-surface-negative',
   'surface-primary': 'bg-st-surface-primary',
-  'surface-secondary': 'bg-st-surface-secondary',
-  'surface-shadow-0': 'bg-st-surface-shadow-0',
-  'surface-shadow-1': 'bg-st-surface-shadow-1',
-  'surface-shadow-2': 'bg-st-surface-shadow-2',
-  'surface-shadow-3': 'bg-st-surface-shadow-3'
+  'surface-secondary': 'bg-st-surface-secondary'
 };
 
 const borderClasses: Record<PaperBorder, string> = {

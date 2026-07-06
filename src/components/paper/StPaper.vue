@@ -5,9 +5,9 @@ import type {
   PaperBorder,
   PaperBorderRadius,
   PaperElevation,
-  PaperVariant,
-  SizeValue
+  PaperVariant
 } from './StPaper.interface';
+import type { SizeValue } from '../../types';
 import { buildPaperClasses, buildPaperStyle } from './styleStPaper';
 
 const props = withDefaults(
