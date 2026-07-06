@@ -25,11 +25,13 @@ const meta = {
         installCommand: 'npm install @startbet/st-core-ui',
         quickStartCss: "import '@startbet/st-core-ui/style.css';",
         quickStartComponent: `<script setup lang="ts">
-import { StExampleButton } from '@startbet/st-core-ui';
+import { StTypography } from '@startbet/st-core-ui';
 </script>
 
 <template>
-  <StExampleButton label="Acao principal" />
+  <StTypography as="h2" variant="heading-3">
+    Titulo da secao
+  </StTypography>
 </template>`,
         tailwindConfig: `import { stTailwindPlugins, stTailwindTheme } from '@startbet/st-core-ui';
 

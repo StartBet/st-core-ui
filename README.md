@@ -37,11 +37,11 @@ createApp(App).mount('#app');
 
 ```vue
 <script setup lang="ts">
-import { StExampleButton } from '@startbet/st-core-ui';
+import { StTypography } from '@startbet/st-core-ui';
 </script>
 
 <template>
-  <StExampleButton label="Acao principal" />
+  <StTypography as="h2" variant="heading-3"> Titulo da secao </StTypography>
 </template>
 ```
 
