@@ -43,7 +43,14 @@ const preview: Preview = {
     },
     options: {
       storySort: {
-        order: ['Overview', 'Components']
+        order: [
+          'Overview',
+          'Get Started',
+          'Typography',
+          'Colors',
+          'Spacing',
+          'Components'
+        ]
       }
     },
     backgrounds: {
