@@ -1,3 +1,10 @@
+# [0.13.0](https://github.com/StartBet/st-core-ui/compare/v0.12.1...v0.13.0) (2026-07-07)
+
+
+### Features
+
+* new st checkbox ([#26](https://github.com/StartBet/st-core-ui/issues/26)) ([3646b52](https://github.com/StartBet/st-core-ui/commit/3646b5200dde3a524fc9beb817c77b00f97d19f8))
+
 ## [0.12.1](https://github.com/StartBet/st-core-ui/compare/v0.12.0...v0.12.1) (2026-07-07)
 
 
