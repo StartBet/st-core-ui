@@ -30,7 +30,10 @@ const emit = defineEmits<{
 }>();
 
 const attrs = useAttrs();
-const classes = computed(() => buildChipClasses(props));
+const isContainerClickable = computed(() => props.clickable && !props.closable);
+const classes = computed(() =>
+  buildChipClasses({ ...props, clickable: isContainerClickable.value })
+);
 
 const filteredAttrs = computed(() => {
   const next: Record<string, unknown> = { ...attrs };
@@ -41,12 +44,12 @@ const filteredAttrs = computed(() => {
 });
 
 const handleClick = (event: MouseEvent) => {
-  if (!props.clickable) return;
+  if (!isContainerClickable.value) return;
   emit('click', event);
 };
 
 const handleKeydown = (event: KeyboardEvent) => {
-  if (!props.clickable) return;
+  if (!isContainerClickable.value) return;
   if (event.key !== 'Enter' && event.key !== ' ') return;
 
   event.preventDefault();
@@ -61,8 +64,8 @@ const handleClose = () => {
 <template>
   <div
     :class="classes.container"
-    :role="props.clickable ? 'button' : undefined"
-    :tabindex="props.clickable ? 0 : undefined"
+    :role="isContainerClickable ? 'button' : undefined"
+    :tabindex="isContainerClickable ? 0 : undefined"
     @click="handleClick"
     @keydown="handleKeydown"
     v-bind="filteredAttrs"

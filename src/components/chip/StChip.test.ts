@@ -78,6 +78,11 @@ describe('StChip', () => {
 
     expect(closeButton.exists()).toBe(true);
     expect(closeButton.find('svg').exists()).toBe(true);
+    expect(wrapper.attributes('role')).toBeUndefined();
+    expect(wrapper.attributes('tabindex')).toBeUndefined();
+
+    await wrapper.trigger('click');
+    await wrapper.trigger('keydown', { key: 'Enter' });
 
     await closeButton.trigger('click');
 
