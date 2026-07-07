@@ -1,4 +1,6 @@
 import { mount } from '@vue/test-utils';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { describe, expect, it, vi } from 'vitest';
 import { h, nextTick } from 'vue';
 
@@ -11,6 +13,8 @@ import {
   isSelected,
   normalizeButtonGroupValue
 } from './styleStButtonGroup';
+
+library.add(faPlus);
 
 describe('StButtonGroup', () => {
   it('aplica classes base e orientação horizontal por padrão', () => {
@@ -158,6 +162,30 @@ describe('StButtonGroup', () => {
         }
       ).at(-1)
     ).toEqual(['0']);
+  });
+
+  it('preserva props de icone dos filhos ao clonar os botoes do grupo', () => {
+    const wrapper = mount(StButtonGroup, {
+      slots: {
+        default: () => [
+          h(
+            StButton,
+            {
+              value: 'create',
+              iconLeft: 'plus'
+            },
+            () => 'Criar'
+          ),
+          h(StButton, { value: 'plain' }, () => 'Sem icone')
+        ]
+      }
+    });
+
+    const buttons = wrapper.findAll('button');
+
+    expect(buttons[0].find('[aria-label="icon-left"]').exists()).toBe(true);
+    expect(buttons[0].find('svg').exists()).toBe(true);
+    expect(buttons[1].find('svg').exists()).toBe(false);
   });
 
   it('navega com teclado na orientação horizontal', async () => {

@@ -1,10 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faChevronRight, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import StButton from './StButton.vue';
 
 const variantOptions = ['solid', 'outline', 'text'] as const;
 const colorOptions = ['primary', 'secondary', 'positive', 'negative'] as const;
 const sizeOptions = ['small', 'medium', 'large'] as const;
+
+library.add(faPlus, faChevronRight);
 
 const meta = {
   title: 'Components/StButton',
@@ -125,8 +129,8 @@ export const Sizes: Story = {
 
 export const WithAdornments: Story = {
   args: {
-    iconLeft: '+',
-    iconRight: '->'
+    iconLeft: 'plus',
+    iconRight: 'chevron-right'
   },
   render: (args) => ({
     components: { StButton },
@@ -141,7 +145,7 @@ export const WithAdornments: Story = {
 
 export const IconOnly: Story = {
   args: {
-    iconLeft: '+'
+    iconLeft: 'plus'
   },
   render: (args) => ({
     components: { StButton },
