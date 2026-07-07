@@ -17,7 +17,6 @@ const meta = {
     offset: 8,
     defaultOpen: false,
     closeOnOutsideClick: true,
-    triggerAsChild: false,
     className: '',
     panelClassName: ''
   },
@@ -37,9 +36,6 @@ const meta = {
       control: 'boolean'
     },
     closeOnOutsideClick: {
-      control: 'boolean'
-    },
-    triggerAsChild: {
       control: 'boolean'
     },
     className: {
