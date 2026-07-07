@@ -113,6 +113,17 @@ const filters = ref<string | string[]>(['pix']);
 </template>
 ```
 
+## Exemplo com icones
+
+```vue
+<template>
+  <StButtonGroup defaultValue="instagram" color="secondary" variant="outline">
+    <StButton value="facebook" iconLeft="fab:facebook-f">Facebook</StButton>
+    <StButton value="instagram" iconLeft="fab:instagram">Instagram</StButton>
+  </StButtonGroup>
+</template>
+```
+
 ## Regras internas
 
 - O grupo aceita qualquer quantidade de `StButton` como filhos no slot `default`.
@@ -121,8 +132,10 @@ const filters = ref<string | string[]>(['pix']);
 - Para `primary` e `secondary`, o item ativo alterna para a cor oposta mantendo a variante.
 - Para `positive` e `negative`, o item ativo mantem a cor e alterna entre `solid` e `outline`.
 - O componente suporta navegacao por teclado com setas: `ArrowLeft` e `ArrowRight` no modo horizontal, `ArrowUp` e `ArrowDown` no modo vertical.
+- Os botoes filhos continuam podendo usar `iconLeft` e `iconRight`, porque o grupo apenas orquestra e complementa o `StButton`.
 
 ## Observacoes
 
 - O componente faz `v-bind="$attrs"` no container raiz, aceitando `id`, `data-*` e atributos nativos extras.
 - Os botoes filhos recebem automaticamente as classes de colapso visual do grupo, com raio apenas nas extremidades.
+- Quando os filhos usarem icones, a aplicacao consumidora precisa registrar os `IconDefinition` desejados no Font Awesome.

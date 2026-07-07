@@ -35,8 +35,8 @@ import { StButton } from '@startbet/st-core-ui';
 - `fullWidth`: expande o botao para `w-full` quando existe conteudo textual.
 - `type`: controla o tipo nativo do elemento. Default: `button`.
 - `value`: repassa o valor para o elemento nativo.
-- `iconLeft`: renderiza um adorno textual antes do conteudo.
-- `iconRight`: renderiza um adorno textual depois do conteudo.
+- `iconLeft`: renderiza um `StIcon` antes do conteudo a partir do nome informado.
+- `iconRight`: renderiza um `StIcon` depois do conteudo a partir do nome informado.
 - `disabled`: aplica estilo desabilitado e bloqueia interacao. Default: `false`.
 - `className`: injeta classes extras no elemento raiz.
 
@@ -74,7 +74,7 @@ import { StButton } from '@startbet/st-core-ui';
 
 ```vue
 <template>
-  <StButton iconLeft="+" iconRight="->">Continuar</StButton>
+  <StButton iconLeft="plus" iconRight="chevron-right">Continuar</StButton>
 </template>
 ```
 
@@ -83,8 +83,9 @@ import { StButton } from '@startbet/st-core-ui';
 - Sem conteudo no slot `default` e com apenas um adorno, o componente entra em modo `icon only`.
 - O modo `icon only` troca o comportamento de largura por um tamanho quadrado baseado na altura do botao.
 - O estado `disabled` sobrescreve as classes da variante e aplica cores neutras da biblioteca.
+- `iconLeft` e `iconRight` reutilizam o `StIcon`, respeitando a library atual do Font Awesome.
 
 ## Observacoes
 
 - O componente usa os tokens semanticos de cor e conteudo ja publicados no tema Tailwind da biblioteca.
-- `iconLeft` e `iconRight` usam fallback textual na implementacao atual, porque a biblioteca ainda nao expoe `StIcon`.
+- Para os icones aparecerem, a aplicacao consumidora precisa registrar no Font Awesome os `IconDefinition` utilizados.

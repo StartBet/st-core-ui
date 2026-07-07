@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
 
+import StIcon from '../../icon/StIcon.vue';
+import type { StIconSize } from '../../icon/StIcon.interface';
 import type {
   ButtonColor,
   ButtonSize,
@@ -9,6 +11,12 @@ import type {
 import { buildButtonClasses } from './styleStButton';
 
 const slots = useSlots();
+
+const iconSizes: Record<ButtonSize, StIconSize> = {
+  small: 2,
+  medium: 3,
+  large: 4
+};
 
 defineSlots<{
   startAdornment?: () => unknown;
@@ -67,6 +75,7 @@ const isIconOnly = computed(
 );
 
 const iconAriaLabel = computed(() => (isIconOnly.value ? 'icon' : undefined));
+const iconSize = computed(() => iconSizes[props.size]);
 
 const classes = computed(() =>
   buildButtonClasses({ ...props, isIconOnly: isIconOnly.value })
@@ -85,23 +94,21 @@ const classes = computed(() =>
       <slot name="startAdornment" />
     </span>
     <span :class="classes.content">
-      <span
+      <StIcon
         v-if="props.iconLeft"
+        :name="props.iconLeft"
+        :size="iconSize"
         :aria-label="iconAriaLabel || 'icon-left'"
-        class="inline-flex leading-none"
-      >
-        {{ props.iconLeft }}
-      </span>
+      />
 
       <slot v-if="hasDefaultSlot" />
 
-      <span
+      <StIcon
         v-if="props.iconRight"
+        :name="props.iconRight"
+        :size="iconSize"
         :aria-label="iconAriaLabel || 'icon-right'"
-        class="inline-flex leading-none"
-      >
-        {{ props.iconRight }}
-      </span>
+      />
     </span>
     <span v-if="hasEndAdornment" class="mr-st-2 inline-flex">
       <slot name="endAdornment" />

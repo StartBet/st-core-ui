@@ -1,8 +1,12 @@
 import { mount } from '@vue/test-utils';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faChevronRight, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { describe, expect, it } from 'vitest';
 import { h } from 'vue';
 
 import StButton from './StButton.vue';
+
+library.add(faPlus, faChevronRight);
 
 describe('StButton', () => {
   const classList = (cls: string | undefined) =>
@@ -46,7 +50,7 @@ describe('StButton', () => {
   });
 
   it('entra em modo icon only quando nao ha slot e existe iconLeft', () => {
-    const wrapper = mount(StButton, { props: { iconLeft: '+' } });
+    const wrapper = mount(StButton, { props: { iconLeft: 'plus' } });
     const list = classList(wrapper.attributes('class'));
 
     expect(list).toContain('w-10');
@@ -54,7 +58,7 @@ describe('StButton', () => {
 
     const icon = wrapper.find('[aria-label="icon"]');
     expect(icon.exists()).toBe(true);
-    expect(icon.text()).toBe('+');
+    expect(icon.find('svg').exists()).toBe(true);
   });
 
   it('aplica disabled e sobrescreve estilos', () => {
@@ -82,14 +86,30 @@ describe('StButton', () => {
 
   it('ignora slot default com apenas espaços e mantém modo icon only', () => {
     const wrapper = mount(StButton, {
-      props: { iconRight: '->' },
+      props: { iconRight: 'chevron-right' },
       slots: { default: '   ' }
     });
     const list = classList(wrapper.attributes('class'));
 
     expect(list).toContain('w-10');
-    expect(wrapper.find('[aria-label="icon"]').text()).toBe('->');
+    expect(wrapper.find('[aria-label="icon"]').find('svg').exists()).toBe(true);
     expect(wrapper.text()).not.toContain('   ');
+  });
+
+  it('renderiza StIcon nos adornos esquerdo e direito quando os nomes existem na library', () => {
+    const wrapper = mount(StButton, {
+      props: {
+        iconLeft: 'plus',
+        iconRight: 'chevron-right'
+      },
+      slots: { default: 'Continuar' }
+    });
+
+    const icons = wrapper.findAll('svg');
+
+    expect(icons).toHaveLength(2);
+    expect(wrapper.find('[aria-label="icon-left"]').exists()).toBe(true);
+    expect(wrapper.find('[aria-label="icon-right"]').exists()).toBe(true);
   });
 
   it('renderiza adornos por slot e considera conteúdo vnode como conteúdo válido', () => {

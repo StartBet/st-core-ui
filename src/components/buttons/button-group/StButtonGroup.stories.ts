@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { ref, watch } from 'vue';
 
 import StButton from '../button/StButton.vue';
@@ -17,6 +19,8 @@ const variantOptions = ['solid', 'outline', 'text'] as const;
 const colorOptions = ['primary', 'secondary', 'positive', 'negative'] as const;
 const sizeOptions = ['small', 'medium', 'large'] as const;
 const orientationOptions = ['horizontal', 'vertical'] as const;
+
+library.add(faFacebookF, faInstagram);
 
 type ButtonGroupStoryArgs = {
   value?: StButtonGroupValue;
@@ -220,4 +224,21 @@ export const Disabled: Story = {
     color: 'negative'
   },
   render: (args) => renderInteractiveGroup(args as ButtonGroupStoryArgs)
+};
+
+export const WithIcons: Story = {
+  render: () => ({
+    components: { StButton, StButtonGroup },
+    template: `
+      <div class="flex flex-col gap-st-3">
+        <StButtonGroup default-value="instagram" color="secondary" variant="outline">
+          <StButton value="facebook" icon-left="fab:facebook-f">Facebook</StButton>
+          <StButton value="instagram" icon-left="fab:instagram">Instagram</StButton>
+        </StButtonGroup>
+        <span class="text-st-body-small text-st-content-default">
+          Os botoes do grupo continuam livres para usar iconLeft e iconRight do StButton.
+        </span>
+      </div>
+    `
+  })
 };
