@@ -1,3 +1,10 @@
+## [0.12.1](https://github.com/StartBet/st-core-ui/compare/v0.12.0...v0.12.1) (2026-07-07)
+
+
+### Bug Fixes
+
+* **dropdown:** fixing a problem with the w-auto ([#25](https://github.com/StartBet/st-core-ui/issues/25)) ([c59201b](https://github.com/StartBet/st-core-ui/commit/c59201b1e7f4db3fd1596a564bfaa2594f0fda43))
+
 # [0.12.0](https://github.com/StartBet/st-core-ui/compare/v0.11.0...v0.12.0) (2026-07-07)
 
 
