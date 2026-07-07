@@ -3,6 +3,7 @@ export { default as StButton } from './components/buttons/button';
 export { default as StButtonGroup } from './components/buttons/button-group';
 export { default as StChip } from './components/chip';
 export { default as StDropdown } from './components/dropdown';
+export { default as StCheckbox } from './components/form/checkbox';
 export { default as StIcon } from './components/icon';
 export { default as StPaper } from './components/paper';
 export { default as StTypography } from './components/typography';
