@@ -142,6 +142,21 @@ describe('StDropdown', () => {
     expect(dialog.style.width).toBe('123px');
   });
 
+  it('não aplica w-auto por padrão no painel', async () => {
+    const wrapper = mount(StDropdown, {
+      slots: {
+        trigger: () => 'Abrir',
+        default: () => h('div', { 'data-testid': 'panel' }, 'Panel')
+      }
+    });
+
+    await wrapper.find('button').trigger('click');
+    await nextTick();
+    await nextTick();
+
+    expect(wrapper.find('dialog').classes()).not.toContain('w-auto');
+  });
+
   it('expõe triggerAsChild com slot props para alternar o painel', async () => {
     const wrapper = mount(StDropdown, {
       props: { triggerAsChild: true },

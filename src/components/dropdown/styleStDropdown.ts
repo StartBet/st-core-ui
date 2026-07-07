@@ -11,8 +11,8 @@ const VIEWPORT_PADDING = 8;
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
 
-const sizeWidthClasses: Record<SizeValue, string> = {
-  auto: 'w-auto',
+const sizeWidthClasses: Record<SizeValue, string | undefined> = {
+  auto: undefined,
   full: 'w-full',
   'fit-content': 'w-fit',
   'min-content': 'w-min',
