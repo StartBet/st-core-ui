@@ -70,7 +70,7 @@ describe('StDropdown', () => {
     expect(wrapper.find('[data-testid="panel"]').exists()).toBe(true);
   });
 
-  it('emite update:open e chama onOpenChange em modo controlado', async () => {
+  it('emite open-change, update:open e chama onOpenChange em modo controlado', async () => {
     const onOpenChange = vi.fn();
     const wrapper = mount(StDropdown, {
       props: { open: false, onOpenChange },
@@ -83,6 +83,7 @@ describe('StDropdown', () => {
     await wrapper.find('button').trigger('click');
 
     expect(onOpenChange).toHaveBeenCalledWith(true);
+    expect(wrapper.emitted('open-change')?.[0]?.[0]).toBe(true);
     expect(wrapper.emitted('update:open')?.[0]?.[0]).toBe(true);
   });
 
