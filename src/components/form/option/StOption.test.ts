@@ -24,7 +24,7 @@ describe('StOption', () => {
     expect(wrapper.attributes('aria-pressed')).toBe('true');
 
     const list = classList(wrapper.attributes('class'));
-    expect(list).toContain('bg-st-surface-3');
+    expect(list).toContain('bg-st-surface-1');
   });
 
   it('aplica data-value quando value é informado', () => {
