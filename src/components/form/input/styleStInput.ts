@@ -32,7 +32,7 @@ export const buildInputClasses = (props: {
   ].join(' ');
 
   const inputBase = [
-    'h-10 w-full rounded-st-1 border bg-st-surface-0 px-st-2 text-st-content-default',
+    'h-st-6 w-full rounded-st-1 border bg-st-surface-0 px-st-2 text-st-content-default',
     hasIcon ? 'pl-st-6' : undefined,
     hasCounter ? 'pr-st-5' : undefined,
     'outline-none transition-[border-color,box-shadow] duration-200 ease-in-out',
