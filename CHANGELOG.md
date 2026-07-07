@@ -1,3 +1,10 @@
+# [0.11.0](https://github.com/StartBet/st-core-ui/compare/v0.10.1...v0.11.0) (2026-07-07)
+
+
+### Features
+
+* new st chip ([#23](https://github.com/StartBet/st-core-ui/issues/23)) ([b444a64](https://github.com/StartBet/st-core-ui/commit/b444a6426cef89ffa5940aee038274a7a13db882))
+
 ## [0.10.1](https://github.com/StartBet/st-core-ui/compare/v0.10.0...v0.10.1) (2026-07-07)
 
 
