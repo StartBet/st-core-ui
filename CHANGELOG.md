@@ -1,3 +1,10 @@
+## [0.10.1](https://github.com/StartBet/st-core-ui/compare/v0.10.0...v0.10.1) (2026-07-07)
+
+
+### Bug Fixes
+
+* **st-button:** apply st-icon in component ([#22](https://github.com/StartBet/st-core-ui/issues/22)) ([49db122](https://github.com/StartBet/st-core-ui/commit/49db1224af7d8eee263f6a4e29e864e9b6e10bbd))
+
 # [0.10.0](https://github.com/StartBet/st-core-ui/compare/v0.9.0...v0.10.0) (2026-07-07)
 
 
