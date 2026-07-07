@@ -14,7 +14,7 @@ const meta = {
     lib: 'fa',
     size: 3,
     ariaLabel: 'Adicionar',
-    className: ''
+    className: 'text-st-content-default'
   },
   argTypes: {
     name: {
@@ -42,7 +42,7 @@ const meta = {
     },
     template: `
       <div class="flex items-center gap-st-3">
-        <StIcon v-bind="args" class-name="text-st-content-default" />
+        <StIcon v-bind="args" />
         <span class="text-st-body-small text-st-content-default">
           Use os controles para validar nome, biblioteca, tamanho e acessibilidade.
         </span>
