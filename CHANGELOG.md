@@ -1,3 +1,10 @@
+# [0.12.0](https://github.com/StartBet/st-core-ui/compare/v0.11.0...v0.12.0) (2026-07-07)
+
+
+### Features
+
+* new st dropdown ([#24](https://github.com/StartBet/st-core-ui/issues/24)) ([572d759](https://github.com/StartBet/st-core-ui/commit/572d7594b225e89f38714217caf3b8ae1f497c26))
+
 # [0.11.0](https://github.com/StartBet/st-core-ui/compare/v0.10.1...v0.11.0) (2026-07-07)
 
 
