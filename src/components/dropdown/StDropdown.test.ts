@@ -70,6 +70,29 @@ describe('StDropdown', () => {
     expect(wrapper.find('[data-testid="panel"]').exists()).toBe(true);
   });
 
+  it('fecha ao pressionar Escape quando está aberto', async () => {
+    const wrapper = mount(StDropdown, {
+      props: { defaultOpen: true },
+      slots: {
+        trigger: () => 'Abrir',
+        default: () => h('div', { 'data-testid': 'panel' }, 'Panel')
+      }
+    });
+
+    await nextTick();
+    await nextTick();
+
+    expect(wrapper.find('[data-testid="panel"]').exists()).toBe(true);
+
+    document.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })
+    );
+    await nextTick();
+    await nextTick();
+
+    expect(wrapper.find('[data-testid="panel"]').exists()).toBe(false);
+  });
+
   it('emite open-change, update:open e chama onOpenChange em modo controlado', async () => {
     const onOpenChange = vi.fn();
     const wrapper = mount(StDropdown, {

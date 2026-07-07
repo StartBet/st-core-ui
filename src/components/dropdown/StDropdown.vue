@@ -110,6 +110,12 @@ const onDocumentPointerDown = (event: MouseEvent) => {
   }
 };
 
+const onDocumentKeydown = (event: KeyboardEvent) => {
+  if (isOpen.value && event.key === 'Escape') {
+    setOpen(false);
+  }
+};
+
 const onReposition = () => updatePosition();
 
 let resizeObserver: ResizeObserver | undefined;
@@ -132,6 +138,7 @@ watch(
     window.removeEventListener('resize', onReposition);
     window.removeEventListener('scroll', onReposition, true);
     document.removeEventListener('mousedown', onDocumentPointerDown);
+    document.removeEventListener('keydown', onDocumentKeydown);
     resizeObserver?.disconnect();
     resizeObserver = undefined;
 
@@ -146,6 +153,7 @@ watch(
     window.addEventListener('resize', onReposition);
     window.addEventListener('scroll', onReposition, true);
     document.addEventListener('mousedown', onDocumentPointerDown);
+    document.addEventListener('keydown', onDocumentKeydown);
 
     const panelEl = panelRef.value;
     const triggerEl = triggerRef.value;
@@ -169,6 +177,7 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', onReposition);
   window.removeEventListener('scroll', onReposition, true);
   document.removeEventListener('mousedown', onDocumentPointerDown);
+  document.removeEventListener('keydown', onDocumentKeydown);
   resizeObserver?.disconnect();
 });
 
