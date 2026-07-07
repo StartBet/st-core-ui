@@ -1,3 +1,10 @@
+# [0.16.0](https://github.com/StartBet/st-core-ui/compare/v0.15.0...v0.16.0) (2026-07-07)
+
+
+### Features
+
+* **radio:** add new component ([#29](https://github.com/StartBet/st-core-ui/issues/29)) ([c3031b0](https://github.com/StartBet/st-core-ui/commit/c3031b03fc0312abe54d5096d7ea5d578c7bd793))
+
 # [0.15.0](https://github.com/StartBet/st-core-ui/compare/v0.14.0...v0.15.0) (2026-07-07)
 
 
