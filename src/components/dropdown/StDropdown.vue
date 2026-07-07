@@ -2,7 +2,6 @@
 import type { ComponentPublicInstance } from 'vue';
 import {
   computed,
-  getCurrentInstance,
   nextTick,
   onBeforeUnmount,
   onMounted,
@@ -20,6 +19,7 @@ const props = withDefaults(defineProps<DropdownProps>(), {
   placement: 'auto',
   width: 'auto',
   offset: 8,
+  open: undefined,
   defaultOpen: false,
   closeOnOutsideClick: true,
   triggerAsChild: false,
@@ -37,11 +37,7 @@ const triggerRef = ref<HTMLElement | null>(null);
 const panelRef = ref<HTMLDialogElement | null>(null);
 
 const internalOpen = ref<boolean>(props.defaultOpen);
-const instance = getCurrentInstance();
-const isControlled = computed(() => {
-  const vnodeProps = instance?.vnode.props;
-  return vnodeProps ? 'open' in vnodeProps : false;
-});
+const isControlled = computed(() => props.open !== undefined);
 const isOpen = computed(() =>
   isControlled.value ? Boolean(props.open) : internalOpen.value
 );
