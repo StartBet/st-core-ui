@@ -27,6 +27,15 @@ describe('StOption', () => {
     expect(list).toContain('bg-st-surface-1');
   });
 
+  it('mantém aria-pressed=false quando não está selecionado', () => {
+    const wrapper = mount(StOption, {
+      props: { selected: false },
+      slots: { default: 'X' }
+    });
+
+    expect(wrapper.attributes('aria-pressed')).toBe('false');
+  });
+
   it('aplica data-value quando value é informado', () => {
     const wrapper = mount(StOption, {
       props: { value: 10 },

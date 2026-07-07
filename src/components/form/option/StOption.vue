@@ -42,7 +42,7 @@ const activate = () => {
     type="button"
     :class="classes.option"
     :data-value="props.value"
-    :aria-pressed="props.selected ? 'true' : undefined"
+    :aria-pressed="props.selected ? 'true' : 'false'"
     v-bind="filteredAttrs"
     @click="activate"
   >
