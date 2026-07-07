@@ -1,19 +1,14 @@
 <script setup lang="ts">
 import {
   findIconDefinition,
-  library,
-  type IconDefinition,
-  type IconName
+  type IconName,
+  type IconDefinition
 } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { computed } from 'vue';
 
 import type { StIconLibrary, StIconSize } from './StIcon.interface';
 import { buildIconClasses } from './styleStIcon';
-
-library.add(fas, fab);
 
 const props = withDefaults(
   defineProps<{
@@ -48,9 +43,12 @@ const parseIcon = (value: string, fallbackLib: StIconLibrary) => {
 
 const icon = computed<IconDefinition | undefined>(() => {
   const parsed = parseIcon(props.name, props.lib);
-  const iconName = normalizeName(parsed.name) as IconName;
+  const iconName = normalizeName(parsed.name);
   const prefix = parsed.lib === 'fab' ? 'fab' : 'fas';
-  const definition = findIconDefinition({ prefix, iconName });
+  const definition = findIconDefinition({
+    prefix,
+    iconName: iconName as IconName
+  });
 
   return definition ?? undefined;
 });

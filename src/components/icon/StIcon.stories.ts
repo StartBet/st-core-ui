@@ -1,9 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faGear, faPlus, faStar } from '@fortawesome/free-solid-svg-icons';
 
 import StIcon from './StIcon.vue';
 
 const sizeOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
 const libOptions = ['fa', 'fab'] as const;
+
+library.add(faPlus, faStar, faGear, faFacebookF, faInstagram);
 
 const meta = {
   title: 'Components/StIcon',

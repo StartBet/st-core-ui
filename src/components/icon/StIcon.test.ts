@@ -1,7 +1,12 @@
 import { mount } from '@vue/test-utils';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { describe, expect, it } from 'vitest';
 
 import StIcon from './StIcon.vue';
+
+library.add(faPlus, faFacebookF);
 
 describe('StIcon', () => {
   const classList = (cls: string | undefined) =>
