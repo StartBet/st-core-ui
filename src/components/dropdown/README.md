@@ -49,11 +49,13 @@ import { StButton, StDropdown } from '@startbet/st-core-ui';
 
     <div class="flex min-w-st-40 flex-col gap-st-1">
       <button
+        type="button"
         class="rounded-st-1 px-st-2 py-st-1 text-left hover:bg-st-surface-2"
       >
         Perfil
       </button>
       <button
+        type="button"
         class="rounded-st-1 px-st-2 py-st-1 text-left hover:bg-st-surface-2"
       >
         Configurações
