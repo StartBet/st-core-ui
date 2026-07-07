@@ -1,6 +1,6 @@
 # StChip
 
-Componente de chip da biblioteca para exibir estados semanticos compactos, com suporte a modo clicavel, fechamento opcional e integracao com `StIcon`.
+Componente de chip da biblioteca para exibir estados semânticos compactos, com suporte a modo clicável, fechamento opcional e integração com `StIcon`.
 
 ## Import
 
@@ -8,7 +8,7 @@ Componente de chip da biblioteca para exibir estados semanticos compactos, com s
 import { StChip } from '@startbet/st-core-ui';
 ```
 
-## Variantes disponiveis
+## Variantes disponíveis
 
 - `primary`
 - `secondary`
@@ -20,13 +20,13 @@ import { StChip } from '@startbet/st-core-ui';
 
 ## Props principais
 
-- `variant`: define a cor semantica do chip. Default: `primary`.
-- `clickable`: habilita interacao por mouse e teclado. Default: `false`.
-- `closable`: renderiza o botao interno de fechar. Default: `false`.
-- `onClose`: callback disparado ao clicar no botao de fechar.
+- `variant`: define a cor semântica do chip. Default: `primary`.
+- `clickable`: habilita interação por mouse e teclado. Default: `false`.
+- `closable`: renderiza o botão interno de fechar. Default: `false`.
+- `onClose`: callback disparado ao clicar no botão de fechar.
 - `className`: injeta classes extras no container.
 
-## Exemplo basico
+## Exemplo básico
 
 ```vue
 <script setup lang="ts">
@@ -41,7 +41,7 @@ import { StChip } from '@startbet/st-core-ui';
 </template>
 ```
 
-## Exemplo clicavel
+## Exemplo clicável
 
 ```vue
 <script setup lang="ts">
@@ -49,11 +49,11 @@ const handleClick = () => console.log('chip click');
 </script>
 
 <template>
-  <StChip clickable @click="handleClick">Clicavel</StChip>
+  <StChip clickable @click="handleClick">Clicável</StChip>
 </template>
 ```
 
-## Exemplo fechavel
+## Exemplo fechável
 
 ```vue
 <script setup lang="ts">
@@ -61,7 +61,7 @@ const handleClose = () => console.log('chip close');
 </script>
 
 <template>
-  <StChip closable :on-close="handleClose">Fechavel</StChip>
+  <StChip closable :on-close="handleClose">Fechável</StChip>
 </template>
 ```
 
@@ -69,10 +69,10 @@ const handleClose = () => console.log('chip close');
 
 - Quando `clickable=true`, o chip recebe `role="button"` e `tabindex="0"`.
 - `Enter` e `Space` disparam o mesmo evento de `click` do container.
-- Quando `closable=true`, o botao interno usa `@click.stop` para nao propagar o click do chip.
-- O botao de close renderiza `StIcon` com `xmark`.
+- Quando `closable=true`, o botão interno usa `@click.stop` para não propagar o click do chip.
+- O botão de close renderiza `StIcon` com `xmark`.
 
-## Observacoes
+## Observações
 
-- O componente faz `v-bind="$attrs"` no container, mas filtra `onClick`, `onKeydown` e `onKeyDown` para manter a regra de interacao baseada em `clickable`.
-- O `xmark` usado no close e registrado internamente pelo proprio componente.
+- O componente faz `v-bind="$attrs"` no container, mas filtra `onClick`, `onKeydown` e `onKeyDown` para manter a regra de interação baseada em `clickable`.
+- O `xmark` usado no close é registrado internamente pelo próprio componente.
