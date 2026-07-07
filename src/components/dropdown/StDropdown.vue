@@ -201,7 +201,7 @@ const triggerAria = computed(() => ({
 </script>
 
 <template>
-  <div ref="rootRef" :class="classes.root" v-bind="$attrs">
+  <div ref="rootRef" :class="classes.root">
     <template v-if="props.triggerAsChild">
       <slot
         name="trigger"
