@@ -149,6 +149,43 @@ describe('StSelect', () => {
     wrapper.unmount();
   });
 
+  it('em opções via slot exibe o label do slot e mantém o value lógico emitido', async () => {
+    const wrapper = mount(StSelect, {
+      slots: {
+        default: () => [
+          h(
+            StOption,
+            { value: 'profile' },
+            {
+              startAdornment: () =>
+                h('span', { class: 'text-st-content-primary' }, 'P'),
+              default: () => 'Perfil'
+            }
+          )
+        ]
+      },
+      attachTo: document.body
+    });
+
+    await getTriggerButton(wrapper).trigger('click');
+    await waitForDropdown();
+
+    const option = wrapper
+      .findAll('button[type="button"]')
+      .find((button) => button.text().includes('Perfil'));
+
+    expect(option).toBeDefined();
+
+    await option!.trigger('click');
+    await waitForDropdown();
+
+    expect(wrapper.emitted('update:value')?.[0]).toEqual(['profile']);
+    expect(getTriggerButton(wrapper).text()).toContain('Perfil');
+    expect(getTriggerButton(wrapper).text()).not.toContain('profile');
+
+    wrapper.unmount();
+  });
+
   it('disabled: não abre e não permite alterar valor', async () => {
     const wrapper = mount(StSelect, {
       props: {

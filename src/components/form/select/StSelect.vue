@@ -48,6 +48,26 @@ const normalizeValue = (value: StSelectValue | undefined) =>
 const hasSelectedValue = (value: StSelectValue | undefined) =>
   value !== undefined && String(value).length > 0;
 
+const resolveOptionLabel = (child: VNode, fallbackValue: string) => {
+  const slotChildren = child.children;
+
+  if (
+    slotChildren &&
+    typeof slotChildren === 'object' &&
+    !Array.isArray(slotChildren)
+  ) {
+    const defaultSlot = (slotChildren as { default?: () => unknown }).default;
+
+    if (typeof defaultSlot === 'function') {
+      const labelFromDefaultSlot = extractText(defaultSlot());
+
+      if (labelFromDefaultSlot) return labelFromDefaultSlot;
+    }
+  }
+
+  return extractText(child.children) || fallbackValue;
+};
+
 export default defineComponent({
   name: 'StSelect',
   props: {
@@ -128,14 +148,15 @@ export default defineComponent({
           childValue === undefined
             ? extractText(child.children) || `slot-${index}`
             : String(childValue);
+        const label = resolveOptionLabel(child, fallbackValue);
         const rawValue =
           typeof childValue === 'string' || typeof childValue === 'number'
             ? childValue
-            : fallbackValue;
+            : label;
 
         entries.push({
           key: `slot-${index}-${fallbackValue}`,
-          label: extractText(child.children) || fallbackValue,
+          label,
           value: rawValue,
           valueKey: normalizeValue(rawValue),
           kind: 'slot',
