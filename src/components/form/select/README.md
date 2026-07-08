@@ -12,6 +12,7 @@ import { StOption, StSelect } from '@startbet/st-core-ui';
 
 - `value`: controla o valor selecionado de forma externa.
 - `defaultValue`: define o valor inicial no modo não controlado.
+- `onValueChange`: callback executado a cada mudança de seleção, recebendo o valor escolhido.
 - `options`: lista de opções no formato `{ name, value }`.
 - `label`: renderiza o texto acima do select.
 - `icon`: nome do ícone exibido no trigger.
