@@ -366,25 +366,16 @@ export default defineComponent({
             ? classes.value.optionActive
             : undefined
         );
-        const originalOnClick = raw.onClick as Function | undefined;
-        const originalOnMouseenter = raw.onMouseenter as Function | undefined;
-
         return cloneVNode(element, {
           key: entry.key,
           value: entry.value,
           selected: mergedSelected,
           className: mergedClassName,
-          onMouseenter: (event: MouseEvent) => {
+          onMouseenter: () => {
             activeIndex.value = optionIndex;
-            if (originalOnMouseenter) {
-              Reflect.apply(originalOnMouseenter, undefined, [event]);
-            }
           },
           onClick: () => {
             commitValue(entry.value);
-            if (originalOnClick) {
-              Reflect.apply(originalOnClick, undefined, []);
-            }
           }
         });
       });
