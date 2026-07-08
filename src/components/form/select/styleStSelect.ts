@@ -66,7 +66,7 @@ export const buildSelectClasses = (props: SelectClassProps) => {
     isOpen ? 'rotate-180' : 'rotate-0'
   ].join(' ');
 
-  const options = 'grid gap-st-1';
+  const options = 'grid';
   const optionActive = 'bg-st-surface-2';
 
   const messageBase = ['inline-flex items-center gap-st-1', 'text-st-xs'].join(
