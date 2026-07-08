@@ -8,6 +8,7 @@ export { default as StInput } from './components/form/input';
 export { default as StOption } from './components/form/option';
 export { default as StRadio } from './components/form/radio';
 export { default as StRadioGroup } from './components/form/radio-group';
+export { default as StSelect } from './components/form/select';
 export { default as StIcon } from './components/icon';
 export { default as StPaper } from './components/paper';
 export { default as StTypography } from './components/typography';
