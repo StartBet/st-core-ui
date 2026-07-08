@@ -1,8 +1,10 @@
 import type { StDropdownPlacement } from '../../dropdown/StDropdown.interface';
 
+export type StSelectValue = string | number;
+
 export type StSelectOptionItem = {
   name: string;
-  value: string | number;
+  value: StSelectValue;
 };
 
 export type StSelectRef = {
@@ -15,9 +17,9 @@ export type StSelectRef = {
 };
 
 export type StSelectProps = {
-  value?: string | number;
-  defaultValue?: string | number;
-  onValueChange?: (value: string) => void;
+  value?: StSelectValue;
+  defaultValue?: StSelectValue;
+  onValueChange?: (value: StSelectValue) => void;
   options?: StSelectOptionItem[];
   icon?: string;
   label?: string;

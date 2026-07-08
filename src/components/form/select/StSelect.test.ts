@@ -180,6 +180,41 @@ describe('StSelect', () => {
     expect(hiddenInput.element.getAttribute('value')).toBe('casino');
   });
 
+  it('preserva valores numéricos em onValueChange e nos eventos emitidos', async () => {
+    const onValueChange = vi.fn();
+    const wrapper = mount(StSelect, {
+      props: {
+        defaultValue: 1,
+        onValueChange,
+        options: [
+          { name: 'One', value: 1 },
+          { name: 'Two', value: 2 }
+        ]
+      },
+      attachTo: document.body
+    });
+
+    expect(wrapper.text()).toContain('One');
+
+    await getTriggerButton(wrapper).trigger('click');
+    await waitForDropdown();
+
+    const optionTwo = wrapper
+      .findAll('button[type="button"]')
+      .find((button) => button.text().includes('Two'));
+
+    expect(optionTwo).toBeDefined();
+
+    await optionTwo!.trigger('click');
+    await waitForDropdown();
+
+    expect(onValueChange).toHaveBeenCalledWith(2);
+    expect(wrapper.emitted('update:value')?.[0]).toEqual([2]);
+    expect(wrapper.emitted('value-change')?.[0]).toEqual([2]);
+
+    wrapper.unmount();
+  });
+
   it('mantém o painel aberto quando closeOnSelect=false', async () => {
     const wrapper = mount(StSelect, {
       props: {

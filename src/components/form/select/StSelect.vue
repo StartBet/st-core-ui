@@ -17,13 +17,18 @@ import StDropdown from '../../dropdown/StDropdown.vue';
 import type { StDropdownPlacement } from '../../dropdown/StDropdown.interface';
 import StOption from '../option/StOption.vue';
 import StIcon from '../../icon/StIcon.vue';
-import type { StSelectOptionItem, StSelectRef } from './StSelect.interface';
+import type {
+  StSelectOptionItem,
+  StSelectRef,
+  StSelectValue
+} from './StSelect.interface';
 import { buildSelectClasses, extractText } from './styleStSelect';
 
 type OptionEntry = {
   key: string;
   label: string;
-  value: string;
+  value: StSelectValue;
+  valueKey: string;
   kind: 'prop' | 'slot';
   sourceIndex: number;
   element?: VNode;
@@ -36,6 +41,12 @@ const normalizeSlot = (nodes: unknown): VNode[] => {
 
 const mergeClasses = (a: unknown, b: unknown) =>
   [a, b].filter(Boolean).join(' ');
+
+const normalizeValue = (value: StSelectValue | undefined) =>
+  value === undefined ? '' : String(value);
+
+const hasSelectedValue = (value: StSelectValue | undefined) =>
+  value !== undefined && String(value).length > 0;
 
 export default defineComponent({
   name: 'StSelect',
@@ -50,7 +61,7 @@ export default defineComponent({
     },
     onValueChange: {
       // eslint-disable-next-line no-unused-vars
-      type: Function as PropType<(value: string) => void>,
+      type: Function as PropType<(value: StSelectValue) => void>,
       default: undefined
     },
     options: {
@@ -86,21 +97,22 @@ export default defineComponent({
     const triggerEl = ref<HTMLElement | null>(null);
 
     const isControlled = computed(() => props.value !== undefined);
-    const internalValue = ref<string>(
-      props.defaultValue === undefined ? '' : String(props.defaultValue)
+    const internalValue = ref<StSelectValue | undefined>(props.defaultValue);
+
+    const currentValue = computed<StSelectValue | undefined>(() =>
+      isControlled.value ? props.value : internalValue.value
     );
 
-    const currentValue = computed(() =>
-      isControlled.value ? String(props.value ?? '') : internalValue.value
+    const isValid = ref(
+      !props.required || hasSelectedValue(currentValue.value)
     );
-
-    const isValid = ref(!props.required || Boolean(currentValue.value));
 
     const propOptions = computed<OptionEntry[]>(() =>
       (props.options ?? []).map((item, index) => ({
         key: `prop-${index}-${String(item.value)}`,
         label: item.name,
-        value: String(item.value),
+        value: item.value,
+        valueKey: normalizeValue(item.value),
         kind: 'prop',
         sourceIndex: index
       }))
@@ -112,15 +124,20 @@ export default defineComponent({
 
       for (const [index, child] of renderedChildren.entries()) {
         const childValue = (child.props as { value?: unknown } | null)?.value;
-        const computedValue =
+        const fallbackValue =
           childValue === undefined
             ? extractText(child.children) || `slot-${index}`
             : String(childValue);
+        const rawValue =
+          typeof childValue === 'string' || typeof childValue === 'number'
+            ? childValue
+            : fallbackValue;
 
         entries.push({
-          key: `slot-${index}-${computedValue}`,
-          label: extractText(child.children) || computedValue,
-          value: computedValue,
+          key: `slot-${index}-${fallbackValue}`,
+          label: extractText(child.children) || fallbackValue,
+          value: rawValue,
+          valueKey: normalizeValue(rawValue),
           kind: 'slot',
           sourceIndex: index,
           element: child
@@ -136,13 +153,15 @@ export default defineComponent({
     ]);
 
     const selectedIndex = computed(() =>
-      entries.value.findIndex((entry) => entry.value === currentValue.value)
+      entries.value.findIndex(
+        (entry) => entry.valueKey === normalizeValue(currentValue.value)
+      )
     );
 
     const selectedLabel = computed(() => {
-      if (!currentValue.value) return '';
+      if (!hasSelectedValue(currentValue.value)) return '';
       const entry = entries.value.find(
-        (item) => item.value === currentValue.value
+        (item) => item.valueKey === normalizeValue(currentValue.value)
       );
       return entry?.label ?? '';
     });
@@ -156,14 +175,14 @@ export default defineComponent({
       }
     };
 
-    const commitValue = (nextValue: string) => {
+    const commitValue = (nextValue: StSelectValue) => {
       if (props.disabled || props.readOnly) return;
 
       if (!isControlled.value) internalValue.value = nextValue;
       props.onValueChange?.(nextValue);
       emit('value-change', nextValue);
       emit('update:value', nextValue);
-      isValid.value = !props.required || Boolean(nextValue);
+      isValid.value = !props.required || hasSelectedValue(nextValue);
 
       if (props.closeOnSelect) isOpen.value = false;
     };
@@ -233,7 +252,7 @@ export default defineComponent({
     };
 
     const onTriggerBlur = () => {
-      isValid.value = !props.required || Boolean(currentValue.value);
+      isValid.value = !props.required || hasSelectedValue(currentValue.value);
     };
 
     const setTriggerEl = (refEl: Element | { $el?: unknown } | null) => {
@@ -259,12 +278,12 @@ export default defineComponent({
         isValid.value = true;
       },
       reportValidity: () => {
-        isValid.value = !props.required || Boolean(currentValue.value);
+        isValid.value = !props.required || hasSelectedValue(currentValue.value);
       }
     } satisfies StSelectRef);
 
     const hasIcon = computed(() => Boolean(props.icon));
-    const hasValue = computed(() => Boolean(selectedLabel.value));
+    const hasValue = computed(() => hasSelectedValue(currentValue.value));
 
     const classes = computed(() =>
       buildSelectClasses({
@@ -294,7 +313,7 @@ export default defineComponent({
           {
             key: entry.key,
             value: entry.value,
-            selected: entry.value === currentValue.value,
+            selected: entry.valueKey === normalizeValue(currentValue.value),
             className:
               index === activeIndex.value
                 ? classes.value.optionActive
@@ -318,7 +337,7 @@ export default defineComponent({
         const selectedProp = raw.selected;
         const mergedSelected =
           selectedProp === undefined
-            ? entry.value === currentValue.value
+            ? entry.valueKey === normalizeValue(currentValue.value)
             : Boolean(selectedProp);
         const mergedClassName = mergeClasses(
           raw.className,
