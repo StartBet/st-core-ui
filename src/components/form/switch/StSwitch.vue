@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, ref, useAttrs, useSlots } from 'vue';
+import { computed } from 'vue';
 
+import { useCheckableControl } from '../../../composables/useCheckableControl';
 import StIcon from '../../icon/StIcon.vue';
 import type { StSwitchProps } from './StSwitch.interface';
 import { buildSwitchClasses } from './styleStSwitch';
@@ -22,47 +23,17 @@ const emit = defineEmits<{
   change: [event: Event];
 }>();
 
-const attrs = useAttrs();
-const slots = useSlots();
-
-const isControlled = computed(() => props.checked !== undefined);
-const internalChecked = ref<boolean>(props.defaultChecked ?? false);
-
-const checkedValue = computed(() =>
-  isControlled.value ? Boolean(props.checked) : internalChecked.value
-);
-
-const hasLabel = computed(() => {
-  const slotNodes = slots.default?.() ?? [];
-  const slotHasContent = slotNodes.length > 0;
-  const propHasContent =
-    props.label !== undefined && String(props.label).length > 0;
-
-  return slotHasContent || propHasContent;
-});
+const { attrs, checkedValue, hasLabel, inputAttrs, handleChange } =
+  useCheckableControl(props, {
+    updateChecked: (checked) => emit('update:checked', checked),
+    change: (event) => emit('change', event)
+  });
 
 const classes = computed(() => buildSwitchClasses(props));
 const wrapperClass = computed(() =>
   [classes.value.wrapper, attrs.class].filter(Boolean).join(' ')
 );
 const wrapperStyle = computed(() => attrs.style);
-
-const inputAttrs = computed(() => {
-  const next: Record<string, unknown> = { ...attrs };
-  delete next.class;
-  delete next.style;
-  return next;
-});
-
-const handleChange = (event: Event) => {
-  const target = event.target instanceof HTMLInputElement ? event.target : null;
-  const nextChecked = target ? target.checked : !checkedValue.value;
-
-  if (!isControlled.value) internalChecked.value = nextChecked;
-
-  emit('update:checked', nextChecked);
-  emit('change', event);
-};
 </script>
 
 <template>
