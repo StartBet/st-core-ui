@@ -4,6 +4,7 @@ export { default as StButtonGroup } from './components/buttons/button-group';
 export { default as StChip } from './components/chip';
 export { default as StDropdown } from './components/dropdown';
 export { default as StGrid } from './components/grid';
+export { default as StLoading } from './components/loading';
 export { StListItem, StOrderedList, StUnorderedList } from './components/list';
 export { default as StCheckbox } from './components/form/checkbox';
 export { default as StInput } from './components/form/input';
