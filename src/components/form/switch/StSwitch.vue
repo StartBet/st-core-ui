@@ -2,16 +2,19 @@
 import { computed } from 'vue';
 
 import { useCheckableControl } from '../../../composables/useCheckableControl';
-import type { StCheckboxProps } from './StCheckbox.interface';
-import { buildCheckboxClasses } from './styleStCheckbox';
+import StIcon from '../../icon/StIcon.vue';
+import type { StSwitchProps } from './StSwitch.interface';
+import { buildSwitchClasses } from './styleStSwitch';
 
-defineOptions({ name: 'StCheckbox', inheritAttrs: false });
+defineOptions({ name: 'StSwitch', inheritAttrs: false });
 
-const props = withDefaults(defineProps<StCheckboxProps>(), {
+const props = withDefaults(defineProps<StSwitchProps>(), {
   checked: undefined,
   defaultChecked: undefined,
   disabled: false,
   label: undefined,
+  iconOff: undefined,
+  iconOn: undefined,
   className: ''
 });
 
@@ -26,7 +29,7 @@ const { attrs, checkedValue, hasLabel, inputAttrs, handleChange } =
     change: (event) => emit('change', event)
   });
 
-const classes = computed(() => buildCheckboxClasses(props));
+const classes = computed(() => buildSwitchClasses(props));
 const wrapperClass = computed(() =>
   [classes.value.wrapper, attrs.class].filter(Boolean).join(' ')
 );
@@ -37,14 +40,32 @@ const wrapperStyle = computed(() => attrs.style);
   <label :class="wrapperClass" :style="wrapperStyle">
     <input
       type="checkbox"
+      role="switch"
       :class="classes.input"
       :disabled="props.disabled"
       :checked="checkedValue"
+      :aria-checked="checkedValue ? 'true' : 'false'"
       v-bind="inputAttrs"
       @change="handleChange"
     />
-    <span :class="classes.control" aria-hidden="true">
-      <span :class="classes.mark" />
+    <span :class="classes.track" aria-hidden="true">
+      <span
+        v-if="props.iconOff"
+        :class="classes.iconOff"
+        aria-hidden="true"
+        data-switch-icon-off
+      >
+        <StIcon :name="props.iconOff" :size="2" aria-hidden="true" />
+      </span>
+      <span
+        v-if="props.iconOn"
+        :class="classes.iconOn"
+        aria-hidden="true"
+        data-switch-icon-on
+      >
+        <StIcon :name="props.iconOn" :size="2" aria-hidden="true" />
+      </span>
+      <span :class="classes.thumb" data-switch-thumb />
     </span>
     <span v-if="hasLabel" :class="classes.label">
       <slot>{{ props.label }}</slot>
