@@ -13,6 +13,10 @@ describe('spacingShorthandToClasses', () => {
     expect(spacingShorthandToClasses(undefined, 'p')).toEqual([]);
   });
 
+  it('retorna array vazio quando o valor contém apenas espaços', () => {
+    expect(spacingShorthandToClasses('   ', 'p')).toEqual([]);
+  });
+
   it('resolve shorthand simples', () => {
     expect(spacingShorthandToClasses('2', 'p')).toEqual(['p-st-2']);
   });

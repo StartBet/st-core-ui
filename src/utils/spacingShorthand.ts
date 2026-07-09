@@ -66,7 +66,11 @@ export const spacingShorthandToClasses = (
 ) => {
   if (!value) return [];
 
-  const values = value.trim().split(/\s+/).filter(Boolean).map(toValueSuffix);
+  const normalizedValue = value.trim();
+
+  if (!normalizedValue) return [];
+
+  const values = normalizedValue.split(/\s+/).map(toValueSuffix);
   const prefix = responsivePrefix ? `${responsivePrefix}:` : '';
 
   if (values.length === 1) return [`${prefix}${rule}-${values[0]}`];
