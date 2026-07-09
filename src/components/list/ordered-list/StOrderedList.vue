@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { useListContainer } from '../../../composables';
+
 import type { StOrderedListProps } from '../StList.interface';
 import { buildOrderedListClasses } from '../styleStList';
-import { useListContainer } from '../useListContainer';
 
 defineOptions({ name: 'StOrderedList', inheritAttrs: false });
 

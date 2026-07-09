@@ -1,10 +1,18 @@
-import { computed, inject, provide, reactive, useAttrs, watch } from 'vue';
+import {
+  computed,
+  inject,
+  normalizeClass,
+  provide,
+  reactive,
+  useAttrs,
+  watch
+} from 'vue';
 
 import type {
   StListContextValue,
   StListNavOrientation
-} from './StList.interface';
-import { stListContextKey } from './styleStList';
+} from '../components/list/StList.interface';
+import { stListContextKey } from '../components/list/styleStList';
 
 type ListContainerProps = {
   className?: string;
@@ -51,7 +59,7 @@ export const useListContainer = <T extends ListContainerProps>(
 
   const classes = computed(() => buildClasses(props, renderOrientation.value));
   const wrapperClass = computed(() =>
-    [classes.value, attrs.class].filter(Boolean).join(' ')
+    normalizeClass([classes.value, attrs.class])
   );
   const wrapperStyle = computed(() => attrs.style);
 

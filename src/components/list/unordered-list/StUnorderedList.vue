@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { useListContainer } from '../../../composables';
+
 import type { StUnorderedListProps } from '../StList.interface';
 import { buildUnorderedListClasses } from '../styleStList';
-import { useListContainer } from '../useListContainer';
 
 defineOptions({ name: 'StUnorderedList', inheritAttrs: false });
 

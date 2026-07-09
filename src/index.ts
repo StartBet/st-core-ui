@@ -15,6 +15,6 @@ export { default as StSwitch } from './components/form/switch';
 export { default as StIcon } from './components/icon';
 export { default as StPaper } from './components/paper';
 export { default as StTypography } from './components/typography';
-export { useCheckableControl } from './composables';
+export { useCheckableControl, useListContainer } from './composables';
 export type { SizeValue, UsualSizeValue } from './types';
 export { stCssTokenImport, stTailwindPlugins, stTailwindTheme } from './tokens';
