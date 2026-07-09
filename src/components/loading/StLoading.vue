@@ -27,11 +27,13 @@ const classes = computed(() =>
   })
 );
 
-const accentColorByVariant: Record<StLoadingVariant, string> = {
-  primary: 'var(--st-brand-primary-100)',
-  secondary: 'var(--st-brand-secondary-100)',
-  tertiary: 'var(--st-brand-primary-200)'
+const arrowColorByVariant: Record<StLoadingVariant, string> = {
+  primary: 'var(--st-color-secondary)',
+  secondary: 'var(--st-color-primary)',
+  tertiary: 'var(--st-color-content-bright)'
 };
+
+const animatedAccentColor = 'var(--st-color-content-bright)';
 
 const backgroundColorByVariant: Record<StLoadingVariant, string> = {
   primary: 'var(--st-brand-primary-600)',
@@ -46,7 +48,11 @@ const contentStyle = computed(() => ({
 }));
 
 const accentStyle = computed(() => ({
-  color: accentColorByVariant[props.variant]
+  color: arrowColorByVariant[props.variant]
+}));
+
+const animatedAccentStyle = computed(() => ({
+  color: animatedAccentColor
 }));
 
 const cyclicalValue = computed(() => {
@@ -87,13 +93,13 @@ const viewBoxBySize: Record<StLoadingSize, string> = {
       data-loading-arrow
       aria-hidden="true"
     >
-      <path fill="currentColor" d="M12 3l7 7h-4v11H9V10H5l7-7z" />
+      <path fill="currentColor" d="M5 3h6.5L20 12l-8.5 9H5l8.5-9L5 3Z" />
     </svg>
 
     <span
       v-if="props.type === 'spinner'"
       :class="classes.spinner"
-      :style="accentStyle"
+      :style="animatedAccentStyle"
       data-loading-spinner
       aria-hidden="true"
     />
@@ -110,7 +116,7 @@ const viewBoxBySize: Record<StLoadingSize, string> = {
         cy="50"
         :r="cyclicalRadius"
         fill="none"
-        :stroke="accentColorByVariant[props.variant]"
+        :stroke="animatedAccentColor"
         stroke-width="4"
         stroke-linecap="round"
         :stroke-dasharray="cyclicalCircumference"

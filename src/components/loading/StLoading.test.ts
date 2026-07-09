@@ -23,6 +23,9 @@ describe('StLoading', () => {
     expect(
       wrapper.find('[data-loading-arrow]').attributes('data-variant')
     ).toBe('secondary');
+    expect(wrapper.find('[data-loading-arrow]').attributes('style')).toContain(
+      'color: var(--st-color-primary);'
+    );
   });
 
   it('renderiza variant tertiary', () => {
@@ -33,6 +36,17 @@ describe('StLoading', () => {
     expect(
       wrapper.find('[data-loading-arrow]').attributes('data-variant')
     ).toBe('tertiary');
+    expect(wrapper.find('[data-loading-arrow]').attributes('style')).toContain(
+      'color: var(--st-color-content-bright);'
+    );
+  });
+
+  it('aplica cor secondary no arrow quando variant é primary', () => {
+    const wrapper = mount(StLoading);
+
+    expect(wrapper.find('[data-loading-arrow]').attributes('style')).toContain(
+      'color: var(--st-color-secondary);'
+    );
   });
 
   it('renderiza spinner', () => {
@@ -45,6 +59,9 @@ describe('StLoading', () => {
     expect(wrapper.find('[data-loading-spinner]').classes()).toContain(
       'animate-st-spinner-infinite'
     );
+    expect(
+      wrapper.find('[data-loading-spinner]').attributes('style')
+    ).toContain('color: var(--st-color-content-bright);');
   });
 
   it('renderiza cyclical e atualiza com value', async () => {
@@ -54,6 +71,7 @@ describe('StLoading', () => {
 
     const circle = wrapper.find('circle');
     expect(circle.exists()).toBe(true);
+    expect(circle.attributes('stroke')).toBe('var(--st-color-content-bright)');
 
     const circumference = 2 * Math.PI * 46;
     const offset50 = Number(circle.attributes('stroke-dashoffset'));
