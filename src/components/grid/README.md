@@ -27,7 +27,7 @@ import { StGrid } from '@startbet/st-core-ui';
 </script>
 
 <template>
-  <StGrid cols="2" gap="2">
+  <StGrid :cols="2" :gap="2">
     <div class="rounded-st-1 bg-st-surface-2 p-st-2">Item 1</div>
     <div class="rounded-st-1 bg-st-surface-2 p-st-2">Item 2</div>
     <div class="rounded-st-1 bg-st-surface-2 p-st-2">Item 3</div>
@@ -44,7 +44,7 @@ import { StGrid } from '@startbet/st-core-ui';
 </script>
 
 <template>
-  <StGrid cols="1" sm-cols="2" md-cols="3" lg-cols="4" gap="3">
+  <StGrid :cols="1" :sm-cols="2" :md-cols="3" :lg-cols="4" gap="3">
     <div
       v-for="item in 8"
       :key="item"
