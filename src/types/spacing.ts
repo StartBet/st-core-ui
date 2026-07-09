@@ -1,9 +1,4 @@
-export type SizeValue =
-  | 'auto'
-  | 'full'
-  | 'fit-content'
-  | 'min-content'
-  | 'max-content'
+export type UsualSizeValue =
   | '1'
   | '2'
   | '3'
@@ -15,7 +10,15 @@ export type SizeValue =
   | '9'
   | '10'
   | '11'
-  | '12'
+  | '12';
+
+export type SizeValue =
+  | 'auto'
+  | 'full'
+  | 'fit-content'
+  | 'min-content'
+  | 'max-content'
+  | UsualSizeValue
   | '16'
   | '20'
   | '24'

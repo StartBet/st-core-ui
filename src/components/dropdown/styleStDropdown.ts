@@ -1,4 +1,4 @@
-import type { SizeValue } from '../../types';
+import { sizeWidthClasses } from '../../utils/spacingShorthand';
 import type {
   DropdownClassProps,
   StDropdownPlacement
@@ -11,42 +11,6 @@ const VIEWPORT_PADDING = 8;
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
 
-const sizeWidthClasses: Record<SizeValue, string | undefined> = {
-  auto: undefined,
-  full: 'w-full',
-  'fit-content': 'w-fit',
-  'min-content': 'w-min',
-  'max-content': 'w-max',
-  '1': 'w-st-1',
-  '2': 'w-st-2',
-  '3': 'w-st-3',
-  '4': 'w-st-4',
-  '5': 'w-st-5',
-  '6': 'w-st-6',
-  '7': 'w-st-7',
-  '8': 'w-st-8',
-  '9': 'w-st-9',
-  '10': 'w-st-10',
-  '11': 'w-st-11',
-  '12': 'w-st-12',
-  '16': 'w-st-16',
-  '20': 'w-st-20',
-  '24': 'w-st-24',
-  '32': 'w-st-32',
-  '40': 'w-st-40',
-  '48': 'w-st-48',
-  '56': 'w-st-56',
-  '64': 'w-st-64',
-  '72': 'w-st-72',
-  '80': 'w-st-80',
-  '96': 'w-st-96',
-  '128': 'w-st-128',
-  '144': 'w-st-144',
-  '160': 'w-st-160',
-  '168': 'w-st-168',
-  '240': 'w-st-240'
-};
-
 export const buildDropdownClasses = (props: DropdownClassProps) => {
   const { className, panelClassName, width = 'auto' } = props;
 
@@ -54,7 +18,7 @@ export const buildDropdownClasses = (props: DropdownClassProps) => {
 
   const panel = [
     'fixed z-[1200] m-0 rounded-st-1 border border-st-border-2 bg-st-surface-0 p-st-1 text-st-content-default shadow-st-paper-3',
-    width === 'full' ? undefined : sizeWidthClasses[width],
+    width === 'full' || width === 'auto' ? undefined : sizeWidthClasses[width],
     panelClassName
   ]
     .filter(Boolean)

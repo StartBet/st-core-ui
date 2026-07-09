@@ -1,1 +1,1 @@
-export type { SizeValue } from './spacing';
+export type { SizeValue, UsualSizeValue } from './spacing';
