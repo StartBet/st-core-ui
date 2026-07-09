@@ -436,6 +436,7 @@ export default defineComponent({
                   type: 'button',
                   class: classes.value.trigger,
                   disabled: props.disabled,
+                  'aria-readonly': props.readOnly ? 'true' : undefined,
                   'aria-invalid': isValid.value ? undefined : 'true',
                   ...triggerAria,
                   onClick: () => setOpen(!open),

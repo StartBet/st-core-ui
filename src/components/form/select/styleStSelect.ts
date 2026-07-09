@@ -20,8 +20,19 @@ export const buildSelectClasses = (props: SelectClassProps) => {
     hasIcon,
     isOpen,
     isValid,
-    disabled = false
+    disabled = false,
+    readOnly = false
   } = props;
+
+  let triggerStateClass = 'border-st-border-2';
+
+  if (disabled) {
+    triggerStateClass =
+      'cursor-not-allowed border-st-border-2 bg-st-surface-3 text-st-content-disable';
+  } else if (readOnly) {
+    triggerStateClass =
+      'cursor-default border-st-border-2 bg-st-surface-2 text-st-content-ghost';
+  }
 
   const wrapper = ['flex flex-col gap-st-1', className]
     .filter(Boolean)
@@ -44,9 +55,7 @@ export const buildSelectClasses = (props: SelectClassProps) => {
     hasIcon ? 'pl-st-6' : undefined,
     'transition-[border-color,box-shadow] duration-200 ease-in-out',
     'focus-visible:border-st-content-primary focus-visible:ring-2 focus-visible:ring-st-focus focus-visible:ring-offset-2 focus-visible:ring-offset-st-surface-0',
-    disabled
-      ? 'cursor-not-allowed border-st-border-2 bg-st-surface-3 text-st-content-disable'
-      : 'border-st-border-2',
+    triggerStateClass,
     !disabled && isValid === false ? 'border-st-negative' : undefined
   ]
     .filter(Boolean)

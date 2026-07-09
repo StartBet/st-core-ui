@@ -317,6 +317,9 @@ describe('StSelect', () => {
     await getTriggerButton(wrapper).trigger('keydown', { key: 'ArrowDown' });
     await waitForDropdown();
 
+    expect(getTriggerButton(wrapper).attributes('aria-readonly')).toBe('true');
+    expect(getTriggerButton(wrapper).classes()).toContain('cursor-default');
+    expect(getTriggerButton(wrapper).classes()).toContain('bg-st-surface-2');
     expect(wrapper.find('dialog').exists()).toBe(false);
     expect(wrapper.text()).toContain('A');
     expect(wrapper.emitted('update:value')).toBeUndefined();
