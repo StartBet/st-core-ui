@@ -12,9 +12,10 @@ describe('StOrderedList', () => {
     expect(wrapper.element.tagName.toLowerCase()).toBe('ol');
 
     const classList = wrapper.attributes('class');
+    expect(classList).toContain('!m-0');
     expect(classList).toContain('list-decimal');
-    expect(classList).toContain('pl-st-4');
     expect(classList).toContain('flex-col');
+    expect(classList).toContain('gap-st-1');
   });
 
   it('aplica orientation horizontal', () => {
@@ -26,7 +27,7 @@ describe('StOrderedList', () => {
     const classList = wrapper.attributes('class');
     expect(classList).toContain('flex-row');
     expect(classList).toContain('list-none');
-    expect(classList).toContain('pl-0');
+    expect(classList).toContain('gap-st-2');
   });
 
   it('dense remove gap', () => {

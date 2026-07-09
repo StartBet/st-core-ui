@@ -17,7 +17,7 @@ export const buildUnorderedListClasses = (
 ) => {
   const { dense = false, className } = props;
 
-  const base = ['m-0 list-none p-0 flex', className].filter(Boolean).join(' ');
+  const base = ['!m-0 list-none p-0 flex', className].filter(Boolean).join(' ');
   const gap = dense ? 'gap-0' : 'gap-st-1';
   const orientation =
     renderOrientation === 'horizontal'
@@ -33,7 +33,7 @@ export const buildOrderedListClasses = (
 ) => {
   const { dense = false, className } = props;
 
-  const base = ['m-0 flex', className].filter(Boolean).join(' ');
+  const base = ['!m-0 flex', className].filter(Boolean).join(' ');
 
   let gap = 'gap-st-1';
   if (dense) {
@@ -44,8 +44,8 @@ export const buildOrderedListClasses = (
 
   const orientation =
     renderOrientation === 'horizontal'
-      ? 'flex-row flex-wrap items-center list-none pl-0'
-      : 'flex-col items-stretch list-decimal pl-st-4';
+      ? 'flex-row flex-wrap items-center list-none'
+      : 'flex-col items-stretch list-decimal';
 
   return [base, orientation, gap].filter(Boolean).join(' ');
 };
