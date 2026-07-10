@@ -6,6 +6,7 @@ export { default as StDropdown } from './components/dropdown';
 export { default as StGrid } from './components/grid';
 export { default as StLoading } from './components/loading';
 export { StListItem, StOrderedList, StUnorderedList } from './components/list';
+export { default as StModal } from './components/modal';
 export { default as StCheckbox } from './components/form/checkbox';
 export { default as StInput } from './components/form/input';
 export { default as StOption } from './components/form/option';
