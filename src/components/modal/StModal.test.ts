@@ -3,7 +3,42 @@ import { describe, expect, it } from 'vitest';
 
 import StModal from './StModal.vue';
 
+const getCloseButton = () =>
+  document.body.querySelector(
+    'button[aria-label="Fechar modal"]'
+  ) as HTMLButtonElement | null;
+
+const getElementByTestId = (value: string) =>
+  document.body.querySelector(`[data-test="${value}"]`) as HTMLElement | null;
+
 describe('StModal', () => {
+  it('foca o primeiro elemento ao abrir e restaura o foco ao fechar', async () => {
+    const trigger = document.createElement('button');
+    trigger.textContent = 'Abrir';
+    document.body.appendChild(trigger);
+    trigger.focus();
+
+    const wrapper = mount(StModal, {
+      props: { open: true, showCloseButton: true },
+      attachTo: document.body
+    });
+
+    await wrapper.vm.$nextTick();
+    await wrapper.vm.$nextTick();
+
+    expect(document.activeElement).toBe(getCloseButton());
+    expect(document.body.style.overflow).toBe('hidden');
+
+    await wrapper.setProps({ open: false });
+    await wrapper.vm.$nextTick();
+
+    expect(document.activeElement).toBe(trigger);
+    expect(document.body.style.overflow).toBe('');
+
+    wrapper.unmount();
+    trigger.remove();
+  });
+
   it('não renderiza quando open=false', () => {
     const wrapper = mount(StModal, {
       global: { stubs: { teleport: true } }
@@ -92,17 +127,50 @@ describe('StModal', () => {
     expect(wrapper.emitted('update:open')).toBeUndefined();
   });
 
-  it('fecha ao pressionar Escape', () => {
+  it('fecha ao pressionar Escape', async () => {
     const wrapper = mount(StModal, {
       props: { open: true },
       global: { stubs: { teleport: true } }
     });
 
+    await wrapper.vm.$nextTick();
+    await wrapper.vm.$nextTick();
     globalThis.window.dispatchEvent(
       new KeyboardEvent('keydown', { key: 'Escape' })
     );
 
     expect(wrapper.emitted('update:open')?.[0]).toEqual([false]);
     expect(wrapper.emitted('close')?.length).toBe(1);
+  });
+
+  it('mantém o foco dentro do modal com Tab e Shift+Tab', async () => {
+    const wrapper = mount(StModal, {
+      props: { open: true, showCloseButton: true },
+      slots: {
+        default:
+          '<button type="button" data-test="first-action">Primeiro</button><button type="button" data-test="last-action">Ultimo</button>'
+      },
+      attachTo: document.body
+    });
+
+    await wrapper.vm.$nextTick();
+    await wrapper.vm.$nextTick();
+
+    const closeButton = getCloseButton() as HTMLButtonElement;
+    const lastAction = getElementByTestId('last-action') as HTMLButtonElement;
+
+    closeButton.focus();
+    globalThis.window.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Tab', shiftKey: true })
+    );
+    expect(document.activeElement).toBe(lastAction);
+
+    lastAction.focus();
+    globalThis.window.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Tab' })
+    );
+    expect(document.activeElement).toBe(closeButton);
+
+    wrapper.unmount();
   });
 });
