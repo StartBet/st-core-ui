@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { computed, onBeforeUnmount, useAttrs, watch } from 'vue';
 
 import StButton from '../buttons/button/StButton.vue';
 import StPaper from '../paper/StPaper.vue';
 import type { StModalProps } from './StModal.interface';
 import { buildStModalClasses } from './styleStModal';
+
+library.add(faXmark);
 
 defineOptions({ name: 'StModal', inheritAttrs: false });
 
@@ -98,12 +102,11 @@ onBeforeUnmount(() => {
           v-if="props.showCloseButton"
           variant="text"
           size="small"
+          iconLeft="xmark"
           aria-label="Fechar modal"
           className="!absolute right-st-2 top-st-2 !min-w-0 px-st-2"
           @click="close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </StButton>
+        />
         <slot />
       </StPaper>
     </div>

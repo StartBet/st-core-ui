@@ -58,7 +58,12 @@ describe('StModal', () => {
       global: { stubs: { teleport: true } }
     });
 
-    await wrapper.find('button[aria-label="Fechar modal"]').trigger('click');
+    const closeButton = wrapper.find('button[aria-label="Fechar modal"]');
+
+    expect(closeButton.exists()).toBe(true);
+    expect(closeButton.find('svg').exists()).toBe(true);
+
+    await closeButton.trigger('click');
 
     expect(wrapper.emitted('update:open')?.[0]).toEqual([false]);
     expect(wrapper.emitted('close')?.length).toBe(1);
