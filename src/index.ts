@@ -20,9 +20,6 @@ export { default as StIcon } from './components/icon';
 export { default as StPaper } from './components/paper';
 export { default as StTypography } from './components/typography';
 export { useCheckableControl, useListContainer } from './composables';
-export type {
-  StIllustrationName,
-  StIllustrationProps
-} from './components/illustrations';
+export type { StIllustrationProps } from './components/illustrations';
 export type { SizeValue, UsualSizeValue } from './types';
 export { stCssTokenImport, stTailwindPlugins, stTailwindTheme } from './tokens';
