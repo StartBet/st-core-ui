@@ -18,8 +18,14 @@ export { default as StSwitch } from './components/form/switch';
 export { default as StTooltip } from './components/tooltip';
 export { default as StIcon } from './components/icon';
 export { default as StPaper } from './components/paper';
+export { default as StProgressBar } from './components/progress-bar';
 export { default as StTypography } from './components/typography';
 export { useCheckableControl, useListContainer } from './composables';
 export type { StIllustrationProps } from './components/illustrations';
+export type {
+  StProgressBarProps,
+  StProgressBarSize,
+  StProgressBarVariant
+} from './components/progress-bar';
 export type { SizeValue, UsualSizeValue } from './types';
 export { stCssTokenImport, stTailwindPlugins, stTailwindTheme } from './tokens';
