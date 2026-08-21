@@ -1,3 +1,10 @@
+# [0.25.0](https://github.com/StartBet/st-core-ui/compare/v0.24.0...v0.25.0) (2026-08-21)
+
+
+### Features
+
+* **progress-bar:** add new component ([#38](https://github.com/StartBet/st-core-ui/issues/38)) ([e2ef507](https://github.com/StartBet/st-core-ui/commit/e2ef507fb889f959718a2e8d738d6b3aa91185b5))
+
 # [0.24.0](https://github.com/StartBet/st-core-ui/compare/v0.23.0...v0.24.0) (2026-07-14)
 
 
