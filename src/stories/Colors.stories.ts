@@ -50,6 +50,12 @@ const primaryPaletteDefs = [
     'Escala neutra para fundos, textos e composicao.',
     neutralSteps
   ],
+  [
+    'Crema',
+    'crema-color',
+    'Escala crema usada nas superficies do tema light.',
+    toneSteps
+  ],
   ['Info', 'info-color', 'Escala base de informacao.', toneSteps],
   ['System', 'system-color', 'Escala sistemica de apoio.', toneSteps],
   ['Positive', 'positive-color', 'Escala de confirmacao e sucesso.', toneSteps],

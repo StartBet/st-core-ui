@@ -13,6 +13,7 @@ const toneScaleValues = [
 const neutralScaleValues = [0, ...toneScaleValues] as const;
 
 const sizeScale = {
+  'st-xxs': '0.625rem',
   'st-xs': '0.75rem',
   'st-sm': '0.875rem',
   'st-base': '1rem',
@@ -64,6 +65,7 @@ const spacingScale = {
 const colorScalePrefixes = {
   'brand-primary': 'brand-primary',
   'brand-secondary': 'brand-secondary',
+  crema: 'crema-color',
   info: 'info-color',
   system: 'system-color',
   positive: 'positive-color',

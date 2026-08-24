@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const spacingTokens = [
+  { token: 'st-xxs', value: '10px' },
   { token: 'st-xs', value: '12px' },
   { token: 'st-sm', value: '14px' },
   { token: 'st-base', value: '16px' },
