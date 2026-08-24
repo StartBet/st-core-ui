@@ -1,3 +1,10 @@
+# [0.26.0](https://github.com/StartBet/st-core-ui/compare/v0.25.0...v0.26.0) (2026-08-24)
+
+
+### Features
+
+* **package:** new version 0-26 ([#40](https://github.com/StartBet/st-core-ui/issues/40)) ([ff170be](https://github.com/StartBet/st-core-ui/commit/ff170be1b50d5a5f3351653413438410e8825c65))
+
 # [0.25.0](https://github.com/StartBet/st-core-ui/compare/v0.24.0...v0.25.0) (2026-08-21)
 
 
