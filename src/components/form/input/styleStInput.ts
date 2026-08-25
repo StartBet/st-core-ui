@@ -1,3 +1,9 @@
+import {
+  buildFieldIconClasses,
+  buildFieldMessageClasses,
+  getFieldBorderClass,
+  resolveFieldState
+} from '../fieldState';
 import type { StInputProps } from './StInput.interface';
 
 export const buildInputClasses = (props: {
@@ -5,6 +11,7 @@ export const buildInputClasses = (props: {
   isValid?: boolean;
   hasIcon?: boolean;
   hasCounter?: boolean;
+  hasSuccess?: boolean;
   className?: string;
 }) => {
   const {
@@ -12,10 +19,11 @@ export const buildInputClasses = (props: {
     isValid = true,
     hasIcon = false,
     hasCounter = false,
+    hasSuccess = false,
     className
   } = props;
-  const isEnabled = disabled === false;
-  const isInvalid = isEnabled && isValid === false;
+
+  const state = resolveFieldState({ disabled, isValid, hasSuccess });
 
   const wrapper = 'flex flex-col gap-st-1';
 
@@ -26,34 +34,26 @@ export const buildInputClasses = (props: {
 
   const inputContainer = 'relative';
 
-  const iconContainer = [
-    'absolute inset-st-1 flex w-st-4 items-center justify-center rounded-st-1',
-    'bg-st-primary text-st-secondary'
-  ].join(' ');
+  const iconContainer = buildFieldIconClasses(state);
 
   const inputBase = [
-    'h-st-6 w-full rounded-st-1 border bg-st-surface-0 px-st-2 text-st-content-default',
+    'h-st-6 w-full rounded-full border bg-st-surface-0 px-st-2 text-st-content-default',
     hasIcon ? 'pl-st-6' : undefined,
     hasCounter ? 'pr-st-5' : undefined,
     'outline-none transition-[border-color,box-shadow] duration-200 ease-in-out',
     'placeholder:text-st-content-ghost',
     'focus:border-st-content-primary focus:ring-2 focus:ring-st-focus focus:ring-offset-2 focus:ring-offset-st-surface-0',
     disabled
-      ? 'cursor-not-allowed border-st-border-2 bg-st-surface-3 text-st-content-disable'
-      : 'border-st-border-2',
-    isInvalid ? 'border-st-negative' : undefined,
+      ? 'cursor-not-allowed bg-st-surface-3 text-st-content-disable'
+      : undefined,
+    getFieldBorderClass(state),
     className
   ]
     .filter(Boolean)
     .join(' ');
 
-  const messageBase = ['inline-flex items-center gap-st-1', 'text-st-xs'].join(
-    ' '
-  );
-
-  const messageInfo = [messageBase, 'text-st-content-info'].join(' ');
-  const messageDanger = [messageBase, 'text-st-content-negative'].join(' ');
-  const messageSuccess = [messageBase, 'text-st-content-positive'].join(' ');
+  const { messageInfo, messageDanger, messageSuccess } =
+    buildFieldMessageClasses();
 
   const counterBase = [
     'pointer-events-none absolute right-st-2 top-1/2 -translate-y-1/2',
@@ -64,6 +64,7 @@ export const buildInputClasses = (props: {
   const counterNegative = [counterBase, 'text-st-content-negative'].join(' ');
 
   return {
+    state,
     wrapper,
     label,
     inputContainer,

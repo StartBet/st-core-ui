@@ -5,10 +5,11 @@ import {
   faLayerGroup,
   faUser
 } from '@fortawesome/free-solid-svg-icons';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import StOption from '../option/StOption.vue';
 import StSelect from './StSelect.vue';
+import type { StSelectRef } from './StSelect.interface';
 
 library.add(faChevronDown, faLayerGroup, faUser);
 
@@ -197,6 +198,53 @@ export const Controlled: Story = {
         <span class="text-st-body-small text-st-content-default">
           Valor atual: {{ value }}
         </span>
+      </div>
+    `
+  })
+};
+
+export const FieldStates: Story = {
+  render: () => ({
+    components: { StSelect },
+    setup() {
+      const errorRef = ref<StSelectRef | null>(null);
+
+      onMounted(() => errorRef.value?.setInvalidity());
+
+      return { errorRef, optionItems };
+    },
+    template: `
+      <div class="flex max-w-st-64 flex-col gap-st-4">
+        <StSelect
+          icon="user"
+          label="Label"
+          placeholder="Selecione..."
+          message-info="Mensagem auxiliar"
+          :options="optionItems"
+        />
+        <StSelect
+          ref="errorRef"
+          icon="user"
+          label="Label"
+          placeholder="Selecione..."
+          message-danger="Mensagem auxiliar"
+          :options="optionItems"
+        />
+        <StSelect
+          icon="user"
+          label="Label"
+          default-value="sports"
+          message-success="Mensagem auxiliar"
+          :options="optionItems"
+        />
+        <StSelect
+          disabled
+          icon="user"
+          label="Label"
+          placeholder="Selecione..."
+          message-info="Mensagem auxiliar"
+          :options="optionItems"
+        />
       </div>
     `
   })

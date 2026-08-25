@@ -22,6 +22,11 @@ import type {
   StSelectRef,
   StSelectValue
 } from './StSelect.interface';
+import {
+  fieldMessageIcon,
+  resolveFieldIcon,
+  resolveFieldState
+} from '../fieldState';
 import { buildSelectClasses, extractText } from './styleStSelect';
 
 type OptionEntry = {
@@ -303,7 +308,20 @@ export default defineComponent({
       }
     } satisfies StSelectRef);
 
-    const hasIcon = computed(() => Boolean(props.icon));
+    const hasSuccess = computed(
+      () => isValid.value && Boolean(props.messageSuccess)
+    );
+
+    const state = computed(() =>
+      resolveFieldState({
+        disabled: props.disabled,
+        isValid: isValid.value,
+        hasSuccess: hasSuccess.value
+      })
+    );
+
+    const fieldIcon = computed(() => resolveFieldIcon(state.value, props.icon));
+    const hasIcon = computed(() => Boolean(fieldIcon.value));
     const hasValue = computed(() => hasSelectedValue(currentValue.value));
 
     const classes = computed(() =>
@@ -316,6 +334,7 @@ export default defineComponent({
         hasIcon: hasIcon.value,
         isOpen: isOpen.value,
         isValid: isValid.value,
+        hasSuccess: hasSuccess.value,
         hasValue: hasValue.value
       })
     );
@@ -453,7 +472,7 @@ export default defineComponent({
                         },
                         [
                           h(StIcon, {
-                            name: props.icon as string,
+                            name: fieldIcon.value as string,
                             size: 2,
                             ariaLabel: 'icon'
                           })
@@ -499,21 +518,38 @@ export default defineComponent({
 
       if (isValid.value && !props.messageSuccess && props.messageInfo) {
         rootChildren.push(
-          h('span', { class: classes.value.messageInfo }, props.messageInfo)
+          h('span', { class: classes.value.messageInfo }, [
+            h(StIcon, {
+              name: fieldMessageIcon.info,
+              size: 1,
+              'aria-hidden': 'true'
+            }),
+            props.messageInfo
+          ])
         );
       }
       if (!isValid.value && props.messageDanger) {
         rootChildren.push(
-          h('span', { class: classes.value.messageDanger }, props.messageDanger)
+          h('span', { class: classes.value.messageDanger }, [
+            h(StIcon, {
+              name: fieldMessageIcon.danger,
+              size: 1,
+              'aria-hidden': 'true'
+            }),
+            props.messageDanger
+          ])
         );
       }
       if (isValid.value && props.messageSuccess) {
         rootChildren.push(
-          h(
-            'span',
-            { class: classes.value.messageSuccess },
+          h('span', { class: classes.value.messageSuccess }, [
+            h(StIcon, {
+              name: fieldMessageIcon.success,
+              size: 1,
+              'aria-hidden': 'true'
+            }),
             props.messageSuccess
-          )
+          ])
         );
       }
 

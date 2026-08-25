@@ -89,6 +89,48 @@ describe('StInput', () => {
     expect(wrapper.find('svg').exists()).toBe(true);
   });
 
+  it('usa formato pill e borda padrão no estado default', () => {
+    const wrapper = mount(StInput, { props: { icon: 'user' } });
+    const inputClass = getInput(wrapper).attributes('class') ?? '';
+
+    expect(inputClass).toContain('rounded-full');
+    expect(inputClass).toContain('border-st-border-2');
+    expect(wrapper.find('[aria-hidden="true"]').attributes('class')).toContain(
+      'rounded-full'
+    );
+    expect(wrapper.find('svg').attributes('data-icon')).toBe('user');
+  });
+
+  it('aplica estado de erro com borda negativa e ícone xmark', async () => {
+    const wrapper = mount(StInput, { props: { messageDanger: 'danger' } });
+
+    (wrapper.vm as unknown as StInputRef).setInvalidity();
+    await nextTick();
+
+    const inputClass = getInput(wrapper).attributes('class') ?? '';
+    expect(inputClass).toContain('border-st-negative');
+    expect(
+      wrapper.findAll('svg').map((icon) => icon.attributes('data-icon'))
+    ).toEqual(['xmark', 'circle-exclamation']);
+  });
+
+  it('aplica estado de sucesso com borda positiva e ícone check', () => {
+    const wrapper = mount(StInput, { props: { messageSuccess: 'ok' } });
+
+    expect(getInput(wrapper).attributes('class')).toContain(
+      'border-st-positive'
+    );
+    expect(
+      wrapper.findAll('svg').map((icon) => icon.attributes('data-icon'))
+    ).toEqual(['check', 'circle-check']);
+  });
+
+  it('aplica ícone de bloqueio quando desabilitado', () => {
+    const wrapper = mount(StInput, { props: { disabled: true } });
+
+    expect(wrapper.find('svg').attributes('data-icon')).toBe('ban');
+  });
+
   it('expõe métodos imperativos', async () => {
     const wrapper = mount(StInput, {
       props: { required: true, messageDanger: 'danger' },

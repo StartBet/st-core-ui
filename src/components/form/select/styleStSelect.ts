@@ -1,5 +1,11 @@
 import { isVNode } from 'vue';
 
+import {
+  buildFieldIconClasses,
+  buildFieldMessageClasses,
+  getFieldBorderClass,
+  resolveFieldState
+} from '../fieldState';
 import type { SelectClassProps } from './StSelect.interface';
 
 export const extractText = (node: unknown): string => {
@@ -20,18 +26,20 @@ export const buildSelectClasses = (props: SelectClassProps) => {
     hasIcon,
     isOpen,
     isValid,
+    hasSuccess = false,
     disabled = false,
     readOnly = false
   } = props;
 
-  let triggerStateClass = 'border-st-border-2';
+  const state = resolveFieldState({ disabled, isValid, hasSuccess });
+
+  let triggerStateClass: string | undefined;
 
   if (disabled) {
     triggerStateClass =
-      'cursor-not-allowed border-st-border-2 bg-st-surface-3 text-st-content-disable';
+      'cursor-not-allowed bg-st-surface-3 text-st-content-disable';
   } else if (readOnly) {
-    triggerStateClass =
-      'cursor-default border-st-border-2 bg-st-surface-2 text-st-content-ghost';
+    triggerStateClass = 'cursor-default bg-st-surface-2 text-st-content-ghost';
   }
 
   const wrapper = ['flex flex-col gap-st-1', className]
@@ -51,20 +59,17 @@ export const buildSelectClasses = (props: SelectClassProps) => {
     .join(' ');
 
   const trigger = [
-    'relative flex h-st-6 w-full items-center gap-st-2 rounded-st-1 border bg-st-surface-0 px-st-2 text-left text-st-content-default outline-none',
+    'relative flex h-st-6 w-full items-center gap-st-2 rounded-full border bg-st-surface-0 px-st-2 text-left text-st-content-default outline-none',
     hasIcon ? 'pl-st-6' : undefined,
     'transition-[border-color,box-shadow] duration-200 ease-in-out',
     'focus-visible:border-st-content-primary focus-visible:ring-2 focus-visible:ring-st-focus focus-visible:ring-offset-2 focus-visible:ring-offset-st-surface-0',
     triggerStateClass,
-    !disabled && isValid === false ? 'border-st-negative' : undefined
+    getFieldBorderClass(state)
   ]
     .filter(Boolean)
     .join(' ');
 
-  const iconContainer = [
-    'absolute inset-st-1 flex w-st-4 items-center justify-center rounded-st-1',
-    'bg-st-primary text-st-secondary'
-  ].join(' ');
+  const iconContainer = buildFieldIconClasses(state);
 
   const value =
     'flex-1 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap';
@@ -78,14 +83,11 @@ export const buildSelectClasses = (props: SelectClassProps) => {
   const options = 'grid';
   const optionActive = 'bg-st-surface-2';
 
-  const messageBase = ['inline-flex items-center gap-st-1', 'text-st-xs'].join(
-    ' '
-  );
-  const messageInfo = [messageBase, 'text-st-content-info'].join(' ');
-  const messageDanger = [messageBase, 'text-st-content-negative'].join(' ');
-  const messageSuccess = [messageBase, 'text-st-content-positive'].join(' ');
+  const { messageInfo, messageDanger, messageSuccess } =
+    buildFieldMessageClasses();
 
   return {
+    state,
     wrapper,
     label,
     dropdownRoot,

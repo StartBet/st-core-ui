@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faIdCard, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
 
+import type { StInputRef } from './StInput.interface';
 import StInput from './StInput.vue';
 
 library.add(faUser, faPhone, faIdCard);
@@ -129,6 +130,49 @@ export const States: Story = {
         <StInput label="Default" placeholder="Digite aqui" />
         <StInput disabled label="Disabled" default-value="Desabilitado" />
         <StInput read-only label="Read only" default-value="Somente leitura" />
+      </div>
+    `
+  })
+};
+
+export const FieldStates: Story = {
+  render: () => ({
+    components: { StInput },
+    setup() {
+      const errorRef = ref<StInputRef | null>(null);
+
+      onMounted(() => errorRef.value?.setInvalidity());
+
+      return { errorRef };
+    },
+    template: `
+      <div class="flex max-w-st-64 flex-col gap-st-4">
+        <StInput
+          icon="user"
+          label="Label"
+          placeholder="Digite aqui..."
+          message-info="Mensagem auxiliar"
+        />
+        <StInput
+          ref="errorRef"
+          icon="user"
+          label="Label"
+          placeholder="Digite aqui..."
+          message-danger="Mensagem auxiliar"
+        />
+        <StInput
+          icon="user"
+          label="Label"
+          placeholder="Digite aqui..."
+          message-success="Mensagem auxiliar"
+        />
+        <StInput
+          disabled
+          icon="user"
+          label="Label"
+          placeholder="Digite aqui..."
+          message-info="Mensagem auxiliar"
+        />
       </div>
     `
   })
