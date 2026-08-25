@@ -24,7 +24,7 @@ const sizeClasses: Record<
   medium: {
     container: 'h-10 text-st-base',
     iconOnly: 'w-10 px-0',
-    contentPadding: 'px-st-3',
+    contentPadding: 'px-st-2',
     contentGap: 'gap-st-1'
   },
   large: {
