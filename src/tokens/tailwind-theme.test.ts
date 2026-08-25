@@ -51,14 +51,14 @@ describe('tailwind theme tokens', () => {
 
   it('should register text shadow utilities from the theme configuration', () => {
     const addUtilities = runTextShadowPlugin({
-      'st-small': '0 0 4px var(--st-shadow-scale-950)',
+      'st-small': '0 0 4px var(--st-color-shadow-1)',
       'st-action-hover': '0 0 16px var(--st-color-shadow-hover)'
     });
 
     expect(addUtilities).toHaveBeenCalledWith([
       {
         '.text-shadow-st-small': {
-          textShadow: '0 0 4px var(--st-shadow-scale-950)'
+          textShadow: '0 0 4px var(--st-color-shadow-1)'
         }
       },
       {

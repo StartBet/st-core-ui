@@ -59,16 +59,16 @@
     --st-info-color-900: #164e63;
     --st-info-color-950: #083344;
 
-    --st-system-color-100: #eaf0f1;
-    --st-system-color-200: #cbdadc;
-    --st-system-color-300: #a1bdc0;
-    --st-system-color-400: #789fa3;
-    --st-system-color-500: #54868b;
-    --st-system-color-600: #2f6c72;
-    --st-system-color-700: #29575c;
-    --st-system-color-800: #24474b;
-    --st-system-color-900: #223c3f;
-    --st-system-color-950: #11262a;
+    --st-system-color-100: #d6e5ff;
+    --st-system-color-200: #a3c5ff;
+    --st-system-color-300: #70a5ff;
+    --st-system-color-400: #3d85ff;
+    --st-system-color-500: #0a65ff;
+    --st-system-color-600: #004dcf;
+    --st-system-color-700: #003da3;
+    --st-system-color-800: #002a70;
+    --st-system-color-900: #001b47;
+    --st-system-color-950: #000f27;
 
     --st-positive-color-100: #a7f3cb;
     --st-positive-color-200: #6de8b0;
@@ -270,27 +270,27 @@
     --st-color-content-din: var(--st-neutral-color-950);
 
     --st-color-content-primary: var(--st-brand-primary-950);
-    --st-color-content-secondary: var(--st-brand-secondary-950);
+    --st-color-content-secondary: var(--st-brand-secondary-800);
     --st-color-content-info: var(--st-info-color-950);
-    --st-color-content-system: var(--st-system-color-950);
-    --st-color-content-warning: var(--st-attention-color-950);
-    --st-color-content-positive: var(--st-positive-color-950);
-    --st-color-content-negative: var(--st-negative-color-950);
+    --st-color-content-system: var(--st-system-color-800);
+    --st-color-content-warning: var(--st-attention-color-800);
+    --st-color-content-positive: var(--st-positive-color-800);
+    --st-color-content-negative: var(--st-negative-color-900);
 
     --st-color-border-1: var(--st-shadow-scale-400);
     --st-color-border-2: var(--st-shadow-scale-500);
     --st-color-border-3: var(--st-shadow-scale-600);
 
-    --st-color-focus: var(--st-purple-color-500);
+    --st-color-focus: var(--st-pink-color-600);
     --st-color-pressed: var(--st-shadow-scale-400);
     --st-color-shadow-pressed: var(--st-shadow-scale-300);
     --st-color-hover: var(--st-shadow-scale-500);
     --st-color-shadow-hover: var(--st-shadow-scale-300);
 
-    --st-color-shadow-0: var(--st-shadow-scale-200);
-    --st-color-shadow-1: var(--st-shadow-scale-300);
-    --st-color-shadow-2: var(--st-shadow-scale-400);
-    --st-color-shadow-3: var(--st-shadow-scale-500);
+    --st-color-shadow-0: var(--st-shadow-scale-100);
+    --st-color-shadow-1: var(--st-shadow-scale-200);
+    --st-color-shadow-2: var(--st-shadow-scale-300);
+    --st-color-shadow-3: var(--st-shadow-scale-400);
 
     --st-color-light-0: var(--st-light-scale-700);
     --st-color-light-1: var(--st-light-scale-800);
@@ -345,7 +345,7 @@
     --st-color-border-2: var(--st-light-scale-500);
     --st-color-border-3: var(--st-light-scale-600);
 
-    --st-color-focus: var(--st-purple-color-500);
+    --st-color-focus: var(--st-pink-color-600);
     --st-color-pressed: var(--st-light-scale-300);
     --st-color-shadow-pressed: var(--st-light-scale-700);
     --st-color-hover: var(--st-light-scale-200);
