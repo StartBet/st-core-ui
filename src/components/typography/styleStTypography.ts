@@ -129,9 +129,9 @@ export const buildTypographyClasses = (props: TypographyClassProps) => {
   const heroTitleEffectClasses = [
     'text-st-content-secondary relative pr-1',
     '[text-shadow:none]',
-    'bg-[linear-gradient(140deg,transparent_45%,var(--st-bright-scale-700)_45%,var(--st-bright-scale-700)_65%,transparent_65%),linear-gradient(0deg,var(--st-color-content-secondary)_0%,var(--st-color-content-secondary)_100%)]',
+    'bg-[linear-gradient(140deg,transparent_45%,var(--st-bright-scale-700)_45%,var(--st-bright-scale-700)_65%,transparent_65%),linear-gradient(0deg,var(--st-color-content-secondary)_0%,var(--st-color-content-secondary)_100%)] bg-blend-soft-light',
     'bg-clip-text text-transparent',
-    'drop-shadow-[-4px_4px_0px_var(--st-shadow-scale-950)]'
+    'drop-shadow-[-4px_4px_0px_var(--st-color-shadow-1)]'
   ]
     .filter(Boolean)
     .join(' ');

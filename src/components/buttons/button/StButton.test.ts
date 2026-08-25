@@ -19,7 +19,7 @@ describe('StButton', () => {
     expect(wrapper.text()).toContain('Salvar');
 
     const list = classList(wrapper.attributes('class'));
-    expect(list).toContain('rounded-st-1');
+    expect(list).toContain('rounded-full');
     expect(list).toContain('h-10');
     expect(list).toContain('bg-st-primary');
     expect(list).toContain('text-st-content-bright');

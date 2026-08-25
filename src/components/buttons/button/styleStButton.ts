@@ -30,7 +30,7 @@ const sizeClasses: Record<
   large: {
     container: 'h-12 text-st-md',
     iconOnly: 'w-12 px-0',
-    contentPadding: 'px-st-2',
+    contentPadding: 'px-st-3',
     contentGap: 'gap-st-1'
   }
 };
@@ -80,7 +80,7 @@ export const buildButtonClasses = (
   const s = sizeClasses[size];
 
   const base = [
-    'relative inline-flex items-center rounded-st-1 font-st-body font-semibold transition-all duration-200 ease-in-out',
+    'relative inline-flex items-center rounded-full font-st-body font-semibold transition-all duration-200 ease-in-out',
     disabled ? 'cursor-not-allowed' : 'cursor-pointer',
     isIconOnly ? 'justify-center' : 'justify-between',
     disabled ? undefined : interactionsHoverPressed

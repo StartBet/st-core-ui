@@ -45,5 +45,6 @@ export type SelectClassProps = Pick<
   hasIcon: boolean;
   isOpen: boolean;
   isValid: boolean;
+  hasSuccess?: boolean;
   hasValue: boolean;
 };

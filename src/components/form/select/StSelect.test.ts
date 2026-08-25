@@ -2,9 +2,14 @@ import { mount, type VueWrapper } from '@vue/test-utils';
 import { describe, expect, it, vi } from 'vitest';
 import { defineComponent, h, nextTick, onMounted, ref } from 'vue';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+
 import StOption from '../option/StOption.vue';
 import StSelect from './StSelect.vue';
 import type { StSelectRef } from './StSelect.interface';
+
+library.add(faUser);
 
 describe('StSelect', () => {
   const getTriggerButton = (wrapper: VueWrapper) =>
@@ -20,6 +25,38 @@ describe('StSelect', () => {
     { name: 'B', value: 'b' },
     { name: 'C', value: 'c' }
   ];
+
+  it('usa formato pill e estados visuais conforme o Figma', async () => {
+    const defaultSelect = mount(StSelect, { props: { icon: 'user' } });
+    const triggerClass =
+      getTriggerButton(defaultSelect).attributes('class') ?? '';
+
+    expect(triggerClass).toContain('rounded-full');
+    expect(triggerClass).toContain('border-st-border-2');
+    expect(defaultSelect.find('svg').attributes('data-icon')).toBe('user');
+
+    const errorSelect = mount(StSelect, {
+      props: { messageDanger: 'danger' }
+    });
+    (errorSelect.vm as unknown as StSelectRef).setInvalidity();
+    await nextTick();
+
+    expect(getTriggerButton(errorSelect).attributes('class')).toContain(
+      'border-st-negative'
+    );
+    expect(errorSelect.find('svg').attributes('data-icon')).toBe('xmark');
+
+    const successSelect = mount(StSelect, {
+      props: { messageSuccess: 'ok' }
+    });
+    expect(getTriggerButton(successSelect).attributes('class')).toContain(
+      'border-st-positive'
+    );
+    expect(successSelect.find('svg').attributes('data-icon')).toBe('check');
+
+    const disabledSelect = mount(StSelect, { props: { disabled: true } });
+    expect(disabledSelect.find('svg').attributes('data-icon')).toBe('ban');
+  });
 
   it('renderiza label e placeholder', () => {
     const wrapper = mount(StSelect, {

@@ -257,9 +257,9 @@ export const stTailwindTheme = {
   },
   spacing: spacingScale,
   textShadow: {
-    'st-small': '-1px 1px transparent, -2px 2px var(--st-shadow-scale-950)',
-    'st-medium': '-1px 1px transparent, -3px 3px var(--st-shadow-scale-950)',
-    'st-large': '-2px 2px transparent, -4px 4px var(--st-shadow-scale-950)',
+    'st-small': '-1px 1px transparent, -2px 2px var(--st-color-shadow-1)',
+    'st-medium': '-1px 1px transparent, -3px 3px var(--st-color-shadow-1)',
+    'st-large': '-2px 2px transparent, -4px 4px var(--st-color-shadow-1)',
     'st-action-hover': '0 0 16px var(--st-color-shadow-hover)',
     'st-action-pressed': '0 0 16px var(--st-color-shadow-pressed)'
   },

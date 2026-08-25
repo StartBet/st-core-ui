@@ -3,6 +3,11 @@ import { computed, ref, useAttrs, watch } from 'vue';
 
 import StIcon from '../../icon/StIcon.vue';
 import { applyInputMask } from '../../../utils/inputMask';
+import {
+  fieldMessageIcon,
+  resolveFieldIcon,
+  resolveFieldState
+} from '../fieldState';
 import type { StInputProps, StInputRef } from './StInput.interface';
 import {
   buildInputClasses,
@@ -64,7 +69,20 @@ const initialTextValue = (() => {
 const charCount = ref(initialTextValue.length);
 
 const hasCounter = computed(() => typeof props.maxLength === 'number');
-const hasIcon = computed(() => Boolean(props.icon));
+const hasSuccess = computed(
+  () => isValid.value && Boolean(props.messageSuccess)
+);
+
+const state = computed(() =>
+  resolveFieldState({
+    disabled: props.disabled,
+    isValid: isValid.value,
+    hasSuccess: hasSuccess.value
+  })
+);
+
+const fieldIcon = computed(() => resolveFieldIcon(state.value, props.icon));
+const hasIcon = computed(() => Boolean(fieldIcon.value));
 
 const resolvedType = computed(() => resolveInputType(props.type));
 
@@ -84,6 +102,7 @@ const classes = computed(() =>
     isValid: isValid.value,
     hasIcon: hasIcon.value,
     hasCounter: hasCounter.value,
+    hasSuccess: hasSuccess.value,
     className: props.className
   })
 );
@@ -192,7 +211,7 @@ watch(
 
     <div :class="classes.inputContainer">
       <div v-if="hasIcon" :class="classes.iconContainer" aria-hidden="true">
-        <StIcon :name="props.icon as string" :size="2" aria-label="icon" />
+        <StIcon :name="fieldIcon as string" :size="2" aria-label="icon" />
       </div>
 
       <input
@@ -235,15 +254,18 @@ watch(
       v-if="isValid && !props.messageSuccess && props.messageInfo"
       :class="classes.messageInfo"
     >
+      <StIcon :name="fieldMessageIcon.info" :size="1" aria-hidden="true" />
       {{ props.messageInfo }}
     </span>
     <span v-if="!isValid && props.messageDanger" :class="classes.messageDanger">
+      <StIcon :name="fieldMessageIcon.danger" :size="1" aria-hidden="true" />
       {{ props.messageDanger }}
     </span>
     <span
       v-if="isValid && props.messageSuccess"
       :class="classes.messageSuccess"
     >
+      <StIcon :name="fieldMessageIcon.success" :size="1" aria-hidden="true" />
       {{ props.messageSuccess }}
     </span>
   </label>
