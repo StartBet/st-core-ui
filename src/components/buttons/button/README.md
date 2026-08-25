@@ -23,9 +23,15 @@ import { StButton } from '@startbet/st-core-ui';
 
 ## Tamanhos disponiveis
 
-- `small`
-- `medium`
-- `large`
+Todas as variacoes usam formato pill (`rounded-full`).
+
+| `size`   | Altura        | Padding lateral  | Fonte          | Icone           |
+| -------- | ------------- | ---------------- | -------------- | --------------- |
+| `small`  | 32px (`h-8`)  | 16px (`px-st-2`) | `text-st-sm`   | `StIcon` size 2 |
+| `medium` | 40px (`h-10`) | 24px (`px-st-3`) | `text-st-base` | `StIcon` size 3 |
+| `large`  | 48px (`h-12`) | 24px (`px-st-3`) | `text-st-md`   | `StIcon` size 4 |
+
+No modo icon-only o botao vira um circulo (largura igual a altura, sem padding horizontal).
 
 ## Props principais
 
