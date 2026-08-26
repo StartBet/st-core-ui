@@ -1,3 +1,10 @@
+# [0.27.0](https://github.com/StartBet/st-core-ui/compare/v0.26.0...v0.27.0) (2026-08-26)
+
+
+### Features
+
+* **tokens:** update color tokens and StButton/STInput designs ([871c167](https://github.com/StartBet/st-core-ui/commit/871c167a3034287f92cf579b1fe27b24aa09f831))
+
 # [0.26.0](https://github.com/StartBet/st-core-ui/compare/v0.25.0...v0.26.0) (2026-08-24)
 
 
