@@ -1,3 +1,10 @@
+# [0.28.0](https://github.com/StartBet/st-core-ui/compare/v0.27.0...v0.28.0) (2026-08-28)
+
+
+### Features
+
+* **base-neue:** add complete base neue on application ([#42](https://github.com/StartBet/st-core-ui/issues/42)) ([bec90b2](https://github.com/StartBet/st-core-ui/commit/bec90b2a478b690c79f2dbeb225cfe0230423388))
+
 # [0.27.0](https://github.com/StartBet/st-core-ui/compare/v0.26.0...v0.27.0) (2026-08-26)
 
 
