@@ -11,7 +11,7 @@ const fontFamilies = [
     token: 'font-st-highlight',
     family: 'Base Neue Condensed',
     note: 'Usada para textos de destaque e titulos com mais personalidade.',
-    previewClass: 'font-st-highlight italic'
+    previewClass: 'font-st-highlight'
   },
   {
     token: 'font-st-body',
@@ -55,14 +55,14 @@ const typographyVariantDefs = [
   [
     'text-st-highlight-large',
     'Highlight Large',
-    '1.5rem / 1.5 / 600',
-    'font-st-highlight text-st-highlight-large italic'
+    '1.5rem / 1.5 / 800',
+    'font-st-highlight text-st-highlight-large'
   ],
   [
     'text-st-highlight-medium',
     'Highlight Medium',
-    '1.125rem / 1.5 / 600',
-    'font-st-highlight text-st-highlight-medium italic'
+    '1.125rem / 1.5 / 800',
+    'font-st-highlight text-st-highlight-medium'
   ],
   [
     'text-st-body-large',
@@ -132,7 +132,7 @@ const meta = {
             <p class="m-0 text-st-body-small font-medium uppercase tracking-[0.12em] text-st-content-secondary">
               Typography
             </p>
-            <h1 class="m-0 font-st-highlight text-st-3xl font-extrabold italic leading-st-tight text-st-content-default">
+            <h1 class="m-0 font-st-highlight text-st-3xl font-extrabold leading-st-tight text-st-content-default">
               Tipografia da biblioteca
             </h1>
             <p class="m-0 max-w-3xl text-st-body-medium text-st-content-default">

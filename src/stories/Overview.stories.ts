@@ -31,7 +31,7 @@ const meta = {
       <main
         class="min-h-screen bg-st-surface-3 px-st-6 py-st-8 text-st-content-default flex flex-col gap-st-2"
       >
-        <h1 class="relative z-20 m-0 max-w-[75%] overflow-hidden p-0 px-1 font-st-highlight text-st-3xl font-extrabold italic leading-st-tight text-st-content-default text-shadow-st-large [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
+        <h1 class="relative z-20 m-0 max-w-[75%] overflow-hidden p-0 px-1 font-st-heading text-st-3xl font-extrabold italic leading-st-tight text-st-content-default text-shadow-st-large [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
           <span>@startbet/</span>
           <br>
           <span class="relative pr-1 text-st-content-secondary [text-shadow:none] bg-[linear-gradient(140deg,transparent_45%,var(--st-bright-scale-700)_45%,var(--st-bright-scale-700)_65%,transparent_65%),linear-gradient(0deg,var(--st-color-content-secondary)_0%,var(--st-color-content-secondary)_100%)] bg-clip-text text-transparent drop-shadow-[-4px_4px_0px_var(--st-color-shadow-1)]">
