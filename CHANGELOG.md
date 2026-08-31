@@ -1,3 +1,10 @@
+# [0.30.0](https://github.com/StartBet/st-core-ui/compare/v0.29.0...v0.30.0) (2026-08-31)
+
+
+### Features
+
+* **st-typography:** solving problem with the highlight typography ([#44](https://github.com/StartBet/st-core-ui/issues/44)) ([5e1ef80](https://github.com/StartBet/st-core-ui/commit/5e1ef80ea805fbf94fb2b5e44fe41db5feceb98c))
+
 # [0.29.0](https://github.com/StartBet/st-core-ui/compare/v0.28.0...v0.29.0) (2026-08-31)
 
 ### Features
