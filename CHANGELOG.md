@@ -1,3 +1,10 @@
+# [0.29.0](https://github.com/StartBet/st-core-ui/compare/v0.28.0...v0.29.0) (2026-08-31)
+
+
+### Features
+
+* **base-neue:** improving the base-neue export method ([31de612](https://github.com/StartBet/st-core-ui/commit/31de612ed500772fe927ff444ec5dda46ffcb1e2))
+
 # [0.28.0](https://github.com/StartBet/st-core-ui/compare/v0.27.0...v0.28.0) (2026-08-28)
 
 ### Features
