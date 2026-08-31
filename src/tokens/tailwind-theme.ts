@@ -199,7 +199,7 @@ export const stTailwindTheme = {
   },
   fontFamily: {
     'st-heading': ['"Base Neue Condensed"', 'sans-serif'],
-    'st-highlight': ['"Base Neue Condensed"', 'sans-serif'],
+    'st-highlight': ['"Montserrat"', 'sans-serif'],
     'st-body': ['Montserrat', 'sans-serif']
   },
   fontSize: {
