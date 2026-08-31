@@ -56,7 +56,7 @@ export default {
             <p class="m-0 text-st-body-small font-medium uppercase tracking-[0.12em] text-st-content-secondary">
               Get Started
             </p>
-            <h1 class="m-0 font-st-highlight text-st-3xl font-extrabold italic leading-st-tight text-st-content-default">
+            <h1 class="m-0 font-st-highlight text-st-3xl font-extrabold leading-st-tight text-st-content-default">
               Configure {{ packageName }}
             </h1>
             <p class="m-0 max-w-3xl text-st-body-medium text-st-content-default">
