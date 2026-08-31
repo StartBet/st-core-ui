@@ -1,5 +1,5 @@
 @import './montserrat.css';
-@import './base-neue.css';
+@import './base-neue/base-neue.css';
 
 @layer base {
   :root {
