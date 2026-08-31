@@ -27,7 +27,13 @@
     "./tailwind.config": "./tailwind.config.ts",
     "./style.css": "./src/css/style.css",
     "./tokens.css": "./src/css/tokens.css",
-    "./base-neue.css": "./src/css/base-neue.css",
+    "./base-neue.css": "./src/css/base-neue/base-neue.css",
+    "./base-neue-default.css": "./src/css/base-neue/base-neue-default.css",
+    "./base-neue-condensed.css": "./src/css/base-neue/base-neue-condensed.css",
+    "./base-neue-super-condensed.css": "./src/css/base-neue/base-neue-super-condensed.css",
+    "./base-neue-expanded.css": "./src/css/base-neue/base-neue-expanded.css",
+    "./base-neue-wide.css": "./src/css/base-neue/base-neue-wide.css",
+    "./base-neue-super-expanded.css": "./src/css/base-neue/base-neue-super-expanded.css",
     "./montserrat.css": "./src/css/montserrat.css"
   },
   "sideEffects": [

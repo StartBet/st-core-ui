@@ -1,0 +1,163 @@
+@layer base {
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-100.ttf')
+      format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-100-italic.ttf')
+      format('truetype');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-200.ttf')
+      format('truetype');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-200-italic.ttf')
+      format('truetype');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-300.ttf')
+      format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-300-italic.ttf')
+      format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-400.ttf')
+      format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-400-italic.ttf')
+      format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-500.ttf')
+      format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-500-italic.ttf')
+      format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-600.ttf')
+      format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-600-italic.ttf')
+      format('truetype');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-700.ttf')
+      format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-700-italic.ttf')
+      format('truetype');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-800.ttf')
+      format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-800-italic.ttf')
+      format('truetype');
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-900.ttf')
+      format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Base Neue Expanded';
+    src: url('../../assets/fonts/base-neue/expanded/base-neue-expanded-900-italic.ttf')
+      format('truetype');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+  }
+}
