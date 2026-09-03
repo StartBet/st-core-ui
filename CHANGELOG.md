@@ -1,3 +1,10 @@
+# [0.31.0](https://github.com/StartBet/st-core-ui/compare/v0.30.0...v0.31.0) (2026-09-03)
+
+
+### Features
+
+* **st-carousel:** add new component ([#45](https://github.com/StartBet/st-core-ui/issues/45)) ([b0639e6](https://github.com/StartBet/st-core-ui/commit/b0639e61b5591f2d5e2a524cd73a47197c3c8c85))
+
 # [0.30.0](https://github.com/StartBet/st-core-ui/compare/v0.29.0...v0.30.0) (2026-08-31)
 
 
