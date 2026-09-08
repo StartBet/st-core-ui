@@ -41,6 +41,7 @@ import {
   peekToPixels,
   resolveDragStep,
   resolveCenterOffset,
+  resolveLayoutPerPage,
   resolveSlideProgress,
   ST_CAROUSEL_DEFAULT_AUTOPLAY_TIMEOUT,
   ST_CAROUSEL_DEFAULT_TRANSITION_DURATION,
@@ -247,6 +248,12 @@ const centerOffset = computed(() =>
   canNavigate.value ? resolveCenterOffset(perPage.value, slideAlign.value) : 0
 );
 
+const layoutPerPage = computed(() => resolveLayoutPerPage(slidePerPage.value));
+
+const hasFreeSpace = computed(
+  () => total.value > 0 && total.value < layoutPerPage.value
+);
+
 const gapPixels = computed(() => gapToPixels(gap.value));
 const peekPixels = computed(() => peekToPixels(peek.value));
 const hasPeek = computed(() => peekPixels.value !== '0px');
@@ -260,7 +267,7 @@ const measureStepSize = () => {
 
   const viewportWidth = viewportRef.value?.offsetWidth ?? 0;
 
-  return viewportWidth / Math.max(1, perPage.value);
+  return viewportWidth / Math.max(1, layoutPerPage.value);
 };
 
 const drag = useCarouselDrag({
@@ -348,6 +355,7 @@ const classes = computed(() =>
     autoHeight: props.autoHeight,
     peek: hasPeek.value,
     slideAlign: slideAlign.value,
+    hasFreeSpace: hasFreeSpace.value,
     arrows: arrows.value,
     bullets: bullets.value,
     bulletsPosition: props.bulletsPosition,
@@ -382,9 +390,10 @@ const trackStyle = computed(() => {
 
   return {
     '--st-carousel-per-page': String(perPage.value),
+    '--st-carousel-layout-per-page': String(layoutPerPage.value),
     '--st-carousel-gap': gapPixels.value,
     '--st-carousel-slide-width':
-      'calc((100% - var(--st-carousel-gap) * (var(--st-carousel-per-page) - 1)) / var(--st-carousel-per-page))',
+      'calc((100% - var(--st-carousel-gap) * (var(--st-carousel-layout-per-page) - 1)) / var(--st-carousel-layout-per-page))',
     '--st-carousel-step':
       'calc(var(--st-carousel-slide-width) + var(--st-carousel-gap))',
     transform: `translate3d(calc(var(--st-carousel-step) * ${-offset.value}), 0, 0)`,
@@ -519,6 +528,7 @@ defineExpose({
     :data-st-carousel-index="activeIndex"
     :data-st-carousel-page="activePage"
     :data-st-carousel-per-page="perPage"
+    :data-st-carousel-layout-per-page="layoutPerPage"
     :data-st-carousel-grabbing="drag.isPressed.value || undefined"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"

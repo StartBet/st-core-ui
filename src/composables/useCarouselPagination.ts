@@ -118,8 +118,32 @@ export const useCarouselPagination = (
     commit(Math.min(Math.max(target, -perPage.value), total.value));
   };
 
-  const next = () => moveBy(perPage.value);
-  const prev = () => moveBy(-perPage.value);
+  const stepPage = (direction: 1 | -1) => {
+    if (!canNavigate.value) return;
+
+    const positions = pagePositions.value;
+    const current = position.value;
+    const target =
+      direction > 0
+        ? positions.find((pagePosition) => pagePosition > current)
+        : positions.filter((pagePosition) => pagePosition < current).at(-1);
+
+    if (target !== undefined) {
+      commit(target);
+      return;
+    }
+
+    if (!infiniteLoop.value) return;
+
+    commit(
+      direction > 0
+        ? positions[0] + total.value
+        : (positions.at(-1) ?? 0) - total.value
+    );
+  };
+
+  const next = () => stepPage(1);
+  const prev = () => stepPage(-1);
 
   const goToSlide = (index: number) => {
     if (total.value === 0) return;

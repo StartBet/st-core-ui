@@ -171,6 +171,49 @@ describe('useCarouselPagination', () => {
       expect(api!.position.value).toBe(0);
     });
 
+    it('anda pela grade de páginas quando o total não é múltiplo do perPage', async () => {
+      const total = ref(10);
+      const slidePerPage = ref(3);
+      const infiniteLoop = ref(false);
+
+      let api: ReturnType<typeof useCarouselPagination>;
+
+      const Harness = defineComponent({
+        setup() {
+          api = useCarouselPagination({ total, slidePerPage, infiniteLoop });
+          return () => h('div');
+        }
+      });
+
+      mount(Harness);
+      await Promise.resolve();
+
+      /** A última página é recortada para não sobrar espaço vazio. */
+      expect(api!.pagePositions.value).toEqual([0, 3, 6, 7]);
+
+      const walk = (step: () => void, times: number) =>
+        Array.from({ length: times }, () => {
+          step();
+
+          return [api!.position.value, api!.activePage.value];
+        });
+
+      expect(walk(() => api!.next(), 4)).toEqual([
+        [3, 1],
+        [6, 2],
+        [7, 3],
+        [7, 3]
+      ]);
+
+      /** A volta usa as mesmas posições da ida e chega ao início. */
+      expect(walk(() => api!.prev(), 4)).toEqual([
+        [6, 2],
+        [3, 1],
+        [0, 0],
+        [0, 0]
+      ]);
+    });
+
     it('goToSlide direciona para índice clampado', async () => {
       const total = ref(5);
       const slidePerPage = ref(2);
@@ -352,6 +395,36 @@ describe('useCarouselPagination', () => {
         new TransitionEvent('transitionend', { propertyName: 'opacity' })
       );
       expect(api!.position.value).toBe(4);
+    });
+
+    it('recua para a última página com o total não múltiplo do perPage', async () => {
+      const total = ref(10);
+      const slidePerPage = ref(3);
+      const infiniteLoop = ref(true);
+
+      let api: ReturnType<typeof useCarouselPagination>;
+
+      const Harness = defineComponent({
+        setup() {
+          api = useCarouselPagination({ total, slidePerPage, infiniteLoop });
+          return () => h('div');
+        }
+      });
+
+      mount(Harness);
+      await Promise.resolve();
+
+      expect(api!.pagePositions.value).toEqual([0, 3, 6, 9]);
+
+      api!.prev();
+
+      /** Atravessa os clones da ponta esquerda antes de normalizar. */
+      expect(api!.position.value).toBe(-1);
+
+      api!.handleTransitionEnd();
+
+      expect(api!.position.value).toBe(9);
+      expect(api!.activePage.value).toBe(3);
     });
 
     it('goToSlide normaliza índice no modo infinito', async () => {

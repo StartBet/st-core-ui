@@ -43,6 +43,7 @@ export interface CarouselClassProps {
   autoHeight?: boolean;
   peek?: boolean;
   slideAlign?: StCarouselSlideAlign;
+  hasFreeSpace?: boolean;
   arrows?: StCarouselNavigation;
   bullets?: StCarouselNavigation;
   bulletsPosition?: StCarouselBulletsPosition;

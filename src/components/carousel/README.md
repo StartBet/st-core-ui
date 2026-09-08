@@ -135,6 +135,22 @@ Quando todos os slides cabem na view (`slidePerPage` maior ou igual ao total) na
 
 A referencia define o destaque (`highlight`) e o atributo `data-st-slide-selected`, que permite estiliza-la pelo consumidor.
 
+## Menos itens que colunas
+
+A largura da coluna depende apenas do `slidePerPage` do breakpoint atual, nunca da quantidade de itens: com `lgSlidePerPage: 5` e 3 itens, cada slide continua com um quinto da view e as duas colunas que faltam ficam como espaco livre no fim da track. Assim uma grade de vitrines mantem o mesmo tamanho de card independente de quantos itens a API devolveu.
+
+Com `slideAlign: 'center'` esse espaco e distribuido nos dois lados, centralizando os itens existentes. A navegacao continua desabilitada (`pageCount` fica em `1` e as setas ficam `disabled`), porque nao ha nada para onde ir.
+
+Nao existe prop para esticar os slides: a coluna e sempre a fracao que o `slidePerPage` do breakpoint define. Para um item ocupar a view toda, o caminho e configurar `slidePerPage: 1` naquele breakpoint.
+
+```vue
+<template>
+  <StCarousel :slide-per-page="2" :lg-slide-per-page="5">
+    <div v-for="item in 3" :key="item">Slide {{ item }}</div>
+  </StCarousel>
+</template>
+```
+
 ## Destaque do slide de referencia
 
 `highlight` mantem o slide de referencia no tamanho cheio (`scale(1)`) e reduz os demais. A prop e independente de `grab`: o destaque pode existir sozinho, como realce visual da posicao atual.
@@ -190,8 +206,19 @@ O conteudo do slide segue interativo com `grab` ligado: clique, foco, campos de 
 
 - Setas: `outside` reserva espaco ao lado do viewport, `inside` sobrepoe o conteudo, `none` remove.
 - Bullets: usam o componente [`StBullets`](../bullets/README.md) e navegam por pagina (`ceil(total / slidePerPage)`).
+- Setas, bullets, teclado e autoplay andam sempre pela mesma grade de paginas, entao a ida e a volta usam as mesmas posicoes.
 - Teclado: `ArrowLeft` e `ArrowRight` navegam quando o foco esta dentro do carousel.
 - Slots `arrow-prev` e `arrow-next` permitem trocar os icones das setas.
+
+## Total que nao fecha em paginas inteiras
+
+Quando `total` nao e multiplo de `slidePerPage` a ultima pagina e recortada em vez de deixar espaco vazio: com 10 slides e 3 colunas as paginas comecam em `[0, 3, 6, 7]`, ou seja a quarta pagina mostra os slides 8, 9 e 10 e repete um item da terceira. A contagem de bullets continua sendo `ceil(total / slidePerPage)`.
+
+O passo das setas segue essa grade, e nao `+/- slidePerPage` a partir da posicao atual. Sem isso a volta saia da grade — de `7` o recuo daria `4`, `1` e so depois `0`, com o bullet marcando a pagina 0 enquanto o track ainda mostrava o segundo slide e um clique extra para fechar o inicio.
+
+Com `infiniteLoop` vale a mesma grade: recuar da primeira pagina vai direto para a ultima, atravessando os clones da ponta esquerda antes de normalizar a posicao.
+
+O arraste (`grab`) continua livre e proporcional ao gesto, podendo parar entre paginas; a seta seguinte reancora o carousel na pagina vizinha mais proxima na direcao do clique.
 
 ## Eventos e API imperativa
 
@@ -230,8 +257,8 @@ Metodos expostos: `next`, `prev`, `goToPage`, `goToSlide`. Estado exposto: `acti
 
 ## Observacoes
 
-- O deslocamento usa `transform` com as variaveis `--st-carousel-gap`, `--st-carousel-per-page`, `--st-carousel-slide-width` e `--st-carousel-step`, definidas no track. Isso mantem a largura do slide exata mesmo com gap.
+- O deslocamento usa `transform` com as variaveis `--st-carousel-gap`, `--st-carousel-per-page`, `--st-carousel-layout-per-page`, `--st-carousel-slide-width` e `--st-carousel-step`, definidas no track. Isso mantem a largura do slide exata mesmo com gap. `--st-carousel-per-page` e a pagina da navegacao (limitada ao total de slides) e `--st-carousel-layout-per-page` sao as colunas do layout, que definem `--st-carousel-slide-width`.
 - Com `infiniteLoop`, sao renderizados `slidePerPage` clones em cada ponta; ao final da transicao a posicao e normalizada sem animacao, produzindo o giro continuo. A normalizacao escuta apenas o `transitionend` do proprio track: o evento borbulha, e a transicao de escala dos slides ou do conteudo do slide encerraria o giro antes da hora.
 - Com `autoHeight`, o track usa `items-start` para que cada slide tenha a altura do proprio conteudo; sem ele os slides esticam para a mesma altura.
-- Atributos de estado disponiveis para testes, QA e estilizacao pelo consumidor: `data-st-carousel-index`, `data-st-carousel-page`, `data-st-carousel-per-page`, `data-st-carousel-grabbing`, `data-st-carousel-position`, `data-st-slide-index`, `data-st-slide-clone`, `data-st-slide-active` (slide visivel na pagina) e `data-st-slide-selected` (primeiro slide da pagina).
+- Atributos de estado disponiveis para testes, QA e estilizacao pelo consumidor: `data-st-carousel-index`, `data-st-carousel-page`, `data-st-carousel-per-page`, `data-st-carousel-layout-per-page`, `data-st-carousel-grabbing`, `data-st-carousel-position`, `data-st-slide-index`, `data-st-slide-clone`, `data-st-slide-active` (slide visivel na pagina) e `data-st-slide-selected` (primeiro slide da pagina).
 - A logica fica em composables reutilizaveis: `useCarouselPagination`, `useCarouselAutoplay`, `useCarouselDrag`, `useCarouselAutoHeight` e `useResponsiveValue`.
