@@ -1,3 +1,10 @@
+# [0.32.0](https://github.com/StartBet/st-core-ui/compare/v0.31.0...v0.32.0) (2026-09-08)
+
+
+### Features
+
+* **st-carousel:** fix wide and pagination and fix size small st-button ([#46](https://github.com/StartBet/st-core-ui/issues/46)) ([4177af5](https://github.com/StartBet/st-core-ui/commit/4177af54182642efe3dad220fd0052dc382f1be7))
+
 # [0.31.0](https://github.com/StartBet/st-core-ui/compare/v0.30.0...v0.31.0) (2026-09-03)
 
 
