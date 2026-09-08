@@ -181,6 +181,33 @@ export const ReferenciaCentralizada: Story = {
   }
 };
 
+export const MenosItensQueColunas: Story = {
+  name: 'Menos itens que colunas',
+  args: {
+    slidePerPage: 5,
+    gap: 2,
+    arrows: 'outside',
+    bullets: 'outside'
+  },
+  render: (args) => ({
+    components: { StCarousel },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div class="flex flex-col gap-st-4">
+        <StCarousel v-bind="args">
+          ${slidesTemplate(3)}
+        </StCarousel>
+
+        <StCarousel v-bind="args" slide-align="center">
+          ${slidesTemplate(3)}
+        </StCarousel>
+      </div>
+    `
+  })
+};
+
 export const BulletsPositions: Story = {
   render: () => ({
     components: { StCarousel },

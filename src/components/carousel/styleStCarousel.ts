@@ -56,11 +56,16 @@ export const resolveCenterOffset = (
   return Math.floor((Math.max(1, perPage) - 1) / 2);
 };
 
-export const normalizeSlidePerPage = (value: number, total: number): number => {
+export const resolveLayoutPerPage = (value: number): number => {
   const parsed = Math.trunc(Number(value));
-  const safe = Number.isFinite(parsed)
+
+  return Number.isFinite(parsed)
     ? Math.max(ST_CAROUSEL_MIN_SLIDE_PER_PAGE, parsed)
     : ST_CAROUSEL_MIN_SLIDE_PER_PAGE;
+};
+
+export const normalizeSlidePerPage = (value: number, total: number): number => {
+  const safe = resolveLayoutPerPage(value);
 
   if (total <= 0) return safe;
 
@@ -214,6 +219,7 @@ export const buildCarouselClasses = (props: CarouselClassProps) => {
     autoHeight = false,
     peek = false,
     slideAlign = 'left',
+    hasFreeSpace = false,
     arrows = 'outside',
     bullets = 'outside',
     bulletsPosition = 'center',
@@ -245,6 +251,7 @@ export const buildCarouselClasses = (props: CarouselClassProps) => {
     'flex w-full min-w-0 will-change-transform',
 
     autoHeight ? 'items-start' : 'items-stretch',
+    slideAlign === 'center' && hasFreeSpace ? 'justify-center' : undefined,
     'gap-[var(--st-carousel-gap)]',
     'ease-out',
     trackClassName

@@ -45,8 +45,8 @@ describe('StButton', () => {
     });
     const list = classList(wrapper.attributes('class'));
 
-    expect(list).toContain('h-8');
-    expect(list).toContain('text-st-sm');
+    expect(list).toContain('h-7');
+    expect(list).toContain('text-st-xxs');
   });
 
   it('entra em modo icon only quando nao ha slot e existe iconLeft', () => {

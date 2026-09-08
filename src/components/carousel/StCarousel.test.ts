@@ -8,6 +8,7 @@ import {
   peekToPixels,
   resolveActivePage,
   resolveDragStep,
+  resolveLayoutPerPage,
   resolvePagePositions,
   resolveCenterOffset,
   resolveMaxPosition,
@@ -50,6 +51,7 @@ describe('styleStCarousel', () => {
     expect(normalizeSlidePerPage(0, 5)).toBe(1);
     expect(normalizeSlidePerPage(3, 5)).toBe(3);
     expect(normalizeSlidePerPage(9, 5)).toBe(5);
+    expect(normalizeSlidePerPage(3, 0)).toBe(3);
   });
 
   it('resolve as posicoes de pagina sem loop garantindo a ultima pagina', () => {
@@ -118,6 +120,42 @@ describe('StCarousel', () => {
     expect(next.attributes('disabled')).toBeDefined();
   });
 
+  it('volta ao inicio pelas setas com o total nao multiplo do slidePerPage', async () => {
+    const wrapper = mountCarousel({ slidePerPage: 3 }, 10);
+    const [prev, next] = wrapper.findAll('button');
+
+    const state = () => [
+      wrapper.attributes('data-st-carousel-index'),
+      wrapper.attributes('data-st-carousel-page')
+    ];
+
+    const walk = async (button: typeof next, times: number) => {
+      const steps: string[][] = [];
+
+      for (let click = 0; click < times; click += 1) {
+        await button.trigger('click');
+        steps.push(state());
+      }
+
+      return steps;
+    };
+
+    expect(await walk(next, 3)).toEqual([
+      ['3', '1'],
+      ['6', '2'],
+      ['7', '3']
+    ]);
+    expect(next.attributes('disabled')).toBeDefined();
+
+    /** A volta repete as posicoes da ida, sem clique extra no fim. */
+    expect(await walk(prev, 3)).toEqual([
+      ['6', '2'],
+      ['3', '1'],
+      ['0', '0']
+    ]);
+    expect(prev.attributes('disabled')).toBeDefined();
+  });
+
   it('renderiza clones nas pontas quando o loop esta habilitado', () => {
     const wrapper = mountCarousel({ slidePerPage: 2, infiniteLoop: true }, 5);
 
@@ -133,11 +171,12 @@ describe('StCarousel', () => {
 
     await prev.trigger('click');
 
+    /** Recua ate a ultima pagina (`4`) atravessando os clones. */
     expect(
       wrapper
         .find('[data-st-carousel-position]')
         .attributes('data-st-carousel-position')
-    ).toBe('-2');
+    ).toBe('-1');
   });
 
   it('nao habilita navegacao quando todos os slides cabem na pagina', () => {
@@ -437,11 +476,11 @@ describe('StCarousel loop', () => {
 
     await prev.trigger('click');
 
-    expect(track.attributes('data-st-carousel-position')).toBe('-2');
+    expect(track.attributes('data-st-carousel-position')).toBe('-1');
 
     await track.trigger('transitionend', { propertyName: 'transform' });
 
-    expect(track.attributes('data-st-carousel-position')).toBe('3');
+    expect(track.attributes('data-st-carousel-position')).toBe('4');
     expect(track.attributes('style')).toContain('transition-duration: 0ms');
   });
 
@@ -453,7 +492,7 @@ describe('StCarousel loop', () => {
     await prev.trigger('click');
     await track.trigger('transitionend', { propertyName: 'height' });
 
-    expect(track.attributes('data-st-carousel-position')).toBe('-2');
+    expect(track.attributes('data-st-carousel-position')).toBe('-1');
   });
 
   it('normaliza imediatamente quando a transicao esta desligada', async () => {
@@ -469,7 +508,7 @@ describe('StCarousel loop', () => {
       wrapper
         .find('[data-st-carousel-position]')
         .attributes('data-st-carousel-position')
-    ).toBe('3');
+    ).toBe('4');
   });
 });
 
@@ -830,11 +869,11 @@ describe('StCarousel loop com destaque', () => {
 
     await prev.trigger('click');
 
-    expect(positionOf(wrapper)).toBe('-3');
+    expect(positionOf(wrapper)).toBe('-2');
 
     await emitTransitionEnd(wrapper.findAll('[data-st-slide-index]')[0]);
 
-    expect(positionOf(wrapper)).toBe('-3');
+    expect(positionOf(wrapper)).toBe('-2');
   });
 
   it('ignora transicoes de outras propriedades no track', async () => {
@@ -845,7 +884,7 @@ describe('StCarousel loop com destaque', () => {
 
     await emitTransitionEnd(trackOf(wrapper), 'opacity');
 
-    expect(positionOf(wrapper)).toBe('-3');
+    expect(positionOf(wrapper)).toBe('-2');
   });
 
   it('normaliza no fim do deslocamento do proprio track', async () => {
@@ -856,7 +895,7 @@ describe('StCarousel loop com destaque', () => {
 
     await emitTransitionEnd(trackOf(wrapper));
 
-    expect(positionOf(wrapper)).toBe('5');
+    expect(positionOf(wrapper)).toBe('6');
     expect(trackOf(wrapper).attributes('style')).toContain(
       'transition-duration: 0ms'
     );
@@ -882,5 +921,131 @@ describe('StCarousel loop com destaque', () => {
     await emitTransitionEnd(trackOf(wrapper));
 
     expect(positionOf(wrapper)).toBe('0');
+  });
+});
+
+describe('StCarousel colunas do layout', () => {
+  const originalMatchMedia = window.matchMedia;
+
+  const breakpointOf: Record<string, 'sm' | 'md' | 'lg'> = {
+    '640': 'sm',
+    '768': 'md',
+    '1024': 'lg'
+  };
+
+  const mockBreakpoints = (
+    active: Partial<Record<'sm' | 'md' | 'lg', boolean>>
+  ) => {
+    window.matchMedia = vi.fn((query: string) => {
+      const breakpoint = Object.entries(breakpointOf).find(([minWidth]) =>
+        query.includes(minWidth + 'px')
+      )?.[1];
+
+      return {
+        matches: breakpoint ? Boolean(active[breakpoint]) : false,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn()
+      };
+    }) as unknown as typeof window.matchMedia;
+  };
+
+  const trackOf = (wrapper: ReturnType<typeof mountCarousel>) =>
+    wrapper.find('[data-st-carousel-position]');
+
+  const pageCountOf = (wrapper: ReturnType<typeof mountCarousel>) =>
+    (wrapper.vm as unknown as { pageCount: number }).pageCount;
+
+  afterEach(() => {
+    window.matchMedia = originalMatchMedia;
+  });
+
+  it('sanitiza as colunas do layout sem olhar o total', () => {
+    expect(resolveLayoutPerPage(5)).toBe(5);
+    expect(resolveLayoutPerPage(0)).toBe(1);
+    expect(resolveLayoutPerPage(-3)).toBe(1);
+    expect(resolveLayoutPerPage(2.7)).toBe(2);
+    expect(resolveLayoutPerPage(Number.NaN)).toBe(1);
+  });
+
+  it('mantem a largura da coluna com menos slides que colunas', () => {
+    const wrapper = mountCarousel({ slidePerPage: 5 }, 3);
+
+    expect(wrapper.attributes('data-st-carousel-layout-per-page')).toBe('5');
+    expect(trackOf(wrapper).attributes('style')).toContain(
+      '--st-carousel-layout-per-page: 5'
+    );
+    expect(trackOf(wrapper).attributes('style')).toContain(
+      'var(--st-carousel-layout-per-page)'
+    );
+  });
+
+  it.each([
+    { label: 'base', active: {}, expected: '2' },
+    { label: 'sm', active: { sm: true }, expected: '3' },
+    { label: 'md', active: { sm: true, md: true }, expected: '4' },
+    { label: 'lg', active: { sm: true, md: true, lg: true }, expected: '5' }
+  ])(
+    'mantem a largura da coluna no breakpoint $label sem navegacao',
+    async ({ active, expected }) => {
+      mockBreakpoints(active);
+
+      const wrapper = mountCarousel(
+        {
+          slidePerPage: 2,
+          smSlidePerPage: 3,
+          mdSlidePerPage: 4,
+          lgSlidePerPage: 5
+        },
+        1
+      );
+
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.attributes('data-st-carousel-layout-per-page')).toBe(
+        expected
+      );
+      expect(trackOf(wrapper).attributes('style')).toContain(
+        `--st-carousel-layout-per-page: ${expected}`
+      );
+
+      /** A navegacao continua vendo apenas os slides existentes. */
+      expect(wrapper.attributes('data-st-carousel-per-page')).toBe('1');
+      expect(pageCountOf(wrapper)).toBe(1);
+      expect(
+        wrapper
+          .findAll('button')
+          .every((button) => button.attributes('disabled') !== undefined)
+      ).toBe(true);
+      expect(wrapper.find('[data-st-bullet-active]').exists()).toBe(false);
+    }
+  );
+
+  it('deixa o espaco livre no fim da track com referencia a esquerda', () => {
+    const wrapper = mountCarousel({ slidePerPage: 5 }, 3);
+
+    expect(trackOf(wrapper).attributes('class')).not.toContain(
+      'justify-center'
+    );
+  });
+
+  it('centraliza os slides restantes com referencia ao centro', () => {
+    const wrapper = mountCarousel({ slidePerPage: 5, slideAlign: 'center' }, 3);
+
+    expect(trackOf(wrapper).attributes('class')).toContain('justify-center');
+  });
+
+  it('nao centraliza a track quando os slides preenchem as colunas', () => {
+    const wrapper = mountCarousel({ slidePerPage: 3, slideAlign: 'center' }, 9);
+
+    expect(trackOf(wrapper).attributes('class')).not.toContain(
+      'justify-center'
+    );
+  });
+
+  it('nao muda a largura da coluna quando ha slides suficientes', () => {
+    const wrapper = mountCarousel({ slidePerPage: 3 }, 9);
+
+    expect(wrapper.attributes('data-st-carousel-layout-per-page')).toBe('3');
+    expect(wrapper.attributes('data-st-carousel-per-page')).toBe('3');
   });
 });

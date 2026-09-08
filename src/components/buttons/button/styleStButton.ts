@@ -16,10 +16,10 @@ const sizeClasses: Record<
   }
 > = {
   small: {
-    container: 'h-8 text-st-sm',
-    iconOnly: 'w-8 px-0',
-    contentPadding: 'px-st-2',
-    contentGap: 'gap-st-1'
+    container: 'h-7 text-st-xxs',
+    iconOnly: 'w-7 px-0',
+    contentPadding: 'px-2',
+    contentGap: 'gap-1'
   },
   medium: {
     container: 'h-10 text-st-base',
@@ -30,7 +30,7 @@ const sizeClasses: Record<
   large: {
     container: 'h-12 text-st-md',
     iconOnly: 'w-12 px-0',
-    contentPadding: 'px-st-3',
+    contentPadding: 'px-st-2',
     contentGap: 'gap-st-1'
   }
 };
