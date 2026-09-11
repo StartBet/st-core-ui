@@ -1,3 +1,5 @@
+export { default as StAvatar } from './components/avatars/avatar';
+export { default as StAvatarGroup } from './components/avatars/avatar-group';
 export { default as StBadge } from './components/badge';
 export { default as StBullets } from './components/bullets';
 export { default as StButton } from './components/buttons/button';
@@ -43,6 +45,17 @@ export type {
   StBulletsProps,
   StBulletsSize
 } from './components/bullets';
+export type {
+  StAvatarColor,
+  StAvatarContent,
+  StAvatarFit,
+  StAvatarProps,
+  StAvatarSize
+} from './components/avatars/avatar';
+export type {
+  StAvatarGroupItem,
+  StAvatarGroupProps
+} from './components/avatars/avatar-group';
 export type {
   StStepperOrientation,
   StStepperProps,
