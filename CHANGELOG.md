@@ -1,3 +1,10 @@
+# [0.33.0](https://github.com/StartBet/st-core-ui/compare/v0.32.0...v0.33.0) (2026-09-11)
+
+
+### Features
+
+* **components:** add new components ([#47](https://github.com/StartBet/st-core-ui/issues/47)) ([5e107c5](https://github.com/StartBet/st-core-ui/commit/5e107c5234bd64899b9855bbea912a4bef062f63))
+
 # [0.32.0](https://github.com/StartBet/st-core-ui/compare/v0.31.0...v0.32.0) (2026-09-08)
 
 
