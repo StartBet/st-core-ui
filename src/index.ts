@@ -22,11 +22,24 @@ export { default as StRadioGroup } from './components/form/radio-group';
 export { default as StSelect } from './components/form/select';
 export { default as StStepper } from './components/stepper';
 export { default as StSwitch } from './components/form/switch';
+export { default as StToast } from './components/toasts/toast';
+export { default as StToastContainer } from './components/toasts/toast-container';
 export { default as StTooltip } from './components/tooltip';
 export { default as StIcon } from './components/icon';
 export { default as StPaper } from './components/paper';
 export { default as StProgressBar } from './components/progress-bar';
 export { default as StTypography } from './components/typography';
+export {
+  dismissAllToasts,
+  dismissToast,
+  pauseToasts,
+  pushToast,
+  resumeToasts,
+  stToastConfig,
+  ST_TOAST_DEFAULT_DURATION,
+  ST_TOAST_DEFAULT_MAX,
+  useToast
+} from './composables';
 export {
   useCarouselAutoHeight,
   useCarouselAutoplay,
@@ -47,6 +60,16 @@ export type {
   StBulletsProps,
   StBulletsSize
 } from './components/bullets';
+export type {
+  StToastEntry,
+  StToastOptions,
+  StToastProps,
+  StToastStatus
+} from './components/toasts/toast';
+export type {
+  StToastContainerProps,
+  StToastPosition
+} from './components/toasts/toast-container';
 export type {
   StAccordionProps,
   StAccordionSize,
