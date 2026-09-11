@@ -64,7 +64,7 @@ export const getFieldBorderClass = (state: StFieldState) => stateBorder[state];
 
 export const buildFieldIconClasses = (state: StFieldState) =>
   [
-    'absolute inset-st-1 flex w-st-4 items-center justify-center rounded-full',
+    'absolute inset-st-1 flex w-st-4 items-center justify-center rounded-st-1',
     stateIconContainer[state]
   ].join(' ');
 

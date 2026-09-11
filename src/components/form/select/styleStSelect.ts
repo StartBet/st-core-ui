@@ -59,7 +59,7 @@ export const buildSelectClasses = (props: SelectClassProps) => {
     .join(' ');
 
   const trigger = [
-    'relative flex h-st-6 w-full items-center gap-st-2 rounded-full border bg-st-surface-0 px-st-2 text-left text-st-content-default outline-none',
+    'relative flex h-st-6 w-full items-center gap-st-2 rounded-st-1 border bg-st-surface-0 px-st-2 text-left text-st-content-default outline-none',
     hasIcon ? 'pl-st-6' : undefined,
     'transition-[border-color,box-shadow] duration-200 ease-in-out',
     'focus-visible:border-st-content-primary focus-visible:ring-2 focus-visible:ring-st-focus focus-visible:ring-offset-2 focus-visible:ring-offset-st-surface-0',

@@ -125,4 +125,11 @@ export type {
   StBreakpoint,
   UsualSizeValue
 } from './types';
+// Componentes de produto
+export { default as StSuperOddsCard } from './products/super-odds-card';
+export type {
+  StSuperOddsCardProps,
+  StSuperOddsSelection
+} from './products/super-odds-card';
+
 export { stCssTokenImport, stTailwindPlugins, stTailwindTheme } from './tokens';

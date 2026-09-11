@@ -78,7 +78,11 @@ const iconAriaLabel = computed(() => (isIconOnly.value ? 'icon' : undefined));
 const iconSize = computed(() => iconSizes[props.size]);
 
 const classes = computed(() =>
-  buildButtonClasses({ ...props, isIconOnly: isIconOnly.value })
+  buildButtonClasses({
+    ...props,
+    isIconOnly: isIconOnly.value,
+    hasSideAdornment: hasStartAdornment.value || hasEndAdornment.value
+  })
 );
 </script>
 

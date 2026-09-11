@@ -12,4 +12,6 @@ export interface ButtonClassProps {
   disabled?: boolean;
   className?: string;
   isIconOnly?: boolean;
+  /** Ha slot `startAdornment` ou `endAdornment` preenchido. */
+  hasSideAdornment?: boolean;
 }

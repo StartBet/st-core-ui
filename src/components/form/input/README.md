@@ -47,7 +47,7 @@ import { StInput } from '@startbet/st-core-ui';
 
 ## Estados visuais
 
-O campo tem formato pill (`rounded-full`) e um contêiner circular de ícone à esquerda. São quatro estados, resolvidos nesta ordem de prioridade:
+O campo tem canto arredondado (`rounded-st-1`) e um contêiner circular de ícone à esquerda. São quatro estados, resolvidos nesta ordem de prioridade:
 
 | Estado     | Quando ocorre                 | Borda                | Ícone no círculo | Círculo                                           |
 | ---------- | ----------------------------- | -------------------- | ---------------- | ------------------------------------------------- |
