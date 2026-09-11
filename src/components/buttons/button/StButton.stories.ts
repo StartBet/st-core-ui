@@ -4,7 +4,7 @@ import { faChevronRight, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import StButton from './StButton.vue';
 
-const variantOptions = ['solid', 'outline', 'text'] as const;
+const variantOptions = ['solid', 'outline', 'text', 'ghost'] as const;
 const colorOptions = ['primary', 'secondary', 'positive', 'negative'] as const;
 const sizeOptions = ['small', 'medium', 'large'] as const;
 

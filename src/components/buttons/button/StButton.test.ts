@@ -62,6 +62,34 @@ describe('StButton', () => {
     expect(list).toContain('hover:shadow-st-action-hover');
   });
 
+  it('aplica variant ghost com a mesma superficie nas quatro cores', () => {
+    const cores = [
+      ['primary', 'text-st-content-primary'],
+      ['secondary', 'text-st-content-secondary'],
+      ['positive', 'text-st-content-positive'],
+      ['negative', 'text-st-content-negative']
+    ] as const;
+
+    cores.forEach(([color, texto]) => {
+      const wrapper = mount(StButton, { props: { variant: 'ghost', color } });
+      const list = classList(wrapper.attributes('class'));
+
+      expect(list).toContain('bg-[--st-color-shadow-1]');
+      expect(list).toContain(texto);
+      expect(list).toContain('border-transparent');
+    });
+  });
+
+  it('separa ghost de text apenas pelo fundo', () => {
+    const semFundo = mount(StButton, { props: { variant: 'text' } });
+    const comFundo = mount(StButton, { props: { variant: 'ghost' } });
+
+    expect(classList(semFundo.attributes('class'))).toContain('bg-transparent');
+    expect(classList(comFundo.attributes('class'))).not.toContain(
+      'bg-transparent'
+    );
+  });
+
   it('aplica variant outline + color secondary', () => {
     const wrapper = mount(StButton, {
       props: { variant: 'outline', color: 'secondary' }

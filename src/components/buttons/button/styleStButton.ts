@@ -58,10 +58,28 @@ const textClasses: Record<ButtonColor, string> = {
   negative: 'bg-transparent text-st-content-negative border border-transparent'
 };
 
+/**
+ * Mesmo comportamento do `text`, com uma superficie discreta por tras:
+ * `--st-color-shadow-1` e o mesmo tom nas quatro cores, entao so o texto
+ * muda. O token nao tem utilitario de cor no tema, por isso vem como valor
+ * arbitrario, no mesmo padrao ja usado em `utils/compositions`.
+ */
+const ghostClasses: Record<ButtonColor, string> = {
+  primary:
+    'bg-[--st-color-shadow-1] text-st-content-primary border border-transparent',
+  secondary:
+    'bg-[--st-color-shadow-1] text-st-content-secondary border border-transparent',
+  positive:
+    'bg-[--st-color-shadow-1] text-st-content-positive border border-transparent',
+  negative:
+    'bg-[--st-color-shadow-1] text-st-content-negative border border-transparent'
+};
+
 const variantClasses: Record<ButtonVariant, Record<ButtonColor, string>> = {
   solid: solidClasses,
   outline: outlineClasses,
-  text: textClasses
+  text: textClasses,
+  ghost: ghostClasses
 };
 
 export const buildButtonClasses = (

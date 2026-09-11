@@ -15,7 +15,7 @@ import type {
   StButtonGroupValue
 } from './StButtonGroup.interface';
 
-const variantOptions = ['solid', 'outline', 'text'] as const;
+const variantOptions = ['solid', 'outline', 'text', 'ghost'] as const;
 const colorOptions = ['primary', 'secondary', 'positive', 'negative'] as const;
 const sizeOptions = ['small', 'medium', 'large'] as const;
 const orientationOptions = ['horizontal', 'vertical'] as const;

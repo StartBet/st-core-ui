@@ -13,6 +13,7 @@ import { StButton } from '@startbet/st-core-ui';
 - `solid`
 - `outline`
 - `text`
+- `ghost`
 
 ## Cores disponiveis
 
@@ -24,6 +25,11 @@ import { StButton } from '@startbet/st-core-ui';
 ## Tamanhos disponiveis
 
 Todas as variacoes usam canto arredondado (`rounded-st-1`).
+
+O `ghost` se comporta como o `text` — sem borda, so o rotulo colorido —,
+mas com uma superficie discreta em `--st-color-shadow-1` atras. O token e
+semitransparente e o mesmo nas quatro cores, entao a diferenca entre elas
+fica so no texto.
 
 | `size`   | Altura        | Padding lateral  | Fonte          | Icone           |
 | -------- | ------------- | ---------------- | -------------- | --------------- |
