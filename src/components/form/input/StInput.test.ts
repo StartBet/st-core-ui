@@ -93,10 +93,10 @@ describe('StInput', () => {
     const wrapper = mount(StInput, { props: { icon: 'user' } });
     const inputClass = getInput(wrapper).attributes('class') ?? '';
 
-    expect(inputClass).toContain('rounded-full');
+    expect(inputClass).toContain('rounded-st-1');
     expect(inputClass).toContain('border-st-border-2');
     expect(wrapper.find('[aria-hidden="true"]').attributes('class')).toContain(
-      'rounded-full'
+      'rounded-st-1'
     );
     expect(wrapper.find('svg').attributes('data-icon')).toBe('user');
   });

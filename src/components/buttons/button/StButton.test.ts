@@ -12,6 +12,41 @@ describe('StButton', () => {
   const classList = (cls: string | undefined) =>
     (cls ?? '').trim().split(/\s+/).filter(Boolean);
 
+  it('centraliza o conteudo quando nao ha adorno nas pontas', () => {
+    const wrapper = mount(StButton, {
+      props: { fullWidth: true },
+      slots: { default: 'Adicionar ao bilhete' }
+    });
+
+    expect(classList(wrapper.attributes('class'))).toContain('justify-center');
+    expect(classList(wrapper.attributes('class'))).not.toContain(
+      'justify-between'
+    );
+  });
+
+  it('centraliza mesmo com icone, que fica dentro do conteudo', () => {
+    const wrapper = mount(StButton, {
+      props: { fullWidth: true, iconLeft: 'plus' },
+      slots: { default: 'Adicionar' }
+    });
+
+    expect(classList(wrapper.attributes('class'))).toContain('justify-center');
+  });
+
+  it('separa nas pontas quando ha adorno', () => {
+    const comFim = mount(StButton, {
+      slots: { default: 'Salvar', endAdornment: '<span>9</span>' }
+    });
+    const comInicio = mount(StButton, {
+      slots: { default: 'Salvar', startAdornment: '<span>9</span>' }
+    });
+
+    expect(classList(comFim.attributes('class'))).toContain('justify-between');
+    expect(classList(comInicio.attributes('class'))).toContain(
+      'justify-between'
+    );
+  });
+
   it('renderiza slot e aplica defaults', () => {
     const wrapper = mount(StButton, { slots: { default: 'Salvar' } });
 
@@ -19,12 +54,40 @@ describe('StButton', () => {
     expect(wrapper.text()).toContain('Salvar');
 
     const list = classList(wrapper.attributes('class'));
-    expect(list).toContain('rounded-full');
+    expect(list).toContain('rounded-st-1');
     expect(list).toContain('h-10');
     expect(list).toContain('bg-st-primary');
     expect(list).toContain('text-st-content-bright');
     expect(list).toContain('overflow-hidden');
     expect(list).toContain('hover:shadow-st-action-hover');
+  });
+
+  it('aplica variant ghost com a mesma superficie nas quatro cores', () => {
+    const cores = [
+      ['primary', 'text-st-content-primary'],
+      ['secondary', 'text-st-content-secondary'],
+      ['positive', 'text-st-content-positive'],
+      ['negative', 'text-st-content-negative']
+    ] as const;
+
+    cores.forEach(([color, texto]) => {
+      const wrapper = mount(StButton, { props: { variant: 'ghost', color } });
+      const list = classList(wrapper.attributes('class'));
+
+      expect(list).toContain('bg-[--st-color-shadow-1]');
+      expect(list).toContain(texto);
+      expect(list).toContain('border-transparent');
+    });
+  });
+
+  it('separa ghost de text apenas pelo fundo', () => {
+    const semFundo = mount(StButton, { props: { variant: 'text' } });
+    const comFundo = mount(StButton, { props: { variant: 'ghost' } });
+
+    expect(classList(semFundo.attributes('class'))).toContain('bg-transparent');
+    expect(classList(comFundo.attributes('class'))).not.toContain(
+      'bg-transparent'
+    );
   });
 
   it('aplica variant outline + color secondary', () => {

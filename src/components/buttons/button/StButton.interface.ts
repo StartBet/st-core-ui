@@ -1,4 +1,4 @@
-export type ButtonVariant = 'solid' | 'outline' | 'text';
+export type ButtonVariant = 'solid' | 'outline' | 'text' | 'ghost';
 
 export type ButtonSize = 'small' | 'medium' | 'large';
 
@@ -12,4 +12,6 @@ export interface ButtonClassProps {
   disabled?: boolean;
   className?: string;
   isIconOnly?: boolean;
+  /** Ha slot `startAdornment` ou `endAdornment` preenchido. */
+  hasSideAdornment?: boolean;
 }

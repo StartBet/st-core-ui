@@ -31,7 +31,7 @@ describe('StSelect', () => {
     const triggerClass =
       getTriggerButton(defaultSelect).attributes('class') ?? '';
 
-    expect(triggerClass).toContain('rounded-full');
+    expect(triggerClass).toContain('rounded-st-1');
     expect(triggerClass).toContain('border-st-border-2');
     expect(defaultSelect.find('svg').attributes('data-icon')).toBe('user');
 

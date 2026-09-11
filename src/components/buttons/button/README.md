@@ -13,6 +13,7 @@ import { StButton } from '@startbet/st-core-ui';
 - `solid`
 - `outline`
 - `text`
+- `ghost`
 
 ## Cores disponiveis
 
@@ -23,7 +24,12 @@ import { StButton } from '@startbet/st-core-ui';
 
 ## Tamanhos disponiveis
 
-Todas as variacoes usam formato pill (`rounded-full`).
+Todas as variacoes usam canto arredondado (`rounded-st-1`).
+
+O `ghost` se comporta como o `text` — sem borda, so o rotulo colorido —,
+mas com uma superficie discreta em `--st-color-shadow-1` atras. O token e
+semitransparente e o mesmo nas quatro cores, entao a diferenca entre elas
+fica so no texto.
 
 | `size`   | Altura        | Padding lateral  | Fonte          | Icone           |
 | -------- | ------------- | ---------------- | -------------- | --------------- |
@@ -39,6 +45,8 @@ No modo icon-only o botao vira um circulo (largura igual a altura, sem padding h
 - `size`: define a escala visual do botao. Default: `medium`.
 - `color`: define a cor semantica usada pela variante. Default: `primary`.
 - `fullWidth`: expande o botao para `w-full` quando existe conteudo textual.
+  O conteudo fica centralizado; com `startAdornment` ou `endAdornment` os
+  adornos sao empurrados para as pontas e o conteudo fica entre eles.
 - `type`: controla o tipo nativo do elemento. Default: `button`.
 - `value`: repassa o valor para o elemento nativo.
 - `iconLeft`: renderiza um `StIcon` antes do conteudo a partir do nome informado.

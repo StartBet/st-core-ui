@@ -49,7 +49,8 @@ const preview: Preview = {
           'Typography',
           'Colors',
           'Spacing',
-          'Components'
+          'Components',
+          'Products'
         ]
       }
     },
