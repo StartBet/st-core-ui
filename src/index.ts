@@ -1,3 +1,5 @@
+export { default as StAccordion } from './components/accordions/accordion';
+export { default as StAccordionGroup } from './components/accordions/accordion-group';
 export { default as StAvatar } from './components/avatars/avatar';
 export { default as StAvatarGroup } from './components/avatars/avatar-group';
 export { default as StBadge } from './components/badge';
@@ -45,6 +47,17 @@ export type {
   StBulletsProps,
   StBulletsSize
 } from './components/bullets';
+export type {
+  StAccordionProps,
+  StAccordionSize,
+  StAccordionSurface,
+  StAccordionValue
+} from './components/accordions/accordion';
+export type {
+  StAccordionGroupGap,
+  StAccordionGroupModelValue,
+  StAccordionGroupProps
+} from './components/accordions/accordion-group';
 export type {
   StAvatarColor,
   StAvatarContent,
