@@ -22,6 +22,9 @@ export { default as StRadioGroup } from './components/form/radio-group';
 export { default as StSelect } from './components/form/select';
 export { default as StStepper } from './components/stepper';
 export { default as StSwitch } from './components/form/switch';
+export { default as StTab } from './components/tabs/tab';
+export { default as StTabPanel } from './components/tabs/tab-panel';
+export { default as StTabs } from './components/tabs/tabs';
 export { default as StToast } from './components/toasts/toast';
 export { default as StToastContainer } from './components/toasts/toast-container';
 export { default as StTooltip } from './components/tooltip';
@@ -60,6 +63,16 @@ export type {
   StBulletsProps,
   StBulletsSize
 } from './components/bullets';
+export type {
+  StTabPanelProps,
+  StTabProps,
+  StTabsAlign,
+  StTabsColor,
+  StTabsProps,
+  StTabsSize,
+  StTabsVariant,
+  StTabValue
+} from './components/tabs/tabs';
 export type {
   StToastEntry,
   StToastOptions,
