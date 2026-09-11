@@ -16,6 +16,7 @@ export { default as StOption } from './components/form/option';
 export { default as StRadio } from './components/form/radio';
 export { default as StRadioGroup } from './components/form/radio-group';
 export { default as StSelect } from './components/form/select';
+export { default as StStepper } from './components/stepper';
 export { default as StSwitch } from './components/form/switch';
 export { default as StTooltip } from './components/tooltip';
 export { default as StIcon } from './components/icon';
@@ -42,6 +43,14 @@ export type {
   StBulletsProps,
   StBulletsSize
 } from './components/bullets';
+export type {
+  StStepperOrientation,
+  StStepperProps,
+  StStepperSize,
+  StStepperState,
+  StStepperStep,
+  StStepperVariant
+} from './components/stepper';
 export type {
   StCarouselBulletsPosition,
   StCarouselGap,
