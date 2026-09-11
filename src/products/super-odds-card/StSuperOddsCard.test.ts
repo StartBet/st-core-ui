@@ -76,7 +76,7 @@ describe('styleStSuperOddsCard', () => {
 describe('estado no bilhete', () => {
   it('resolve a acao por estado', () => {
     expect(resolveSuperOddsAction(false)).toEqual({
-      variant: 'outline',
+      variant: 'ghost',
       color: 'primary'
     });
     expect(resolveSuperOddsAction(true)).toEqual({
@@ -141,14 +141,14 @@ describe('estado no bilhete', () => {
     ).toBe(true);
   });
 
-  it('troca o botao entre outline e solido', () => {
+  it('troca o botao entre ghost e solido', () => {
     const fora = mountCard();
     const dentro = mountCard({ active: true });
 
-    expect(acao(fora).classes()).toContain('border-st-primary');
-    expect(acao(fora).classes()).toContain('bg-transparent');
+    expect(acao(fora).classes()).toContain('text-st-content-primary');
+    expect(acao(fora).classes()).toContain('bg-[--st-color-shadow-1]');
     expect(acao(dentro).classes()).toContain('bg-st-secondary');
-    expect(acao(dentro).classes()).not.toContain('bg-transparent');
+    expect(acao(dentro).classes()).not.toContain('bg-[--st-color-shadow-1]');
   });
 });
 

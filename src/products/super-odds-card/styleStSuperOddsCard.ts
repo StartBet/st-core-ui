@@ -20,7 +20,7 @@ export const ST_SUPER_ODDS_ACTIVE_LABEL = 'No bilhete';
 export const resolveSuperOddsAction = (active = false) =>
   active
     ? { variant: 'solid' as const, color: 'secondary' as const }
-    : { variant: 'outline' as const, color: 'primary' as const };
+    : { variant: 'ghost' as const, color: 'primary' as const };
 
 /**
  * Mesmo formato usado na plataforma: `10/09 • 22:00`. Datas vazias, invalidas
