@@ -8,6 +8,7 @@ import StButton from '../buttons/button/StButton.vue';
 import StPaper from '../paper/StPaper.vue';
 import type { StModalProps } from './StModal.interface';
 import { buildStModalClasses } from './styleStModal';
+import { useTheme } from '../../composables/useTheme';
 
 library.add(faXmark);
 
@@ -32,6 +33,12 @@ const emit = defineEmits<{
 
 const attrs = useAttrs();
 const classes = computed(() => buildStModalClasses());
+
+/**
+ * O `Teleport` tira o modal do subtree do provider, entao o tema precisa ser
+ * reaplicado na raiz teleportada - caso contrario ele volta ao tema do `<html>`.
+ */
+const { resolvedTheme } = useTheme();
 const dialogRef = ref<ComponentPublicInstance | HTMLElement | null>(null);
 const previousActiveElement = ref<HTMLElement | null>(null);
 const originalBodyOverflow = ref<string | null>(null);
@@ -200,6 +207,7 @@ onBeforeUnmount(() => {
       v-if="props.open"
       data-test="modal-overlay"
       :class="classes.overlay"
+      :data-theme="resolvedTheme"
       @click.self="handleOverlayClick"
     >
       <StPaper

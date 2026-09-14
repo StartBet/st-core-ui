@@ -21,7 +21,7 @@ Por isso trocar de tema nao re-renderiza a arvore: o que muda e um atributo.
 
 - `theme`: tema aplicado ao conteudo. `light`, `dark`, `system` (segue `prefers-color-scheme`) ou `inherit`. Default: `inherit`.
 - `as`: tag HTML renderizada. Default: `div`.
-- `root`: espelha o tema resolvido no `<html>`. Use no provider de topo para que `body`, scrollbars da janela e conteudo em `Teleport` acompanhem o tema. Default: `false`.
+- `root`: espelha o tema resolvido no `<html>`. Use no provider de topo, para que `body` e as scrollbars da janela acompanhem o tema. Default: `false`.
 - `inline`: aplica `display: contents`, removendo o elemento do layout. Use dentro de `flex`/`grid`, onde um wrapper extra quebraria o arranjo. Default: `false`.
 - `className`: classes extras no elemento raiz.
 
@@ -102,6 +102,30 @@ const { theme, resolvedTheme, systemTheme, setTheme, toggle } = useTheme();
 - `systemTheme`: preferencia do sistema, ou `null` antes da montagem.
 
 Sem provider na arvore, `resolvedTheme` reflete o `data-theme` do `<html>` e `setTheme`/`toggle` nao fazem nada: nao ha escopo para alterar.
+
+## Conteudo teleportado
+
+`StModal` e `StToastContainer` usam `Teleport` para `body`, o que os tira do subtree do provider — e, com isso, do escopo do `data-theme`. Os dois resolvem isso sozinhos: leem o contexto por `useTheme` e reaplicam o tema na propria raiz teleportada.
+
+Vale o provider mais proximo de onde o componente esta **declarado no template**. Um modal declarado dentro de uma ilha clara abre claro, mesmo num app escuro.
+
+Qualquer componente que venha a usar `Teleport` precisa fazer o mesmo:
+
+```vue
+<script setup lang="ts">
+import { useTheme } from '@startbet/st-core-ui';
+
+const { resolvedTheme } = useTheme();
+</script>
+
+<template>
+  <Teleport to="body">
+    <div :data-theme="resolvedTheme">
+      <slot />
+    </div>
+  </Teleport>
+</template>
+```
 
 ## Persistencia e SSR
 

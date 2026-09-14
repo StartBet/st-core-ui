@@ -2,6 +2,12 @@ import { mount } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
 
 import StModal from './StModal.vue';
+import StThemeProvider from '../theme-provider/StThemeProvider.vue';
+
+const flushObserver = () =>
+  new Promise((resolve) => {
+    setTimeout(resolve, 0);
+  });
 
 const getCloseButton = () =>
   document.body.querySelector(
@@ -172,5 +178,42 @@ describe('StModal', () => {
     expect(document.activeElement).toBe(closeButton);
 
     wrapper.unmount();
+  });
+
+  it('reaplica na raiz teleportada o tema do provider mais proximo', async () => {
+    const wrapper = mount(
+      {
+        components: { StModal, StThemeProvider },
+        template: `
+          <StThemeProvider theme="dark">
+            <StModal :open="true" />
+          </StThemeProvider>
+        `
+      },
+      { attachTo: document.body }
+    );
+
+    await wrapper.vm.$nextTick();
+
+    expect(getElementByTestId('modal-overlay')?.dataset.theme).toBe('dark');
+
+    wrapper.unmount();
+  });
+
+  it('sem provider, segue o tema do documento', async () => {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    await flushObserver();
+
+    const wrapper = mount(StModal, {
+      props: { open: true },
+      attachTo: document.body
+    });
+
+    await wrapper.vm.$nextTick();
+
+    expect(getElementByTestId('modal-overlay')?.dataset.theme).toBe('dark');
+
+    wrapper.unmount();
+    document.documentElement.removeAttribute('data-theme');
   });
 });

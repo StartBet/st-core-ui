@@ -7,6 +7,7 @@ import {
   ST_TOAST_DEFAULT_POSITION
 } from './styleStToastContainer';
 import StToast from '../toast/StToast.vue';
+import { useTheme } from '../../../composables/useTheme';
 import { useToast } from '../../../composables/useToast';
 
 defineOptions({ name: 'StToastContainer', inheritAttrs: false });
@@ -21,6 +22,12 @@ const props = withDefaults(defineProps<StToastContainerProps>(), {
 });
 
 const { toasts, dismiss, pause, resume } = useToast();
+
+/**
+ * A pilha e teleportada para fora do provider, entao o tema e reaplicado aqui.
+ * Vale o tema de onde o container esta declarado, nao o de onde o toast nasceu.
+ */
+const { resolvedTheme } = useTheme();
 
 const attrs = useAttrs();
 
@@ -61,6 +68,7 @@ const onPointerLeave = () => {
       :style="containerStyle"
       role="region"
       :aria-label="props.ariaLabel"
+      :data-theme="resolvedTheme"
       data-st-toast-container
       v-bind="containerAttrs"
       @mouseenter="onPointerEnter"

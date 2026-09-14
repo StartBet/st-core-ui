@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
+import { ref } from 'vue';
+
 import StThemeProvider from './StThemeProvider.vue';
 import StButton from '../buttons/button/StButton.vue';
+import StModal from '../modal/StModal.vue';
 import StPaper from '../paper/StPaper.vue';
 import StTypography from '../typography/StTypography.vue';
 import { useTheme } from '../../composables/useTheme';
@@ -129,6 +132,54 @@ const ThemeSwitch = {
       </StButton>
     </div>
   `
+};
+
+export const ConteudoTeleportado: Story = {
+  name: 'Conteudo teleportado',
+  render: () => ({
+    components: { StThemeProvider, StButton, StModal, StPaper, StTypography },
+    setup() {
+      const open = ref(false);
+
+      return { open };
+    },
+    template: `
+      <StThemeProvider theme="dark">
+        <StPaper variant="surface-1" padding="3">
+          <StTypography as="h3" variant="heading-4">App escuro</StTypography>
+
+          <StThemeProvider theme="light">
+            <StPaper variant="surface-1" padding="3" margin="1 0">
+              <StTypography variant="body-medium">
+                O modal e declarado nesta ilha clara e teleportado para o body.
+              </StTypography>
+              <StButton
+                variant="solid"
+                color="primary"
+                size="small"
+                @click="open = true"
+              >
+                Abrir modal
+              </StButton>
+
+              <StModal
+                :open="open"
+                show-close-button
+                close-on-outside-click
+                width="64"
+                padding="4"
+                @update:open="open = $event"
+              >
+                <StTypography variant="body-medium">
+                  Teleportado para o body, mas ainda no tema da ilha.
+                </StTypography>
+              </StModal>
+            </StPaper>
+          </StThemeProvider>
+        </StPaper>
+      </StThemeProvider>
+    `
+  })
 };
 
 export const AlternandoComUseTheme: Story = {

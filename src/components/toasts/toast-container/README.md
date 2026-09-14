@@ -132,3 +132,17 @@ api.interceptors.response.use(undefined, (error) => {
   return Promise.reject(error);
 });
 ```
+
+## Tema
+
+A pilha e teleportada para fora do subtree onde foi declarada, entao o tema e reaplicado no container: vale o [`StThemeProvider`](../../theme-provider/README.md) mais proximo de onde o `StToastContainer` esta no template — nao o tema de onde `pushToast` foi chamado.
+
+Como o container costuma ficar uma unica vez na raiz da aplicacao, na pratica os toasts seguem o tema do app. Para fixar um tema so para a pilha, declare o provider em volta dela:
+
+```vue
+<StThemeProvider theme="dark">
+  <StToastContainer position="top-right" />
+</StThemeProvider>
+```
+
+Sem nenhum provider na arvore, a pilha acompanha o `data-theme` do documento.
