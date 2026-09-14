@@ -1,5 +1,8 @@
 import type { Preview } from '@storybook/vue3';
+import { ref } from 'vue';
+
 import { createStorybookTheme } from './storybook-theme';
+import { StThemeProvider } from '../src/components/theme-provider';
 
 import './preview.css';
 import '../src/css/style.css';
@@ -11,18 +14,12 @@ const storybookThemeItems = [
 
 type StorybookThemeMode = (typeof storybookThemeItems)[number]['value'];
 
-const applyPreviewTheme = (theme: StorybookThemeMode) => {
-  if (typeof document === 'undefined') {
-    return;
-  }
-
-  if (theme === 'dark') {
-    document.documentElement.dataset.theme = 'dark';
-    return;
-  }
-
-  delete document.documentElement.dataset.theme;
-};
+/**
+ * O `setup` do decorator roda uma vez por story, entao o tema escolhido na
+ * toolbar precisa vir de um estado reativo - um valor capturado na chamada
+ * ficaria congelado no primeiro render.
+ */
+const previewTheme = ref<StorybookThemeMode>('dark');
 
 const preview: Preview = {
   globalTypes: {
@@ -69,29 +66,31 @@ const preview: Preview = {
     layout: 'centered'
   },
   decorators: [
+    /**
+     * O proprio `StThemeProvider` da biblioteca define o tema do preview:
+     * escopa os tokens para a story e, com `root`, espelha no `<html>` do iframe
+     * para que `body` e scrollbars acompanhem.
+     */
     (story, context) => {
-      const selectedTheme: StorybookThemeMode =
-        context.globals.theme === 'light' ? 'light' : 'dark';
-
-      applyPreviewTheme(selectedTheme);
+      previewTheme.value = context.globals.theme === 'light' ? 'light' : 'dark';
 
       return {
-        components: { story },
+        components: { story, StThemeProvider },
         setup() {
           return {
             previewBackground: 'var(--st-color-surface-3)',
-            selectedTheme
+            previewTheme
           };
         },
         template: `
-          <div
-            :key="selectedTheme"
-            :data-theme="selectedTheme"
+          <StThemeProvider
+            :theme="previewTheme"
+            root
             style="width: 100%; height: 100%; padding: 1rem;"
             :style="{ backgroundColor: previewBackground }"
           >
             <story />
-          </div>
+          </StThemeProvider>
         `
       };
     }

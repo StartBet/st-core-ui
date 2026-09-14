@@ -8,6 +8,7 @@ O pacote foi pensado para ser consumido em projetos Vue/Nuxt e tambem expõe tok
 
 - Componentes Vue 3 empacotados para consumo externo.
 - Tokens CSS publicados para reutilizacao em outros projetos.
+- Tema claro/escuro hierarquico com `StThemeProvider` e `useTheme`.
 - Fontes locais `Base Neue` e `Montserrat`.
 - Tema Tailwind exportavel com `stTailwindTheme` e `stTailwindPlugins`.
 - Storybook para documentacao e desenvolvimento visual.
