@@ -66,6 +66,7 @@ const slots = useSlots();
 
 const classes = computed(() =>
   buildSuperOddsCardClasses({
+    active: props.active,
     disabled: props.disabled,
     className: props.className
   })

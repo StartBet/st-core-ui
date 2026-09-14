@@ -64,7 +64,7 @@ export const resolveSuperOddsSteps = (
     }));
 
 export const buildSuperOddsCardClasses = (props: SuperOddsCardClassProps) => {
-  const { disabled = false, className } = props;
+  const { active = false, disabled = false, className } = props;
 
   /**
    * Sem `h-full` de proposito: em flexbox o `align-items: stretch` so
@@ -82,8 +82,15 @@ export const buildSuperOddsCardClasses = (props: SuperOddsCardClassProps) => {
     .filter(Boolean)
     .join(' ');
 
-  const header =
-    'flex w-full items-center justify-between gap-st-2 bg-st-surface-primary pr-st-2';
+  /**
+   * O cabecalho acompanha o estado do bilhete junto com o indicador e o botao:
+   * a faixa colorida e o que se enxerga de longe numa fileira de cards, entao
+   * o card dentro do bilhete nao depende so do ponto de 10px para se destacar.
+   */
+  const header = [
+    'flex w-full items-center justify-between gap-st-2 pr-st-2',
+    active ? 'bg-st-surface-secondary' : 'bg-st-surface-primary'
+  ].join(' ');
 
   /**
    * O corte diagonal do selo e feito por `clip-path` com recuo fixo, e nao por

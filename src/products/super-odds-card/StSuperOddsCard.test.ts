@@ -141,6 +141,15 @@ describe('estado no bilhete', () => {
     ).toBe(true);
   });
 
+  it('troca a faixa do cabecalho', () => {
+    const fora = mountCard().find('header');
+    const dentro = mountCard({ active: true }).find('header');
+
+    expect(fora.classes()).toContain('bg-st-surface-primary');
+    expect(dentro.classes()).toContain('bg-st-surface-secondary');
+    expect(dentro.classes()).not.toContain('bg-st-surface-primary');
+  });
+
   it('troca o botao entre ghost e solido', () => {
     const fora = mountCard();
     const dentro = mountCard({ active: true });

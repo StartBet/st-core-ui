@@ -120,10 +120,14 @@ booleano:
 />
 ```
 
-| Elemento     | Fora do bilhete      | No bilhete                    |
-| ------------ | -------------------- | ----------------------------- |
-| Botao da odd | `primary` contornado | `secondary` solido            |
-| Indicador    | nao aparece          | `StBadge` positivo em `pulse` |
+| Elemento     | Fora do bilhete         | No bilhete                    |
+| ------------ | ----------------------- | ----------------------------- |
+| Cabecalho    | `bg-st-surface-primary` | `bg-st-surface-secondary`     |
+| Botao da odd | `primary` contornado    | `secondary` solido            |
+| Indicador    | nao aparece             | `StBadge` positivo em `pulse` |
+
+A faixa do cabecalho entra junto porque e o que se enxerga de longe numa
+fileira de cards: sem ela, o estado ficaria dependendo so do ponto de 10px.
 
 O indicador e um `StBadge` sem `value` — ou seja, um ponto de 10px com
 `animate-ping` — colocado antes da data. Como nao tem texto, ele carrega

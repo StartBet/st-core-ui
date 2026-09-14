@@ -6,6 +6,7 @@ export interface StSuperOddsSelection {
 }
 
 export interface SuperOddsCardClassProps {
+  active?: boolean;
   disabled?: boolean;
   className?: string;
 }
