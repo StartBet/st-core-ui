@@ -45,6 +45,9 @@ Os nomes das props espelham o tipo `BetCard` que a plataforma ja monta em
 | `awayLogo`        | `string \| null`         | `null`       | Escudo do time visitante.                            |
 | `versusLabel`     | `string`                 | `X`          | Separador entre os times.                            |
 | `selections`      | `StSuperOddsSelection[]` | `[]`         | Selecoes da aposta.                                  |
+| `href`            | `string`                 | `''`         | Destino do evento; sem ele nao existe link.          |
+| `linkAs`          | `string \| Component`    | `a`          | Componente do link; o destino vai sempre em `href`.  |
+| `linkAriaLabel`   | `string`                 | `''`         | Nome acessivel do link; por padrao o rotulo do card. |
 | `price`           | `number \| string`       | `undefined`  | Odd original, riscada quando ha `boostedPrice`.      |
 | `boostedPrice`    | `number \| string`       | `undefined`  | Odd turbinada, em destaque.                          |
 | `active`          | `boolean`                | `false`      | Aposta ja adicionada ao bilhete.                     |
@@ -99,14 +102,53 @@ O componente ja aplica os dois formatadores, entao a plataforma pode passar
 
 ## Composicao
 
-| Area     | Componente base | Configuracao                                                                           |
-| -------- | --------------- | -------------------------------------------------------------------------------------- |
-| Escudos  | `StAvatar`      | `size="small"` com `fit="contain"`, porque escudos sao vazados.                        |
-| Selecoes | `StStepper`     | `orientation="vertical"`, `size="small"`, `variant="positive"` e `interactive` falso.  |
-| Acao     | `StButton`      | `full-width`, alternando entre `outline`/`primary` e `solid`/`secondary` por `active`. |
+| Area     | Componente base | Configuracao                                                                                              |
+| -------- | --------------- | --------------------------------------------------------------------------------------------------------- |
+| Escudos  | `StAvatar`      | `size="small"` com `fit="contain"`, porque escudos sao vazados.                                           |
+| Selecoes | `StStepper`     | `orientation="vertical"`, `size="small"`, `variant="positive"`, `interactive` falso e `clampDescription`. |
+| Acao     | `StButton`      | `full-width`, alternando entre `outline`/`primary` e `solid`/`secondary` por `active`.                    |
 
 Sem `homeLogo`/`awayLogo` o `StAvatar` cai nas iniciais do time, com a cor fixa
 por letra — nao fica buraco no lugar do escudo.
+
+O `clampDescription` corta o mercado em uma linha: numa fileira de cards, um
+mercado longo como `Total de Chutes a Gol do Jogador - Lucas Jean (BAH)`
+quebraria em duas linhas e esticaria o card inteiro. A selecao — o dado que
+decide a aposta — continua sem corte.
+
+## Link do evento
+
+Com `href`, a area das selecoes passa a levar para o jogo. Sem ele, a mesma area
+continua sendo so texto — nada de ancora vazia, que o leitor de tela anunciaria
+como link sem destino.
+
+```vue
+<StSuperOddsCard v-bind="card" :href="eventLink(card)" />
+```
+
+A area clicavel e a das selecoes, e nao uma camada absoluta por cima do card:
+assim ela cresce junto com o conteudo, nao cobre o botao da odd e nao depende de
+recuos fixos para deixar o resto do card livre. O botao continua sendo a unica
+forma de mandar a aposta para o bilhete.
+
+O destino e entregue sempre como `href`. Para navegar sem recarregar a pagina,
+troque o componente do link:
+
+```vue
+<script setup lang="ts">
+import { NuxtLink } from '#components';
+</script>
+
+<template>
+  <StSuperOddsCard v-bind="card" :href="eventLink(card)" :link-as="NuxtLink" />
+</template>
+```
+
+`NuxtLink` aceita `href` como alias de `to`. Componentes que so entendem `to` —
+`RouterLink`, por exemplo — precisam de um wrapper que faca a traducao.
+
+O nome acessivel do link e o rotulo do card (`home x away` ou `eventName`), a
+menos que `linkAriaLabel` diga outra coisa.
 
 ## Estado no bilhete
 
@@ -120,10 +162,14 @@ booleano:
 />
 ```
 
-| Elemento     | Fora do bilhete      | No bilhete                    |
-| ------------ | -------------------- | ----------------------------- |
-| Botao da odd | `primary` contornado | `secondary` solido            |
-| Indicador    | nao aparece          | `StBadge` positivo em `pulse` |
+| Elemento     | Fora do bilhete         | No bilhete                    |
+| ------------ | ----------------------- | ----------------------------- |
+| Cabecalho    | `bg-st-surface-primary` | `bg-st-surface-secondary`     |
+| Botao da odd | `primary` contornado    | `secondary` solido            |
+| Indicador    | nao aparece             | `StBadge` positivo em `pulse` |
+
+A faixa do cabecalho entra junto porque e o que se enxerga de longe numa
+fileira de cards: sem ela, o estado ficaria dependendo so do ponto de 10px.
 
 O indicador e um `StBadge` sem `value` — ou seja, um ponto de 10px com
 `animate-ping` — colocado antes da data. Como nao tem texto, ele carrega

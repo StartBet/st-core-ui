@@ -234,6 +234,11 @@
     --st-purple-color-800: #321158;
     --st-purple-color-900: #240c40;
     --st-purple-color-950: #170729;
+  }
+
+  :root,
+  [data-theme='light'] {
+    color-scheme: light;
 
     --st-color-brand: var(--st-brand-primary-700);
     --st-color-primary: var(--st-purple-color-500);
@@ -298,7 +303,9 @@
     --st-color-light-3: var(--st-light-scale-950);
   }
 
-  :root[data-theme='dark'] {
+  [data-theme='dark'] {
+    color-scheme: dark;
+
     --st-color-brand: var(--st-brand-primary-700);
     --st-color-primary: var(--st-purple-color-500);
     --st-color-secondary: var(--st-brand-secondary-400);

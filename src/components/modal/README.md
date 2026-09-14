@@ -81,3 +81,17 @@ const open = ref(false);
 - O componente usa `Teleport` para `body`.
 - O conteúdo central é renderizado com `StPaper`, então o modal reaproveita toda a API visual desse componente.
 - O fechamento por `Escape` só fica ativo enquanto o modal está aberto.
+
+## Tema
+
+O `Teleport` tira o modal do subtree onde ele foi declarado, então o tema é reaplicado na raiz teleportada: vale o [`StThemeProvider`](../theme-provider/README.md) mais próximo de onde o `StModal` está no template, e não o tema do `<html>`.
+
+Um modal declarado dentro de uma ilha clara abre claro, mesmo num app escuro. Para que ele siga outro tema, basta declarar o provider desejado em volta:
+
+```vue
+<StThemeProvider theme="dark">
+  <StModal :open="open">Sempre escuro</StModal>
+</StThemeProvider>
+```
+
+Sem nenhum provider na árvore, o modal acompanha o `data-theme` do documento.

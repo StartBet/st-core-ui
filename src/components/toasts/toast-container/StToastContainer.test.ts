@@ -6,6 +6,7 @@ import {
   buildToastContainerClasses,
   isBottomPosition
 } from './styleStToastContainer';
+import StThemeProvider from '../../theme-provider/StThemeProvider.vue';
 import {
   dismissAllToasts,
   stToastConfig,
@@ -185,5 +186,20 @@ describe('StToastContainer', () => {
 
     expect(container.attributes('role')).toBe('region');
     expect(container.attributes('aria-label')).toBe('Feedback da aposta');
+  });
+
+  it('reaplica o tema do provider onde o container esta declarado', () => {
+    const wrapper = mount({
+      components: { StThemeProvider, StToastContainer },
+      template: `
+        <StThemeProvider theme="dark">
+          <StToastContainer :to="false" />
+        </StThemeProvider>
+      `
+    });
+
+    expect(
+      wrapper.find('[data-st-toast-container]').attributes('data-theme')
+    ).toBe('dark');
   });
 });

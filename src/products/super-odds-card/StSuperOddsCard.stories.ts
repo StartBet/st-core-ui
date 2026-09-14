@@ -49,6 +49,8 @@ const meta = {
     away: { control: 'text' },
     price: { control: 'number' },
     boostedPrice: { control: 'number' },
+    href: { control: 'text' },
+    linkAriaLabel: { control: 'text' },
     className: { control: 'text' }
   },
   render: (args) => ({
@@ -169,6 +171,29 @@ export const Estados: Story = {
           away="Sociedade Esportiva Palmeiras"
           class="w-[347px] max-w-full"
         />
+      </div>
+    `
+  })
+};
+
+export const ComLinkDoEvento: Story = {
+  name: 'Com link do evento',
+  render: () => ({
+    components: { StSuperOddsCard },
+    setup() {
+      return { base };
+    },
+    template: `
+      <div class="flex flex-col gap-st-2 p-st-3">
+        <span class="font-st-body text-st-xs text-st-content-ghost">
+          A area das selecoes leva ao jogo; o botao da odd segue com a acao dele.
+        </span>
+        <div class="w-[347px] max-w-full">
+          <StSuperOddsCard
+            v-bind="base"
+            href="/sports/futebol/brasil/independiente-x-flamengo/e-123"
+          />
+        </div>
       </div>
     `
   })

@@ -44,6 +44,7 @@ export interface StepperStepClassProps {
   variant?: StStepperVariant;
   interactive?: boolean;
   disabled?: boolean;
+  clampDescription?: boolean;
   stepClassName?: string;
 }
 
@@ -62,6 +63,12 @@ export interface StStepperProps extends StepperClassProps {
   interactive?: boolean;
   /** Icone exibido nos passos concluidos; `''` mantem a posicao numerica. */
   completedIcon?: string;
+  /**
+   * Corta a descricao com reticencias em vez de deixa-la crescer: uma linha
+   * na vertical, onde ela e texto corrido, e duas no tooltip da horizontal.
+   * Use quando a altura do stepper precisa ser previsivel.
+   */
+  clampDescription?: boolean;
   /** Posicao do tooltip de descricao na orientacao horizontal. */
   tooltipPlacement?: StTooltipPlacement;
   /** Rotulo do grupo de passos. */

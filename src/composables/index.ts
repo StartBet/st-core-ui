@@ -4,6 +4,7 @@ export { useCarouselDrag } from './useCarouselDrag';
 export { useCarouselPagination } from './useCarouselPagination';
 export { useCheckableControl } from './useCheckableControl';
 export { useListContainer } from './useListContainer';
+export { useTheme } from './useTheme';
 export {
   dismissAllToasts,
   dismissToast,

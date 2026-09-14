@@ -37,6 +37,18 @@ const steps = [
   }
 ];
 
+/** Descricoes longas o bastante para quebrar em mais de uma linha. */
+const longSteps = [
+  {
+    title: 'Mais de 0.5',
+    description: 'Total de Chutes a Gol do Jogador - Lucas Jean (BAH)'
+  },
+  {
+    title: 'Qualq. Altura',
+    description: 'Jogador para Marcar Gol - Alejo Veliz (BAH) no Brasileirao'
+  }
+];
+
 const meta = {
   title: 'Components/StStepper',
   component: StStepper,
@@ -49,6 +61,7 @@ const meta = {
     size: 'medium',
     interactive: true,
     completedIcon: 'check',
+    clampDescription: false,
     tooltipPlacement: 'top',
     ariaLabel: 'Progresso das etapas',
     className: '',
@@ -68,6 +81,9 @@ const meta = {
       options: ['small', 'medium']
     },
     interactive: {
+      control: 'boolean'
+    },
+    clampDescription: {
       control: 'boolean'
     },
     modelValue: {
@@ -166,6 +182,53 @@ export const Vertical: Story = {
     template: `
       <div class="flex w-full max-w-st-64 p-st-3">
         <StStepper :steps="steps" orientation="vertical" :model-value="2" />
+      </div>
+    `
+  })
+};
+
+export const DescricaoCortada: Story = {
+  name: 'Descricao cortada',
+  render: () => ({
+    components: { StStepper },
+    setup() {
+      return { longSteps };
+    },
+    template: `
+      <div class="flex w-full max-w-st-96 flex-col gap-st-6 p-st-3">
+        <div class="flex w-st-32 max-w-full flex-col gap-st-1">
+          <span class="font-st-body text-st-xs text-st-content-ghost">
+            Vertical sem clampDescription: a altura acompanha o texto
+          </span>
+          <StStepper
+            :steps="longSteps"
+            orientation="vertical"
+            size="small"
+            variant="secondary"
+            :interactive="false"
+          />
+        </div>
+
+        <div class="flex w-st-32 max-w-full flex-col gap-st-1">
+          <span class="font-st-body text-st-xs text-st-content-ghost">
+            Vertical com clampDescription: uma linha por descricao
+          </span>
+          <StStepper
+            :steps="longSteps"
+            orientation="vertical"
+            size="small"
+            variant="secondary"
+            :interactive="false"
+            clamp-description
+          />
+        </div>
+
+        <div class="flex flex-col gap-st-1">
+          <span class="font-st-body text-st-xs text-st-content-ghost">
+            Horizontal: o tooltip para em duas linhas
+          </span>
+          <StStepper :steps="longSteps" clamp-description />
+        </div>
       </div>
     `
   })

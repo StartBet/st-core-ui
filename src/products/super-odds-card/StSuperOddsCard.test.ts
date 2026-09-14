@@ -141,6 +141,15 @@ describe('estado no bilhete', () => {
     ).toBe(true);
   });
 
+  it('troca a faixa do cabecalho', () => {
+    const fora = mountCard().find('header');
+    const dentro = mountCard({ active: true }).find('header');
+
+    expect(fora.classes()).toContain('bg-st-surface-primary');
+    expect(dentro.classes()).toContain('bg-st-surface-secondary');
+    expect(dentro.classes()).not.toContain('bg-st-surface-primary');
+  });
+
   it('troca o botao entre ghost e solido', () => {
     const fora = mountCard();
     const dentro = mountCard({ active: true });
@@ -258,6 +267,50 @@ describe('StSuperOddsCard', () => {
     expect(wrapper.text()).toContain('Mais de 0.5');
     expect(wrapper.text()).toContain('Chutes ao gol - Pedro (FLA)');
     expect(wrapper.text()).toContain('Total de escanteios');
+  });
+
+  it('corta o mercado em uma linha, para a altura nao depender do texto', () => {
+    const wrapper = mountCard({
+      selections: [
+        {
+          selection: 'Mais de 0.5',
+          market: 'Total de Chutes a Gol do Jogador - Lucas Jean (BAH)'
+        }
+      ]
+    });
+
+    expect(wrapper.find('[data-st-step-description]').classes()).toContain(
+      'line-clamp-1'
+    );
+  });
+
+  it('sem href mantem as selecoes como texto, sem ancora', () => {
+    const wrapper = mountCard();
+
+    expect(wrapper.find('[data-st-super-odds-link]').exists()).toBe(false);
+    expect(wrapper.find('a').exists()).toBe(false);
+  });
+
+  it('com href transforma as selecoes no acesso ao jogo', () => {
+    const wrapper = mountCard({ href: '/sports/futebol/e-123' });
+    const link = wrapper.find('[data-st-super-odds-link]');
+
+    expect(link.element.tagName).toBe('A');
+    expect(link.attributes('href')).toBe('/sports/futebol/e-123');
+    expect(link.attributes('aria-label')).toBe('Independiente x Flamengo');
+    expect(link.find('[data-st-super-odds-selections]').exists()).toBe(true);
+  });
+
+  it('aceita rotulo proprio e outro componente de link', () => {
+    const wrapper = mountCard({
+      href: '/sports/futebol/e-123',
+      linkAs: 'button',
+      linkAriaLabel: 'Ver o jogo'
+    });
+    const link = wrapper.find('[data-st-super-odds-link]');
+
+    expect(link.element.tagName).toBe('BUTTON');
+    expect(link.attributes('aria-label')).toBe('Ver o jogo');
   });
 
   it('nao renderiza o stepper sem selecoes', () => {

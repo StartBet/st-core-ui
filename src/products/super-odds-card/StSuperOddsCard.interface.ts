@@ -5,8 +5,12 @@ export interface StSuperOddsSelection {
   market?: string;
 }
 
+import type { Component } from 'vue';
+
 export interface SuperOddsCardClassProps {
+  active?: boolean;
   disabled?: boolean;
+  hasLink?: boolean;
   className?: string;
 }
 
@@ -45,6 +49,19 @@ export interface StSuperOddsCardProps extends SuperOddsCardClassProps {
 
   /** Selecoes da aposta, renderizadas pelo `StStepper`. */
   selections?: StSuperOddsSelection[];
+
+  /**
+   * Destino do evento. Com ele a area das selecoes vira o acesso ao jogo;
+   * sem ele a mesma area continua sendo so texto.
+   */
+  href?: string;
+  /**
+   * Componente do link. `a` por padrao; passe `NuxtLink` para navegar sem
+   * recarregar a pagina. O destino e entregue sempre como `href`.
+   */
+  linkAs?: string | Component;
+  /** Nome acessivel do link; sem ele vale o rotulo do card. */
+  linkAriaLabel?: string;
 
   /** Odd original, exibida riscada quando ha `boostedPrice`. */
   price?: number | string;

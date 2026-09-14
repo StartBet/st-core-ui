@@ -34,6 +34,7 @@ const props = withDefaults(defineProps<StStepperProps>(), {
   size: 'medium',
   interactive: true,
   completedIcon: ST_STEPPER_COMPLETED_ICON,
+  clampDescription: false,
   tooltipPlacement: 'top',
   ariaLabel: 'Progresso das etapas',
   className: '',
@@ -136,6 +137,7 @@ const renderSteps = computed<RenderStep[]>(() =>
         variant: step.variant ?? props.variant,
         interactive: props.interactive,
         disabled: step.disabled,
+        clampDescription: props.clampDescription,
         stepClassName: props.stepClassName
       })
     };
