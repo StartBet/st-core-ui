@@ -270,6 +270,40 @@ describe('StStepper', () => {
     expect(wrapper.find('[role="tooltip"]').exists()).toBe(false);
   });
 
+  it('sem clampDescription deixa a descricao crescer', async () => {
+    const vertical = mountStepper({ orientation: 'vertical' });
+    const horizontal = mountStepper();
+
+    expect(vertical.find('[data-st-step-description]').classes()).toContain(
+      'block'
+    );
+
+    await horizontal.find('[data-st-step-tooltip="0"]').trigger('mouseenter');
+
+    expect(horizontal.find('[role="tooltip"]').classes()).not.toContain(
+      'line-clamp-2'
+    );
+  });
+
+  it('com clampDescription corta em uma linha na vertical e duas no tooltip', async () => {
+    const vertical = mountStepper({
+      orientation: 'vertical',
+      clampDescription: true
+    });
+    const horizontal = mountStepper({ clampDescription: true });
+
+    const description = vertical.find('[data-st-step-description]');
+
+    expect(description.classes()).toContain('line-clamp-1');
+    expect(description.classes()).not.toContain('block');
+
+    await horizontal.find('[data-st-step-tooltip="0"]').trigger('mouseenter');
+
+    expect(horizontal.find('[role="tooltip"]').classes()).toContain(
+      'line-clamp-2'
+    );
+  });
+
   it('emite o passo ativo ao selecionar um passo', async () => {
     const wrapper = mountStepper();
 

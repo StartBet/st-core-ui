@@ -175,6 +175,7 @@ export const buildStepperStepClasses = (props: StepperStepClassProps) => {
     variant = 'primary',
     interactive = true,
     disabled = false,
+    clampDescription = false,
     stepClassName
   } = props;
 
@@ -254,8 +255,14 @@ export const buildStepperStepClasses = (props: StepperStepClassProps) => {
     idle: 'text-st-content-ghost'
   };
 
+  /**
+   * `line-clamp-*` troca o `display` para `-webkit-box`, entao ele entra no
+   * lugar do `block` e nao junto: as duas utilidades disputam a mesma
+   * propriedade e quem venceria seria a ordem da folha, nao a da string.
+   */
   const description = [
-    'block font-normal leading-st-normal',
+    clampDescription ? 'line-clamp-1' : 'block',
+    'font-normal leading-st-normal',
     tokens.text,
     descriptionToneClasses[tone]
   ].join(' ');
@@ -281,7 +288,14 @@ export const buildStepperStepClasses = (props: StepperStepClassProps) => {
   const connectorDone = 'bg-st-content-disable';
   const connectorPending = 'bg-st-border-2';
 
-  const tooltipPanel = ['max-w-st-56 font-normal', tokens.text].join(' ');
+  /** Na horizontal a descricao so existe dentro do tooltip, dai as duas linhas. */
+  const tooltipPanel = [
+    'max-w-st-56 font-normal',
+    clampDescription ? 'line-clamp-2' : undefined,
+    tokens.text
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return {
     item,

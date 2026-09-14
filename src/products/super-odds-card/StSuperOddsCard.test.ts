@@ -269,6 +269,21 @@ describe('StSuperOddsCard', () => {
     expect(wrapper.text()).toContain('Total de escanteios');
   });
 
+  it('corta o mercado em uma linha, para a altura nao depender do texto', () => {
+    const wrapper = mountCard({
+      selections: [
+        {
+          selection: 'Mais de 0.5',
+          market: 'Total de Chutes a Gol do Jogador - Lucas Jean (BAH)'
+        }
+      ]
+    });
+
+    expect(wrapper.find('[data-st-step-description]').classes()).toContain(
+      'line-clamp-1'
+    );
+  });
+
   it('nao renderiza o stepper sem selecoes', () => {
     const wrapper = mountCard({ selections: [] });
 

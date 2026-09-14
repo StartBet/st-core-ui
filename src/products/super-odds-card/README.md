@@ -99,14 +99,19 @@ O componente ja aplica os dois formatadores, entao a plataforma pode passar
 
 ## Composicao
 
-| Area     | Componente base | Configuracao                                                                           |
-| -------- | --------------- | -------------------------------------------------------------------------------------- |
-| Escudos  | `StAvatar`      | `size="small"` com `fit="contain"`, porque escudos sao vazados.                        |
-| Selecoes | `StStepper`     | `orientation="vertical"`, `size="small"`, `variant="positive"` e `interactive` falso.  |
-| Acao     | `StButton`      | `full-width`, alternando entre `outline`/`primary` e `solid`/`secondary` por `active`. |
+| Area     | Componente base | Configuracao                                                                                              |
+| -------- | --------------- | --------------------------------------------------------------------------------------------------------- |
+| Escudos  | `StAvatar`      | `size="small"` com `fit="contain"`, porque escudos sao vazados.                                           |
+| Selecoes | `StStepper`     | `orientation="vertical"`, `size="small"`, `variant="positive"`, `interactive` falso e `clampDescription`. |
+| Acao     | `StButton`      | `full-width`, alternando entre `outline`/`primary` e `solid`/`secondary` por `active`.                    |
 
 Sem `homeLogo`/`awayLogo` o `StAvatar` cai nas iniciais do time, com a cor fixa
 por letra — nao fica buraco no lugar do escudo.
+
+O `clampDescription` corta o mercado em uma linha: numa fileira de cards, um
+mercado longo como `Total de Chutes a Gol do Jogador - Lucas Jean (BAH)`
+quebraria em duas linhas e esticaria o card inteiro. A selecao — o dado que
+decide a aposta — continua sem corte.
 
 ## Estado no bilhete
 

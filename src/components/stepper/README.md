@@ -12,19 +12,20 @@ import { StStepper } from '@startbet/st-core-ui';
 
 ## Props
 
-| Prop               | Tipo                             | Default                | Descricao                                                        |
-| ------------------ | -------------------------------- | ---------------------- | ---------------------------------------------------------------- |
-| `steps`            | `StStepperStep[]`                | `[]`                   | Passos renderizados na ordem informada.                          |
-| `modelValue`       | `number`                         | `0`                    | Indice do passo ativo (`v-model`), iniciando em `0`.             |
-| `variant`          | `StStepperVariant`               | `primary`              | Cor de feedback do passo ativo.                                  |
-| `orientation`      | `horizontal \| vertical`         | `horizontal`           | Direcao do stepper.                                              |
-| `size`             | `small \| medium`                | `medium`               | Escala do bullet e das fontes.                                   |
-| `interactive`      | `boolean`                        | `true`                 | `false` deixa o stepper apenas visual, sem navegacao nem status. |
-| `completedIcon`    | `string`                         | `check`                | Icone dos passos concluidos; `''` mantem a posicao numerica.     |
-| `tooltipPlacement` | `top \| bottom \| left \| right` | `top`                  | Posicao do tooltip de descricao na orientacao horizontal.        |
-| `ariaLabel`        | `string`                         | `Progresso das etapas` | Rotulo do grupo de passos.                                       |
-| `className`        | `string`                         | `''`                   | Classes extras na lista.                                         |
-| `stepClassName`    | `string`                         | `''`                   | Classes extras em cada passo.                                    |
+| Prop               | Tipo                             | Default                | Descricao                                                             |
+| ------------------ | -------------------------------- | ---------------------- | --------------------------------------------------------------------- |
+| `steps`            | `StStepperStep[]`                | `[]`                   | Passos renderizados na ordem informada.                               |
+| `modelValue`       | `number`                         | `0`                    | Indice do passo ativo (`v-model`), iniciando em `0`.                  |
+| `variant`          | `StStepperVariant`               | `primary`              | Cor de feedback do passo ativo.                                       |
+| `orientation`      | `horizontal \| vertical`         | `horizontal`           | Direcao do stepper.                                                   |
+| `size`             | `small \| medium`                | `medium`               | Escala do bullet e das fontes.                                        |
+| `interactive`      | `boolean`                        | `true`                 | `false` deixa o stepper apenas visual, sem navegacao nem status.      |
+| `completedIcon`    | `string`                         | `check`                | Icone dos passos concluidos; `''` mantem a posicao numerica.          |
+| `clampDescription` | `boolean`                        | `false`                | Corta a descricao com reticencias: 1 linha na vertical, 2 no tooltip. |
+| `tooltipPlacement` | `top \| bottom \| left \| right` | `top`                  | Posicao do tooltip de descricao na orientacao horizontal.             |
+| `ariaLabel`        | `string`                         | `Progresso das etapas` | Rotulo do grupo de passos.                                            |
+| `className`        | `string`                         | `''`                   | Classes extras na lista.                                              |
+| `stepClassName`    | `string`                         | `''`                   | Classes extras em cada passo.                                         |
 
 ### StStepperStep
 
@@ -154,6 +155,23 @@ const onChange = (index: number) => {
 ```
 
 Na vertical a `description` aparece como texto corrido abaixo do titulo. Na horizontal a mesma `description` fica dentro de um tooltip aberto no hover e no foco do passo.
+
+## Descricao com altura previsivel
+
+```vue
+<template>
+  <StStepper :steps="steps" orientation="vertical" clamp-description />
+</template>
+```
+
+Por padrao a `description` cresce o quanto precisar, e a altura do stepper acompanha o texto. Com `clampDescription` ela e cortada com reticencias:
+
+| Orientacao | Onde a descricao aparece | Limite      |
+| ---------- | ------------------------ | ----------- |
+| vertical   | texto corrido            | uma linha   |
+| horizontal | tooltip                  | duas linhas |
+
+Use quando varios steppers dividem a mesma fileira e a altura precisa ser previsivel — um card de aposta, por exemplo. Em troca, o texto cortado deixa de ser legivel por completo: so aplique onde a descricao e complementar, nao onde ela carrega informacao que o usuario precisa ler inteira.
 
 ## Apenas visual
 

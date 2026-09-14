@@ -222,6 +222,7 @@ const onSelect = () => {
         size="small"
         variant="secondary"
         :interactive="false"
+        clamp-description
         data-st-super-odds-selections
       />
 
