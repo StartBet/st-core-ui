@@ -1,3 +1,10 @@
+# [0.34.0](https://github.com/StartBet/st-core-ui/compare/v0.33.0...v0.34.0) (2026-09-14)
+
+
+### Features
+
+* **tokens:** scope themes to any element via data-theme ([#48](https://github.com/StartBet/st-core-ui/issues/48)) ([37bd9a6](https://github.com/StartBet/st-core-ui/commit/37bd9a6e622f1afedbe57c1edbfff381970dde36))
+
 # [0.33.0](https://github.com/StartBet/st-core-ui/compare/v0.32.0...v0.33.0) (2026-09-11)
 
 
