@@ -170,6 +170,68 @@ Ao usar essa integracao, carregue tambem os tokens CSS no CSS global principal d
 @tailwind utilities;
 ```
 
+## Temas
+
+As cores semanticas do `tokens.css` vivem em dois blocos — claro e escuro — selecionados pelo atributo `data-theme`. O seletor nao esta preso ao `<html>`, entao o tema pode mudar em qualquer ponto da arvore. Quem aplica esse atributo e o `StThemeProvider`.
+
+### Tema da aplicacao
+
+Envolva a aplicacao uma vez. Com `root`, o tema tambem e espelhado no `<html>`, para que `body` e as scrollbars da janela acompanhem:
+
+```vue
+<script setup lang="ts">
+import { StThemeProvider } from '@startbet/st-core-ui';
+</script>
+
+<template>
+  <StThemeProvider theme="dark" root>
+    <RouterView />
+  </StThemeProvider>
+</template>
+```
+
+`theme` aceita `light`, `dark`, `system` (segue o `prefers-color-scheme` do sistema) e `inherit`. Sem nenhum provider, vale o tema claro do `:root`.
+
+### Ilhas de tema
+
+Providers aninhados invertem o tema em qualquer profundidade — inclusive uma ilha clara dentro de um app escuro:
+
+```vue
+<StThemeProvider theme="dark" root>
+  <StPaper variant="surface-1" padding="3">
+    <StThemeProvider theme="light">
+      <StPaper variant="surface-1" padding="3">Ilha clara</StPaper>
+    </StThemeProvider>
+  </StPaper>
+</StThemeProvider>
+```
+
+Nenhum componente precisa saber que o tema mudou: quem troca e o escopo dos tokens CSS, pela cascata. O provider nao pinta fundo nem texto — a superficie continua vindo do `StPaper` ou das classes `bg-st-*` / `text-st-*`.
+
+### Lendo o tema em codigo
+
+Para decisoes que o CSS nao resolve — trocar uma ilustracao, desenhar num canvas, escolher o tema de um grafico:
+
+```vue
+<script setup lang="ts">
+import { useTheme } from '@startbet/st-core-ui';
+
+const { resolvedTheme, toggle } = useTheme();
+</script>
+
+<template>
+  <button @click="toggle">Tema atual: {{ resolvedTheme }}</button>
+</template>
+```
+
+`resolvedTheme` e sempre `light` ou `dark`, ja resolvido a partir de `system`/`inherit`.
+
+### Persistencia e SSR
+
+A biblioteca nao grava a escolha do usuario — a aplicacao conhece a chave, o storage e a estrategia. Guarde o valor onde preferir e passe por `v-model:theme`. Em SSR, escreva o `data-theme` no `<html>` antes da hidratacao, com um script inline no `<head>`, para evitar o flash de tema errado; o provider com `root` assume dali em diante.
+
+Props, eventos e o comportamento de conteudo teleportado (`StModal` e `StToastContainer`) estao detalhados no [README do StThemeProvider](./src/components/theme-provider/README.md).
+
 ## Exports Publicos
 
 - `@startbet/st-core-ui`
@@ -211,6 +273,7 @@ Branches configuradas:
 ```text
 src/
   components/   componentes Vue
+  composables/  composables publicos (useTheme, useToast, ...)
   css/          entradas CSS publicadas
   tokens/       tema e plugins Tailwind exportados
   assets/fonts/ fontes locais publicadas
