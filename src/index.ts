@@ -25,6 +25,7 @@ export { default as StSwitch } from './components/form/switch';
 export { default as StTab } from './components/tabs/tab';
 export { default as StTabPanel } from './components/tabs/tab-panel';
 export { default as StTabs } from './components/tabs/tabs';
+export { default as StThemeProvider } from './components/theme-provider';
 export { default as StToast } from './components/toasts/toast';
 export { default as StToastContainer } from './components/toasts/toast-container';
 export { default as StTooltip } from './components/tooltip';
@@ -50,7 +51,8 @@ export {
   useCarouselPagination,
   useCheckableControl,
   useListContainer,
-  useResponsiveValue
+  useResponsiveValue,
+  useTheme
 } from './composables';
 export type { StIllustrationProps } from './components/illustrations';
 export type {
@@ -119,6 +121,12 @@ export type {
   StCarouselNavigation,
   StCarouselProps
 } from './components/carousel';
+export type {
+  StThemeContext,
+  StThemeMode,
+  StThemeProviderProps,
+  StThemeSetting
+} from './components/theme-provider';
 export type {
   ResponsiveValue,
   SizeValue,
