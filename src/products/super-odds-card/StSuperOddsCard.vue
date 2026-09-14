@@ -44,6 +44,9 @@ const props = withDefaults(defineProps<StSuperOddsCardProps>(), {
   awayLogo: null,
   versusLabel: 'X',
   selections: () => [],
+  href: '',
+  linkAs: 'a',
+  linkAriaLabel: '',
   price: undefined,
   boostedPrice: undefined,
   active: false,
@@ -64,10 +67,13 @@ defineSlots<{
 const attrs = useAttrs();
 const slots = useSlots();
 
+const hasLink = computed(() => Boolean(props.href));
+
 const classes = computed(() =>
   buildSuperOddsCardClasses({
     active: props.active,
     disabled: props.disabled,
+    hasLink: hasLink.value,
     className: props.className
   })
 );
@@ -114,6 +120,22 @@ const cardLabel = computed(
     props.ariaLabel ||
     (hasTeams.value ? `${props.home} x ${props.away}` : props.eventName) ||
     undefined
+);
+
+/**
+ * Sem `href` a area continua sendo um `div`: nada de ancora vazia, que o leitor
+ * de tela anunciaria como link sem destino.
+ */
+const selectionsTag = computed(() => (hasLink.value ? props.linkAs : 'div'));
+
+const selectionsProps = computed(() =>
+  hasLink.value
+    ? {
+        href: props.href,
+        'aria-label': props.linkAriaLabel || cardLabel.value,
+        'data-st-super-odds-link': ''
+      }
+    : {}
 );
 
 const onSelect = () => {
@@ -215,16 +237,22 @@ const onSelect = () => {
 
       <span v-if="steps.length > 0" :class="classes.divider" />
 
-      <StStepper
+      <component
+        :is="selectionsTag"
         v-if="steps.length > 0"
-        :steps="steps"
-        orientation="vertical"
-        size="small"
-        variant="secondary"
-        :interactive="false"
-        clamp-description
-        data-st-super-odds-selections
-      />
+        :class="classes.selections"
+        v-bind="selectionsProps"
+      >
+        <StStepper
+          :steps="steps"
+          orientation="vertical"
+          size="small"
+          variant="secondary"
+          :interactive="false"
+          clamp-description
+          data-st-super-odds-selections
+        />
+      </component>
 
       <span :class="classes.footerDivider" />
 

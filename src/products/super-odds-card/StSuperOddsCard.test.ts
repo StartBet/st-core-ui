@@ -284,6 +284,35 @@ describe('StSuperOddsCard', () => {
     );
   });
 
+  it('sem href mantem as selecoes como texto, sem ancora', () => {
+    const wrapper = mountCard();
+
+    expect(wrapper.find('[data-st-super-odds-link]').exists()).toBe(false);
+    expect(wrapper.find('a').exists()).toBe(false);
+  });
+
+  it('com href transforma as selecoes no acesso ao jogo', () => {
+    const wrapper = mountCard({ href: '/sports/futebol/e-123' });
+    const link = wrapper.find('[data-st-super-odds-link]');
+
+    expect(link.element.tagName).toBe('A');
+    expect(link.attributes('href')).toBe('/sports/futebol/e-123');
+    expect(link.attributes('aria-label')).toBe('Independiente x Flamengo');
+    expect(link.find('[data-st-super-odds-selections]').exists()).toBe(true);
+  });
+
+  it('aceita rotulo proprio e outro componente de link', () => {
+    const wrapper = mountCard({
+      href: '/sports/futebol/e-123',
+      linkAs: 'button',
+      linkAriaLabel: 'Ver o jogo'
+    });
+    const link = wrapper.find('[data-st-super-odds-link]');
+
+    expect(link.element.tagName).toBe('BUTTON');
+    expect(link.attributes('aria-label')).toBe('Ver o jogo');
+  });
+
   it('nao renderiza o stepper sem selecoes', () => {
     const wrapper = mountCard({ selections: [] });
 

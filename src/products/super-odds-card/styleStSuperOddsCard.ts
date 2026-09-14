@@ -64,7 +64,12 @@ export const resolveSuperOddsSteps = (
     }));
 
 export const buildSuperOddsCardClasses = (props: SuperOddsCardClassProps) => {
-  const { active = false, disabled = false, className } = props;
+  const {
+    active = false,
+    disabled = false,
+    hasLink = false,
+    className
+  } = props;
 
   /**
    * Sem `h-full` de proposito: em flexbox o `align-items: stretch` so
@@ -128,6 +133,20 @@ export const buildSuperOddsCardClasses = (props: SuperOddsCardClassProps) => {
 
   const versus = 'shrink-0 text-st-body-small font-bold text-st-content-ghost';
 
+  /**
+   * O link do evento e a propria area das selecoes, e nao uma camada absoluta
+   * por cima do card: assim ele cresce com o conteudo, nao cobre o botao da odd
+   * e nao depende de recuos fixos para deixar o resto do card clicavel.
+   */
+  const selections = [
+    'block w-full rounded-st-1 no-underline',
+    hasLink
+      ? 'cursor-pointer outline-none transition-colors duration-200 ease-in-out '
+      : undefined
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   const divider = 'h-px w-full shrink-0 bg-st-border-2';
 
   /**
@@ -161,6 +180,7 @@ export const buildSuperOddsCardClasses = (props: SuperOddsCardClassProps) => {
     teamNameHome,
     teamNameAway,
     versus,
+    selections,
     divider,
     footerDivider,
     action,
