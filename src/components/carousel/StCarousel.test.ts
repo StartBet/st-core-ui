@@ -459,6 +459,50 @@ describe('StCarousel grab', () => {
     );
   });
 
+  it('limita o arraste ao ultimo clone renderizado no loop', async () => {
+    const wrapper = mountCarousel(
+      { slidePerPage: 2, grab: true, infiniteLoop: true, gap: 0 },
+      6
+    );
+    const viewport = wrapper.find('[data-st-carousel-position]').element
+      .parentElement as HTMLElement;
+    const target = wrapper
+      .findAll('div')
+      .find((node) => node.element === viewport);
+    const trackTransform = () =>
+      wrapper.find('[data-st-carousel-position]').attributes('style');
+
+    await target?.trigger('pointerdown', { button: 0, clientX: 600 });
+    /** Dez slides para tras, muito alem dos dois clones da ponta esquerda. */
+    await target?.trigger('pointermove', {
+      button: 0,
+      clientX: 600 + SLIDE_WIDTH * 10
+    });
+
+    /** O offset para no inicio da faixa em vez de descobrir espaco vazio. */
+    expect(trackTransform()).toContain('var(--st-carousel-step) * 0');
+  });
+
+  it('limita o arraste ao fim da faixa sem loop', async () => {
+    const wrapper = mountCarousel({ slidePerPage: 2, grab: true, gap: 0 }, 6);
+    const viewport = wrapper.find('[data-st-carousel-position]').element
+      .parentElement as HTMLElement;
+    const target = wrapper
+      .findAll('div')
+      .find((node) => node.element === viewport);
+
+    await target?.trigger('pointerdown', { button: 0, clientX: 600 });
+    await target?.trigger('pointermove', {
+      button: 0,
+      clientX: 600 - SLIDE_WIDTH * 10
+    });
+
+    /** Maximo com 6 slides e 2 colunas: offset 4. */
+    expect(
+      wrapper.find('[data-st-carousel-position]').attributes('style')
+    ).toContain('var(--st-carousel-step) * -4');
+  });
+
   it('nao habilita o arraste quando grab esta desligado', async () => {
     const wrapper = mountCarousel({ slidePerPage: 3, gap: 0 }, 9);
 
@@ -897,6 +941,53 @@ describe('StCarousel loop com destaque', () => {
 
     expect(positionOf(wrapper)).toBe('6');
     expect(trackOf(wrapper).attributes('style')).toContain(
+      'transition-duration: 0ms'
+    );
+  });
+
+  it('nao anima a escala dos slides durante o salto do loop', async () => {
+    const wrapper = mountLooping();
+    const [prev] = wrapper.findAll('button');
+    const slideAt = (index: number) =>
+      wrapper.findAll('[data-st-slide-index]')[index];
+
+    await prev.trigger('click');
+
+    /** Clone da ponta esquerda assume o destaque enquanto o track desliza. */
+    expect(slideProgress(slideAt(1))).toBe('0');
+    expect(slideAt(1).attributes('style')).not.toContain(
+      'transition-duration: 0ms'
+    );
+
+    await emitTransitionEnd(trackOf(wrapper));
+
+    /**
+     * O destaque troca do clone para o slide original no mesmo quadro do
+     * salto: sem zerar a transicao os dois animariam a escala e o item
+     * daria um pulo.
+     */
+    expect(positionOf(wrapper)).toBe('6');
+    expect(slideProgress(slideAt(1))).toBe('1');
+    expect(slideProgress(slideAt(9))).toBe('0');
+    expect(slideAt(1).attributes('style')).toContain(
+      'transition-duration: 0ms'
+    );
+    expect(slideAt(9).attributes('style')).toContain(
+      'transition-duration: 0ms'
+    );
+  });
+
+  it('volta a animar a escala na navegacao seguinte ao salto', async () => {
+    const wrapper = mountLooping();
+    const [prev] = wrapper.findAll('button');
+    const slideAt = (index: number) =>
+      wrapper.findAll('[data-st-slide-index]')[index];
+
+    await prev.trigger('click');
+    await emitTransitionEnd(trackOf(wrapper));
+    await prev.trigger('click');
+
+    expect(slideAt(9).attributes('style')).not.toContain(
       'transition-duration: 0ms'
     );
   });
