@@ -5,7 +5,6 @@ import {
   faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
 import {
-  cloneVNode,
   computed,
   defineComponent,
   onMounted,
@@ -222,6 +221,14 @@ const slideNodes = computed<VNode[]>(() =>
   flattenSlotChildren(slots.default?.())
 );
 
+const leadingNodes = computed<VNode[]>(() =>
+  flattenSlotChildren(slots.default?.())
+);
+
+const trailingNodes = computed<VNode[]>(() =>
+  flattenSlotChildren(slots.default?.())
+);
+
 const pagination = useCarouselPagination({
   total: () => slideNodes.value.length,
   slidePerPage: () => slidePerPage.value,
@@ -316,20 +323,25 @@ const renderSlides = computed<RenderSlide[]>(() => {
   if (!infiniteLoop.value) return slides;
 
   const cloneCount = Math.min(perPage.value, nodes.length);
+  const firstLeading = nodes.length - cloneCount;
 
-  const leading = slides.slice(-cloneCount).map((slide) => ({
-    key: `clone-leading-${slide.logicalIndex}`,
-    vnode: cloneVNode(slide.vnode),
-    logicalIndex: slide.logicalIndex,
-    isClone: true
-  }));
+  const leading = leadingNodes.value
+    .slice(firstLeading, firstLeading + cloneCount)
+    .map((vnode, offset) => ({
+      key: `clone-leading-${firstLeading + offset}`,
+      vnode,
+      logicalIndex: firstLeading + offset,
+      isClone: true
+    }));
 
-  const trailing = slides.slice(0, cloneCount).map((slide) => ({
-    key: `clone-trailing-${slide.logicalIndex}`,
-    vnode: cloneVNode(slide.vnode),
-    logicalIndex: slide.logicalIndex,
-    isClone: true
-  }));
+  const trailing = trailingNodes.value
+    .slice(0, cloneCount)
+    .map((vnode, logicalIndex) => ({
+      key: `clone-trailing-${logicalIndex}`,
+      vnode,
+      logicalIndex,
+      isClone: true
+    }));
 
   return [...leading, ...slides, ...trailing];
 });

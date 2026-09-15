@@ -884,6 +884,76 @@ describe('StCarousel selecao durante o arraste', () => {
   });
 });
 
+describe('StCarousel loop clones', () => {
+  const slideContent = (amount: number) =>
+    Array.from(
+      { length: amount },
+      (_, index) =>
+        `<article data-testid="card"><h3>Jogo ${index + 1}</h3><span>2.5${index}</span></article>`
+    ).join('');
+
+  const mountWithCards = (props: Record<string, unknown>, amount = 8) =>
+    mount(StCarousel, { props, slots: { default: slideContent(amount) } });
+
+  it('monta o conteudo de todos os clones das pontas', () => {
+    const wrapper = mountWithCards({ slidePerPage: 3, infiniteLoop: true });
+    const clones = wrapper.findAll('[data-st-slide-clone]');
+
+    expect(clones).toHaveLength(6);
+
+    /**
+     * Cada clone precisa da propria subarvore: com vnodes compartilhados o
+     * Vue monta a arvore uma vez so e os demais slides ficam vazios.
+     */
+    clones.forEach((clone) => {
+      expect(clone.element.children.length).toBe(1);
+      expect(clone.find('[data-testid="card"]').exists()).toBe(true);
+    });
+  });
+
+  it('nao reaproveita os elementos dos slides reais nos clones', () => {
+    const wrapper = mountWithCards({ slidePerPage: 3, infiniteLoop: true });
+    const cards = wrapper
+      .findAll('[data-testid="card"]')
+      .map((card) => card.element);
+
+    /** 8 reais + 3 clones de cada ponta, cada um com seu proprio nó. */
+    expect(cards).toHaveLength(14);
+    expect(new Set(cards).size).toBe(14);
+  });
+
+  it('mantem o conteudo dos clones ao mudar o numero de colunas', async () => {
+    const wrapper = mountWithCards({ slidePerPage: 1, infiniteLoop: true });
+
+    expect(wrapper.findAll('[data-st-slide-clone]')).toHaveLength(2);
+
+    await wrapper.setProps({ slidePerPage: 3 });
+
+    const clones = wrapper.findAll('[data-st-slide-clone]');
+
+    expect(clones).toHaveLength(6);
+    clones.forEach((clone) => {
+      expect(clone.find('[data-testid="card"]').exists()).toBe(true);
+    });
+  });
+
+  it('atualiza os clones quando o conteudo do slot muda', async () => {
+    const wrapper = mount(StCarousel, {
+      props: { slidePerPage: 2, infiniteLoop: true },
+      slots: { default: slideContent(5) }
+    });
+
+    await wrapper.setProps({ ariaLabel: 'Atualizado' });
+
+    const clones = wrapper.findAll('[data-st-slide-clone]');
+
+    expect(clones).toHaveLength(4);
+    clones.forEach((clone) => {
+      expect(clone.find('[data-testid="card"]').exists()).toBe(true);
+    });
+  });
+});
+
 describe('StCarousel loop com destaque', () => {
   const trackOf = (wrapper: ReturnType<typeof mountCarousel>) =>
     wrapper.find('[data-st-carousel-position]');
