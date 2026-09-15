@@ -1,3 +1,10 @@
+## [0.34.1](https://github.com/StartBet/st-core-ui/compare/v0.34.0...v0.34.1) (2026-09-15)
+
+
+### Bug Fixes
+
+* **st-carousel:** keep the loop snap free of leftover transitions ([#49](https://github.com/StartBet/st-core-ui/issues/49)) ([d8e525f](https://github.com/StartBet/st-core-ui/commit/d8e525fe7aa8d5abb3d0951963965804b5194e2b))
+
 # [0.34.0](https://github.com/StartBet/st-core-ui/compare/v0.33.0...v0.34.0) (2026-09-14)
 
 
