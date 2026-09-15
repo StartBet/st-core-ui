@@ -16,7 +16,7 @@ import {
   resolveSuperOddsSteps,
   ST_SUPER_ODDS_ACTIVE_LABEL,
   ST_SUPER_ODDS_BOOST_ICON,
-  ST_SUPER_ODDS_HIGHLIGHT_ICON,
+  ST_SUPER_ODDS_ODD_ARROW_ICON,
   ST_SUPER_ODDS_TYPE_ICON
 } from './styleStSuperOddsCard';
 import StAvatar from '../../components/avatars/avatar/StAvatar.vue';
@@ -32,10 +32,10 @@ library.add(faAnglesRight, faBolt, faFire);
 const props = withDefaults(defineProps<StSuperOddsCardProps>(), {
   type: '',
   typeIcon: ST_SUPER_ODDS_TYPE_ICON,
+  promotional: false,
   date: '',
   startDate: '',
-  highlightIcon: ST_SUPER_ODDS_HIGHLIGHT_ICON,
-  hideHighlight: false,
+  showBoostIcon: false,
   competition: '',
   eventName: '',
   home: '',
@@ -74,6 +74,7 @@ const classes = computed(() =>
     active: props.active,
     disabled: props.disabled,
     hasLink: hasLink.value,
+    promotional: props.promotional,
     className: props.className
   })
 );
@@ -186,12 +187,12 @@ const onSelect = () => {
         </span>
 
         <StIcon
-          v-if="!props.hideHighlight && props.highlightIcon"
-          :name="props.highlightIcon"
+          v-if="props.showBoostIcon"
+          :name="ST_SUPER_ODDS_BOOST_ICON"
           :size="2"
-          :class="classes.highlightIcon"
+          :class="classes.boostIcon"
           aria-hidden="true"
-          data-st-super-odds-highlight
+          data-st-super-odds-boost
         />
       </span>
     </header>
@@ -271,9 +272,9 @@ const onSelect = () => {
 
             <StIcon
               v-if="oldOdd"
-              :name="ST_SUPER_ODDS_BOOST_ICON"
+              :name="ST_SUPER_ODDS_ODD_ARROW_ICON"
               :size="2"
-              :class="classes.boostIcon"
+              :class="classes.oddArrow"
               aria-hidden="true"
             />
 

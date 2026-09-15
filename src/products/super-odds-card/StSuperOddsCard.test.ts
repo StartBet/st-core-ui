@@ -130,13 +130,15 @@ describe('estado no bilhete', () => {
     expect(proprio.attributes('aria-label')).toBe('Na aposta');
   });
 
-  it('mantem o icone de destaque nos dois estados', () => {
-    expect(mountCard().find('[data-st-super-odds-highlight]').exists()).toBe(
-      true
-    );
+  it('mantem o icone de boost nos dois estados', () => {
     expect(
-      mountCard({ active: true })
-        .find('[data-st-super-odds-highlight]')
+      mountCard({ showBoostIcon: true })
+        .find('[data-st-super-odds-boost]')
+        .exists()
+    ).toBe(true);
+    expect(
+      mountCard({ showBoostIcon: true, active: true })
+        .find('[data-st-super-odds-boost]')
         .exists()
     ).toBe(true);
   });
@@ -190,8 +192,11 @@ describe('altura igual entre cards', () => {
 });
 
 describe('StSuperOddsCard', () => {
-  it('monta o cabecalho com tipo, data e destaque', () => {
-    const wrapper = mountCard({ startDate: '2026-09-10T22:00:00' });
+  it('monta o cabecalho com tipo, data e boost', () => {
+    const wrapper = mountCard({
+      startDate: '2026-09-10T22:00:00',
+      showBoostIcon: true
+    });
 
     expect(wrapper.find('[data-st-super-odds-type]').text()).toContain(
       'Turbinada'
@@ -199,7 +204,7 @@ describe('StSuperOddsCard', () => {
     expect(wrapper.find('[data-st-super-odds-date]').text()).toBe(
       '10/09 • 22:00'
     );
-    expect(wrapper.find('[data-st-super-odds-highlight]').exists()).toBe(true);
+    expect(wrapper.find('[data-st-super-odds-boost]').exists()).toBe(true);
   });
 
   it('prioriza a data ja formatada sobre o startDate', () => {
@@ -213,11 +218,24 @@ describe('StSuperOddsCard', () => {
     );
   });
 
-  it('esconde data e destaque quando nao se aplicam', () => {
-    const wrapper = mountCard({ hideHighlight: true });
+  it('esconde data e boost quando nao se aplicam', () => {
+    const wrapper = mountCard();
 
     expect(wrapper.find('[data-st-super-odds-date]').exists()).toBe(false);
-    expect(wrapper.find('[data-st-super-odds-highlight]').exists()).toBe(false);
+    expect(wrapper.find('[data-st-super-odds-boost]').exists()).toBe(false);
+  });
+
+  it('troca a cor do selo no card promocional', () => {
+    const padrao = mountCard().find('[data-st-super-odds-type]');
+    const promo = mountCard({ promotional: true }).find(
+      '[data-st-super-odds-type]'
+    );
+
+    expect(padrao.classes()).toContain('bg-st-primary');
+    expect(padrao.classes()).toContain('text-st-content-bright');
+    expect(promo.classes()).toContain('bg-st-secondary');
+    expect(promo.classes()).toContain('text-st-content-din');
+    expect(promo.classes()).not.toContain('bg-st-primary');
   });
 
   it('renderiza campeonato, times e escudos', () => {

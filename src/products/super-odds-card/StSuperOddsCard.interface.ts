@@ -11,6 +11,7 @@ export interface SuperOddsCardClassProps {
   active?: boolean;
   disabled?: boolean;
   hasLink?: boolean;
+  promotional?: boolean;
   className?: string;
 }
 
@@ -23,14 +24,20 @@ export interface StSuperOddsCardProps extends SuperOddsCardClassProps {
   type?: string;
   /** Icone do selo do tipo. */
   typeIcon?: string;
+  /**
+   * Card de promocao. Muda a cor do selo do tipo, para separar a promocao
+   * das odds turbinadas do dia a dia numa mesma fileira.
+   */
+  promotional?: boolean;
   /** Data ja formatada; tem prioridade sobre `startDate`. */
   date?: string;
   /** Data ISO do evento, formatada pelo componente. */
   startDate?: string;
-  /** Icone de destaque a direita do cabecalho. */
-  highlightIcon?: string;
-  /** Esconde o icone de destaque. */
-  hideHighlight?: boolean;
+  /**
+   * Mostra o icone de fogo do boost a direita do cabecalho. O icone e sempre
+   * o mesmo (`fire`); quem decide se a odd merece o destaque e o consumidor.
+   */
+  showBoostIcon?: boolean;
 
   /** Campeonato exibido acima dos times. */
   competition?: string;
