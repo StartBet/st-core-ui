@@ -42,6 +42,7 @@ import {
   resolveDragStep,
   resolveCenterOffset,
   resolveLayoutPerPage,
+  resolveMaxPosition,
   resolveSlideProgress,
   ST_CAROUSEL_DEFAULT_AUTOPLAY_TIMEOUT,
   ST_CAROUSEL_DEFAULT_TRANSITION_DURATION,
@@ -367,8 +368,25 @@ const classes = computed(() =>
   })
 );
 
+const dragSlides = computed(() => {
+  const dragged = drag.dragSlides.value;
+
+  if (dragged === 0) return 0;
+
+  const backward = infiniteLoop.value
+    ? position.value + perPage.value
+    : position.value;
+
+  const forward = infiniteLoop.value
+    ? total.value - position.value
+    : resolveMaxPosition(total.value, perPage.value, centerOffset.value) -
+      position.value;
+
+  return Math.min(Math.max(dragged, -backward), forward);
+});
+
 const referenceRenderPosition = computed(
-  () => position.value + cloneOffset.value + drag.dragSlides.value
+  () => position.value + cloneOffset.value + dragSlides.value
 );
 
 const offset = computed(
@@ -413,8 +431,12 @@ const viewportStyle = computed<CSSProperties>(() => {
   }
 
   if (props.autoHeight && autoHeight.height.value !== undefined) {
+    const duration = isSnapping.value
+      ? 0
+      : Math.max(0, props.transitionDuration);
+
     style.height = `${autoHeight.height.value}px`;
-    style.transition = `height ${Math.max(0, props.transitionDuration)}ms ease-out`;
+    style.transition = `height ${duration}ms ease-out`;
   }
 
   return style;
@@ -435,7 +457,9 @@ const slideStyle = (renderIndex: number): CSSProperties => {
     transform: ST_CAROUSEL_HIGHLIGHT_TRANSFORM
   };
 
-  if (drag.isDragging.value) style.transitionDuration = '0ms';
+  if (drag.isDragging.value || isSnapping.value) {
+    style.transitionDuration = '0ms';
+  }
 
   return style as CSSProperties;
 };
