@@ -1,3 +1,10 @@
+## [0.34.2](https://github.com/StartBet/st-core-ui/compare/v0.34.1...v0.34.2) (2026-09-15)
+
+
+### Bug Fixes
+
+* **st-carousel:** give the loop clones their own vnodes ([#50](https://github.com/StartBet/st-core-ui/issues/50)) ([e5b0f8c](https://github.com/StartBet/st-core-ui/commit/e5b0f8c052be444d4d7adb6655b93cfe9b4d033c))
+
 ## [0.34.1](https://github.com/StartBet/st-core-ui/compare/v0.34.0...v0.34.1) (2026-09-15)
 
 
