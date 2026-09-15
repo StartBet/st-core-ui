@@ -6,9 +6,9 @@ import type { StStepperStep } from '../../components/stepper/StStepper.interface
 
 export const ST_SUPER_ODDS_TYPE_ICON = 'bolt';
 
-export const ST_SUPER_ODDS_HIGHLIGHT_ICON = 'fire';
+export const ST_SUPER_ODDS_BOOST_ICON = 'fire';
 
-export const ST_SUPER_ODDS_BOOST_ICON = 'angles-right';
+export const ST_SUPER_ODDS_ODD_ARROW_ICON = 'angles-right';
 
 export const ST_SUPER_ODDS_ACTIVE_LABEL = 'No bilhete';
 
@@ -68,6 +68,7 @@ export const buildSuperOddsCardClasses = (props: SuperOddsCardClassProps) => {
     active = false,
     disabled = false,
     hasLink = false,
+    promotional = false,
     className
   } = props;
 
@@ -102,8 +103,11 @@ export const buildSuperOddsCardClasses = (props: SuperOddsCardClassProps) => {
    * porcentagem: o tipo e texto livre, entao a largura do selo varia.
    */
   const typeBadge = [
-    'flex items-center gap-[6px] bg-st-primary py-st-1 pl-st-2 pr-st-3',
-    'text-st-xs font-bold uppercase leading-none text-st-content-bright',
+    'flex items-center gap-[6px] py-st-1 pl-st-2 pr-st-3',
+    'text-st-xs font-bold uppercase leading-none',
+    promotional
+      ? 'bg-st-secondary text-st-content-din'
+      : 'bg-st-primary text-st-content-bright',
     '[clip-path:polygon(0_0,100%_0,calc(100%_-_14px)_100%,0_100%)]'
   ].join(' ');
 
@@ -111,9 +115,9 @@ export const buildSuperOddsCardClasses = (props: SuperOddsCardClassProps) => {
 
   const date = 'text-st-xs font-bold text-st-content-primary';
 
-  const highlightIcon = 'shrink-0 text-st-content-warning';
+  const boostIcon = 'shrink-0 text-st-negative';
 
-  const body = 'flex w-full min-w-0 flex-1 flex-col gap-st-2 p-st-2';
+  const body = 'flex w-full min-w-0 flex-1 flex-col gap-st-1 p-st-1';
 
   const competition = 'block text-center text-st-xs text-st-content-primary';
 
@@ -139,7 +143,7 @@ export const buildSuperOddsCardClasses = (props: SuperOddsCardClassProps) => {
    * e nao depende de recuos fixos para deixar o resto do card clicavel.
    */
   const selections = [
-    'block w-full rounded-st-1 no-underline',
+    'block w-full rounded-st-1 no-underline px-st-1',
     hasLink
       ? 'cursor-pointer outline-none transition-colors duration-200 ease-in-out '
       : undefined
@@ -160,7 +164,7 @@ export const buildSuperOddsCardClasses = (props: SuperOddsCardClassProps) => {
 
   const oldOdd = 'text-st-body-small line-through opacity-70';
 
-  const boostIcon = 'shrink-0';
+  const oddArrow = 'shrink-0';
 
   const newOdd = 'text-st-body-large font-extrabold';
 
@@ -173,7 +177,7 @@ export const buildSuperOddsCardClasses = (props: SuperOddsCardClassProps) => {
     typeBadge,
     headerEnd,
     date,
-    highlightIcon,
+    boostIcon,
     body,
     competition,
     teams,
@@ -185,7 +189,7 @@ export const buildSuperOddsCardClasses = (props: SuperOddsCardClassProps) => {
     footerDivider,
     action,
     oldOdd,
-    boostIcon,
+    oddArrow,
     newOdd,
     eventName
   };

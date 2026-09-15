@@ -33,10 +33,10 @@ Os nomes das props espelham o tipo `BetCard` que a plataforma ja monta em
 | ----------------- | ------------------------ | ------------ | ---------------------------------------------------- |
 | `type`            | `string`                 | `''`         | Tipo do card, texto livre. Ex.: `Turbinada`.         |
 | `typeIcon`        | `string`                 | `bolt`       | Icone do selo do tipo.                               |
+| `promotional`     | `boolean`                | `false`      | Card de promocao: muda a cor do selo do tipo.        |
 | `date`            | `string`                 | `''`         | Data ja formatada; tem prioridade sobre `startDate`. |
 | `startDate`       | `string`                 | `''`         | Data ISO do evento, formatada pelo componente.       |
-| `highlightIcon`   | `string`                 | `fire`       | Icone de destaque a direita do cabecalho.            |
-| `hideHighlight`   | `boolean`                | `false`      | Esconde o icone de destaque.                         |
+| `showBoostIcon`   | `boolean`                | `false`      | Mostra o `fire` do boost a direita do cabecalho.     |
 | `competition`     | `string`                 | `''`         | Campeonato, acima dos times.                         |
 | `eventName`       | `string`                 | `''`         | Nome do evento, usado quando nao ha `home` e `away`. |
 | `home`            | `string`                 | `''`         | Time da casa.                                        |
@@ -179,7 +179,7 @@ usa leitor de tela sem ocupar espaco no cabecalho.
 ## Fallbacks
 
 1. Sem `type`, o selo nao e renderizado.
-2. Sem `date` nem `startDate` valido, o cabecalho mostra so o icone de destaque.
+2. Sem `date` nem `startDate` valido, o cabecalho mostra so o selo e o boost.
 3. Sem `home` e `away`, o card usa o `eventName` em uma linha.
 4. Sem `selections`, o bloco do stepper e o divisor somem.
 5. Sem `boostedPrice`, o botao mostra apenas o `price`, sem a odd riscada.
@@ -220,18 +220,18 @@ selecoes, nomes maiores ou outro idioma.
 ## Tokens usados
 
 - Card: `bg-st-surface-0` com borda `st-border-2` e raio `rounded-st-2`.
-- Cabecalho: faixa em `bg-st-surface-1`, selo em `bg-st-primary` com texto `st-content-bright` e corte diagonal por `clip-path`.
-- Data em `st-content-primary`, icone de destaque em `st-content-warning`.
+- Cabecalho: faixa em `bg-st-surface-1`, selo em `bg-st-primary` com texto `st-content-bright` — `bg-st-secondary` com `st-content-din` quando `promotional` — e corte diagonal por `clip-path`.
+- Data em `st-content-primary`, icone do boost em `st-content-warning`.
 - Times em `st-content-default`, campeonato e `X` em `st-content-ghost`.
 - Divisores em `st-border-2`.
 
 ## Acessibilidade
 
 - O card e um `article` rotulado por `home x away`, ou pelo `ariaLabel` informado.
-- Icones do selo e do destaque sao `aria-hidden`; a informacao esta no texto.
+- Icones do selo e do boost sao `aria-hidden`; a informacao esta no texto.
 - O botao aceita `actionAriaLabel` quando o texto da odd nao for suficiente.
-- `data-st-super-odds-card`, `-type`, `-date`, `-highlight`, `-competition`, `-teams`, `-event`, `-selections` e `-action` estao disponiveis para testes e QA.
+- `data-st-super-odds-card`, `-type`, `-date`, `-boost`, `-competition`, `-teams`, `-event`, `-selections` e `-action` estao disponiveis para testes e QA.
 
 ## Observacoes
 
-- Os icones `bolt`, `fire` e `angles-right` ja vem registrados. Um `typeIcon` ou `highlightIcon` diferente precisa ser registrado na `library` do Font Awesome pelo projeto consumidor.
+- Os icones `bolt`, `fire` e `angles-right` ja vem registrados. O boost e sempre o `fire`; so o `typeIcon` e trocavel, e um icone diferente precisa ser registrado na `library` do Font Awesome pelo projeto consumidor.

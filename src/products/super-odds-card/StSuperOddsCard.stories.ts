@@ -1,6 +1,13 @@
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faStar, faTicket } from '@fortawesome/free-solid-svg-icons';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import StSuperOddsCard from './StSuperOddsCard.vue';
+
+// O card so registra `bolt`, `fire` e `angles-right`. Um `typeIcon` fora dessa
+// lista e responsabilidade de quem consome — aqui a story faz esse papel,
+// senao o `StIcon` reserva o espaco do icone e nao desenha nada.
+library.add(faStar, faTicket);
 
 const svgLogo = (svg: string) =>
   `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
@@ -17,6 +24,7 @@ const escudo = (cor: string, sigla: string) =>
 
 const base = {
   type: 'Turbinada',
+  showBoostIcon: true,
   startDate: '2026-09-10T22:00:00',
   competition: 'Libertadores',
   home: 'Independiente',
@@ -38,12 +46,14 @@ const meta = {
   tags: ['autodocs'],
   args: {
     ...base,
-    hideHighlight: false,
+    promotional: false,
     disabled: false,
     className: ''
   },
   argTypes: {
     type: { control: 'text' },
+    promotional: { control: 'boolean' },
+    showBoostIcon: { control: 'boolean' },
     competition: { control: 'text' },
     home: { control: 'text' },
     away: { control: 'text' },
@@ -96,7 +106,13 @@ export const Tipos: Story = {
           v-bind="base"
           type="Bilhete do dia"
           type-icon="ticket"
-          hide-highlight
+          :show-boost-icon="false"
+          class="w-[347px] max-w-full"
+        />
+        <StSuperOddsCard
+          v-bind="base"
+          type="Promocao"
+          promotional
           class="w-[347px] max-w-full"
         />
       </div>
