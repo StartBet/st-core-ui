@@ -1,3 +1,10 @@
+# [0.35.0](https://github.com/StartBet/st-core-ui/compare/v0.34.2...v0.35.0) (2026-09-15)
+
+
+### Features
+
+* **st-super-odds-card:** adjustments on feedback props on card ([#51](https://github.com/StartBet/st-core-ui/issues/51)) ([48f9610](https://github.com/StartBet/st-core-ui/commit/48f961080f4377a187b36e8249ff2ff0ce36d9c2))
+
 ## [0.34.2](https://github.com/StartBet/st-core-ui/compare/v0.34.1...v0.34.2) (2026-09-15)
 
 
