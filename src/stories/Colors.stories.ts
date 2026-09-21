@@ -12,7 +12,28 @@ const toneSteps = [
   '900',
   '950'
 ] as const;
-const neutralSteps = ['0', ...toneSteps] as const;
+const neutralSteps = [
+  '0',
+  '50',
+  '100',
+  '150',
+  '200',
+  '250',
+  '300',
+  '350',
+  '400',
+  '450',
+  '500',
+  '550',
+  '600',
+  '650',
+  '700',
+  '750',
+  '800',
+  '850',
+  '900',
+  '950'
+] as const;
 
 const tokenValue = (token: string) => `var(${token})`;
 
@@ -53,7 +74,7 @@ const primaryPaletteDefs = [
   [
     'Crema',
     'crema-color',
-    'Escala crema usada nas superficies do tema light.',
+    'Escala crema usada no conteudo padrao do tema dark.',
     toneSteps
   ],
   ['Info', 'info-color', 'Escala base de informacao.', toneSteps],
