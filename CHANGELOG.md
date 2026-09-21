@@ -1,3 +1,10 @@
+# [0.36.0](https://github.com/StartBet/st-core-ui/compare/v0.35.0...v0.36.0) (2026-09-21)
+
+
+### Features
+
+* **tokens:** change color lihjtgmod to neutrals ([#52](https://github.com/StartBet/st-core-ui/issues/52)) ([602b9ed](https://github.com/StartBet/st-core-ui/commit/602b9edbf3495f621d42b496f8abc8d60455aa84))
+
 # [0.35.0](https://github.com/StartBet/st-core-ui/compare/v0.34.2...v0.35.0) (2026-09-15)
 
 
