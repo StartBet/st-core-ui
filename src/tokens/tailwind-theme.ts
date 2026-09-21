@@ -6,11 +6,25 @@ type TailwindPluginApi = {
 };
 
 type ScaleValue = 0 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950;
+type NeutralScaleValue =
+  | ScaleValue
+  | 50
+  | 150
+  | 250
+  | 350
+  | 450
+  | 550
+  | 650
+  | 750
+  | 850;
 
 const toneScaleValues = [
   100, 200, 300, 400, 500, 600, 700, 800, 900, 950
 ] as const;
-const neutralScaleValues = [0, ...toneScaleValues] as const;
+const neutralScaleValues = [
+  0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750,
+  800, 850, 900, 950
+] as const;
 
 const sizeScale = {
   'st-xxs': '0.625rem',
@@ -88,7 +102,7 @@ const tokenObject = <const T extends Record<string, string>>(
     Object.entries(tokens).map(([key, token]) => [key, cssVar(token)])
   ) as { [K in keyof T]: string };
 
-const scale = <const T extends readonly ScaleValue[]>(
+const scale = <const T extends readonly NeutralScaleValue[]>(
   prefix: string,
   values: T
 ): { [K in T[number]]: string } =>

@@ -26,14 +26,23 @@
     --st-brand-secondary-950: #142705;
 
     --st-neutral-color-0: #ffffff;
+    --st-neutral-color-50: #fafafa;
     --st-neutral-color-100: #f5f5f5;
+    --st-neutral-color-150: #ededed;
     --st-neutral-color-200: #e5e5e5;
+    --st-neutral-color-250: #dcdcdc;
     --st-neutral-color-300: #d4d4d4;
+    --st-neutral-color-350: #bcbcbc;
     --st-neutral-color-400: #a3a3a3;
+    --st-neutral-color-450: #8b8b8b;
     --st-neutral-color-500: #737373;
+    --st-neutral-color-550: #626262;
     --st-neutral-color-600: #525252;
+    --st-neutral-color-650: #494949;
     --st-neutral-color-700: #404040;
+    --st-neutral-color-750: #333333;
     --st-neutral-color-800: #262626;
+    --st-neutral-color-850: #1e1e1e;
     --st-neutral-color-900: #171717;
     --st-neutral-color-950: #0a0a0a;
 
@@ -250,10 +259,10 @@
     --st-color-negative: var(--st-negative-color-500);
 
     --st-color-surface-0: var(--st-neutral-color-0);
-    --st-color-surface-1: var(--st-crema-color-100);
-    --st-color-surface-2: var(--st-crema-color-200);
-    --st-color-surface-3: var(--st-crema-color-300);
-    --st-color-surface-4: var(--st-crema-color-400);
+    --st-color-surface-1: var(--st-neutral-color-100);
+    --st-color-surface-2: var(--st-neutral-color-150);
+    --st-color-surface-3: var(--st-neutral-color-200);
+    --st-color-surface-4: var(--st-neutral-color-250);
 
     --st-color-surface-primary: var(--st-brand-primary-300);
     --st-color-surface-secondary: var(--st-brand-secondary-300);
@@ -282,11 +291,11 @@
     --st-color-content-positive: var(--st-positive-color-800);
     --st-color-content-negative: var(--st-negative-color-900);
 
-    --st-color-border-1: var(--st-shadow-scale-400);
-    --st-color-border-2: var(--st-shadow-scale-500);
-    --st-color-border-3: var(--st-shadow-scale-600);
+    --st-color-border-1: var(--st-din-scale-300);
+    --st-color-border-2: var(--st-din-scale-400);
+    --st-color-border-3: var(--st-din-scale-500);
 
-    --st-color-focus: var(--st-pink-color-600);
+    --st-color-focus: var(--st-purple-color-400);
     --st-color-pressed: var(--st-shadow-scale-400);
     --st-color-shadow-pressed: var(--st-shadow-scale-300);
     --st-color-hover: var(--st-shadow-scale-500);
@@ -352,7 +361,7 @@
     --st-color-border-2: var(--st-light-scale-500);
     --st-color-border-3: var(--st-light-scale-600);
 
-    --st-color-focus: var(--st-pink-color-600);
+    --st-color-focus: var(--st-purple-color-400);
     --st-color-pressed: var(--st-light-scale-300);
     --st-color-shadow-pressed: var(--st-light-scale-700);
     --st-color-hover: var(--st-light-scale-200);
