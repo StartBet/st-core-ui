@@ -1,3 +1,10 @@
+# [0.37.0](https://github.com/StartBet/st-core-ui/compare/v0.36.0...v0.37.0) (2026-09-23)
+
+
+### Features
+
+* **st-game-card:** add casino game card product component ([#53](https://github.com/StartBet/st-core-ui/issues/53)) ([d580173](https://github.com/StartBet/st-core-ui/commit/d5801732db2508b50a6dbfc67f356742b8676f62))
+
 # [0.36.0](https://github.com/StartBet/st-core-ui/compare/v0.35.0...v0.36.0) (2026-09-21)
 
 
