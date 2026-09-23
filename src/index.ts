@@ -134,6 +134,16 @@ export type {
   UsualSizeValue
 } from './types';
 // Componentes de produto
+export { default as StGameCard } from './products/game-card';
+export type {
+  StGameCardAspect,
+  StGameCardEmits,
+  StGameCardImageLoading,
+  StGameCardImageSlotProps,
+  StGameCardProps,
+  StGameCardProvider,
+  StGameCardSlots
+} from './products/game-card';
 export { default as StSuperOddsCard } from './products/super-odds-card';
 export type {
   StSuperOddsCardProps,
