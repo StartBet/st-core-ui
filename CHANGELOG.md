@@ -1,3 +1,10 @@
+# [0.38.0](https://github.com/StartBet/st-core-ui/compare/v0.37.0...v0.38.0) (2026-09-24)
+
+
+### Features
+
+* **st-promotions-card:** add promotion card product component ([#54](https://github.com/StartBet/st-core-ui/issues/54)) ([7fe068a](https://github.com/StartBet/st-core-ui/commit/7fe068a9af0c08b35fc9df8beeb45400a445ecfc))
+
 # [0.37.0](https://github.com/StartBet/st-core-ui/compare/v0.36.0...v0.37.0) (2026-09-23)
 
 
