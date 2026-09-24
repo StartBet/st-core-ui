@@ -144,6 +144,13 @@ export type {
   StGameCardProvider,
   StGameCardSlots
 } from './products/game-card';
+export { default as StPromotionCard } from './products/promotion-card';
+export type {
+  StPromotionCardImageLoading,
+  StPromotionCardImageSlotProps,
+  StPromotionCardProps,
+  StPromotionCardSlots
+} from './products/promotion-card';
 export { default as StSuperOddsCard } from './products/super-odds-card';
 export type {
   StSuperOddsCardProps,
