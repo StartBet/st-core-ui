@@ -5,10 +5,10 @@ type StorybookThemeConfig = {
 };
 
 const storybookDarkThemeValues = {
-  surface2: '#270644',
-  surface3: '#1d0533',
-  border1: 'rgba(180, 124, 255, 0.48)',
-  contentDefault: '#f5f5f5',
+  surface2: '#1a1326',
+  surface3: '#0c0714',
+  border1: 'rgba(216, 207, 236, 0.24)',
+  contentDefault: '#f7f2ff',
   contentBright: '#ffffff',
   contentSecondary: '#acee68'
 } as const;
