@@ -5,6 +5,10 @@ export { default as StAvatar } from './components/avatars/avatar';
 export { default as StAvatarGroup } from './components/avatars/avatar-group';
 export { default as StBadge } from './components/badge';
 export { default as StBanner } from './components/banner';
+export {
+  default as StBreadcrumb,
+  buildBreadcrumbSchema
+} from './components/breadcrumb';
 export { default as StBullets } from './components/bullets';
 export { default as StButton } from './components/buttons/button';
 export { default as StButtonGroup } from './components/buttons/button-group';
@@ -85,6 +89,11 @@ export type {
 } from './components/tabs/tabs';
 export type { StAlertProps, StAlertStatus } from './components/alert';
 export type { StBannerProps, StBannerStatus } from './components/banner';
+export type {
+  StBreadcrumbItem,
+  StBreadcrumbProps,
+  StBreadcrumbSchemaOptions
+} from './components/breadcrumb';
 export type {
   StToastEntry,
   StToastOptions,
