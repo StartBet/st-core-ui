@@ -89,15 +89,18 @@ describe('StInput', () => {
     expect(wrapper.find('svg').exists()).toBe(true);
   });
 
-  it('usa formato pill e borda padrão no estado default', () => {
+  it('usa surface-1, borda padrão e ícone sem contêiner no estado default', () => {
     const wrapper = mount(StInput, { props: { icon: 'user' } });
     const inputClass = getInput(wrapper).attributes('class') ?? '';
+    const iconClass =
+      wrapper.find('[aria-hidden="true"]').attributes('class') ?? '';
 
     expect(inputClass).toContain('rounded-st-1');
+    expect(inputClass).toContain('bg-st-surface-1');
+    expect(inputClass).toContain('pl-st-5');
     expect(inputClass).toContain('border-st-border-2');
-    expect(wrapper.find('[aria-hidden="true"]').attributes('class')).toContain(
-      'rounded-st-1'
-    );
+    expect(iconClass).toContain('text-st-secondary');
+    expect(iconClass).not.toContain('bg-st-primary');
     expect(wrapper.find('svg').attributes('data-icon')).toBe('user');
   });
 

@@ -1,5 +1,5 @@
 import {
-  buildFieldIconClasses,
+  buildFieldBareIconClasses,
   buildFieldMessageClasses,
   getFieldBorderClass,
   resolveFieldState
@@ -34,15 +34,15 @@ export const buildInputClasses = (props: {
 
   const inputContainer = 'relative';
 
-  const iconContainer = buildFieldIconClasses(state);
+  const iconContainer = buildFieldBareIconClasses(state);
 
   const inputBase = [
-    'h-st-6 w-full rounded-st-1 border bg-st-surface-0 px-st-2 text-st-content-default',
-    hasIcon ? 'pl-st-6' : undefined,
+    'h-st-5 w-full rounded-st-1 border bg-st-surface-1 px-st-2 text-st-content-default',
+    hasIcon ? 'pl-st-5' : undefined,
     hasCounter ? 'pr-st-5' : undefined,
     'outline-none transition-[border-color,box-shadow] duration-200 ease-in-out',
     'placeholder:text-st-content-ghost',
-    'focus:border-st-content-primary focus:ring-2 focus:ring-st-focus focus:ring-offset-2 focus:ring-offset-st-surface-0',
+    'focus:border-st-focus focus:ring-2 focus:ring-st-focus',
     disabled
       ? 'cursor-not-allowed bg-st-surface-3 text-st-content-disable'
       : undefined,
