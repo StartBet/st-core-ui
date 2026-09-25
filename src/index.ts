@@ -29,7 +29,12 @@ export { default as StThemeProvider } from './components/theme-provider';
 export { default as StToast } from './components/toasts/toast';
 export { default as StToastContainer } from './components/toasts/toast-container';
 export { default as StTooltip } from './components/tooltip';
-export { default as StIcon } from './components/icon';
+export {
+  default as StIcon,
+  stIconRendererKey,
+  toIconifyName
+} from './components/icon';
+export type { StIconLibrary, StIconSize } from './components/icon';
 export { default as StPaper } from './components/paper';
 export { default as StProgressBar } from './components/progress-bar';
 export { default as StTypography } from './components/typography';
