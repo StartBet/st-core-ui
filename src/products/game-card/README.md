@@ -140,7 +140,7 @@ A estrela e um `button` com `aria-pressed` e rotulo `Adicionar aos favoritos o j
 | Skeleton     | `loading`                        | Bloco `animate-pulse` em `bg-st-surface-1`, `aria-hidden`. |
 | Indisponivel | sem `name`                       | Bloco com `unavailableLabel`.                              |
 | Sem capa     | sem `image` ou `error` na imagem | Gradiente de superficie com o nome do jogo centralizado.   |
-| Normal       | —                                | Capa, gradiente inferior, nome e provedor.                 |
+| Normal       | —                                | Capa, faixa inferior, nome e provedor.                     |
 
 O skeleton e o indisponivel usam a mesma forma (proporcao e raio) do card, entao a grade nao pula quando os dados chegam. Uma capa nova em `image` limpa o erro anterior.
 
@@ -166,8 +166,8 @@ O card ocupa `100%` da largura disponivel e deriva a altura do `aspect` — quem
 ## Tokens usados
 
 - Card: `bg-st-surface-1`, raio `rounded-st-1`.
-- Gradiente inferior de `--st-color-surface-0` para transparente — acompanha o tema, roxo no escuro.
-- Nome em `st-content-default` bold, provedor em `st-content-default` com `opacity-80`.
+- Faixa inferior em `--st-color-primary` escurecido (60% com preto) a 72% de opacidade, com `backdrop-blur-md`. Não muda com o tema.
+- Nome em `st-content-bright` bold, provedor em `st-content-bright` com `opacity-80`, iguais nos dois temas.
 - Hover: camada `bg-st-surface-shadow-1` e botao com as classes do `StButton` (`solid`, `secondary`, `small`), so a partir de `md`.
 - Foco: `ring-st-focus` por dentro do card.
 - Skeleton: `bg-st-surface-1`, a mesma superficie do card. Indisponivel: `bg-st-surface-1` com borda `st-border-2` e texto `st-content-ghost`.

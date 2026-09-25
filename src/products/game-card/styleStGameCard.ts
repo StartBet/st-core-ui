@@ -92,15 +92,15 @@ export const buildGameCardClasses = (props: GameCardClassProps) => {
 
   const info = [
     'pointer-events-none absolute inset-x-0 bottom-0 z-[3] flex flex-col gap-[2px]',
-    'px-st-1 pb-st-1 pt-st-4',
-    'bg-[linear-gradient(to_top,var(--st-color-surface-0)_0%,var(--st-color-surface-0)_40%,transparent_100%)]'
+    'p-st-1 backdrop-blur-md',
+    'bg-[color-mix(in_srgb,color-mix(in_srgb,var(--st-color-primary)_60%,black)_72%,transparent)]'
   ].join(' ');
 
   const name =
-    'truncate text-st-xs font-bold leading-st-snug text-st-content-default sm:text-st-sm';
+    'truncate text-st-xs font-bold leading-st-snug text-st-content-bright sm:text-st-sm';
 
   const provider =
-    'truncate text-st-xxs font-medium leading-st-snug text-st-content-default opacity-80 sm:text-st-xs';
+    'truncate text-st-xxs font-medium leading-st-snug text-st-content-bright opacity-80 sm:text-st-xs';
 
   const link = [
     'absolute inset-0 z-[2] rounded-st-1 no-underline outline-none',
