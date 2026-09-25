@@ -36,13 +36,14 @@ As abas vao no slot `tabs` e os paineis no slot padrao. Os paineis sao opcionais
 ## Props do StTabs
 
 | Prop            | Tipo                       | Default     | Descricao                                             |
-| --------------- | -------------------------- | ----------- | ----------------------------------------------------- |
+| --------------- | -------------------------- | ----------- | ----------------------------------------------------- | -------------------------------------------------- |
 | `modelValue`    | `string \| number`         | `undefined` | Aba ativa (`v-model`).                                |
 | `variant`       | `underline \| pill`        | `underline` | Estilo da lista.                                      |
 | `size`          | `small \| medium \| large` | `medium`    | Escala das abas.                                      |
 | `color`         | `primary \| secondary`     | `primary`   | Cor de destaque da aba ativa.                         |
 | `align`         | `start \| center \| end`   | `start`     | Alinhamento quando as abas nao ocupam a largura toda. |
 | `fullWidth`     | `boolean`                  | `false`     | Distribui as abas igualmente na largura disponivel.   |
+| `iconPosition`  | `start                     | top`        | `start`                                               | Icone ao lado (`start`) ou acima (`top`) do texto. |
 | `disabled`      | `boolean`                  | `false`     | Bloqueia todas as abas.                               |
 | `ariaLabel`     | `string`                   | `Abas`      | Rotulo da lista.                                      |
 | `className`     | `string`                   | `''`        | Classes extras no container.                          |
@@ -89,6 +90,27 @@ Por padrao o painel inativo sai do DOM. Com `keepAlive` ele fica montado com `hi
 
 - `underline`: lista com trilho inferior em `st-border-2` e a aba ativa marcada por uma borda de 2px na cor de destaque. A borda existe em todas as abas, so muda de cor, entao trocar de aba nao desloca o layout.
 - `pill`: barra arredondada em `st-surface-2` com a aba ativa preenchida — o formato de seletor segmentado.
+
+Em qualquer variante, disposicao ou estado, o icone da aba fica em `text-st-content-secondary`.
+
+## Icone acima do texto
+
+Com `iconPosition="top"` o icone fica acima do rotulo, no formato de menu de navegacao mobile. A variante, as cores e os estados continuam os mesmos; so muda a disposicao: a aba vira coluna, a altura passa a ser minima (`min-h-*` da escala) com respiro vertical, o espaco entre icone e texto cai para 4px e as abas esticam ate a altura da mais alta (uma aba so com icone fica do mesmo tamanho das outras), o icone sobe e o texto desce na escala, para o icone ser o destaque da aba:
+
+| Size     | Icone           | Texto         |
+| -------- | --------------- | ------------- |
+| `small`  | `st-xl` (24px)  | `text-st-xxs` |
+| `medium` | `st-xl` (24px)  | `text-st-xs`  |
+| `large`  | `st-2xl` (30px) | `text-st-sm`  |
+
+```vue
+<StTabs v-model="ativa" variant="pill" icon-position="top" full-width>
+  <template #tabs>
+    <StTab value="menu" label="Menu" icon="bars" />
+    <StTab value="promocoes" label="Promocoes" icon="gift" />
+  </template>
+</StTabs>
+```
 
 ## Muitas abas
 

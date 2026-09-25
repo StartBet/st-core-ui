@@ -29,7 +29,9 @@ const isActive = computed(() => Boolean(tabs?.isActive(props.value)));
 
 const isDisabled = computed(() => props.disabled || Boolean(tabs?.disabled));
 
-const iconSize = computed(() => resolveTabIconSize(tabs?.size));
+const iconSize = computed(() =>
+  resolveTabIconSize(tabs?.size, tabs?.iconPosition)
+);
 
 const classes = computed(() =>
   buildTabClasses({
@@ -39,6 +41,7 @@ const classes = computed(() =>
     active: isActive.value,
     disabled: isDisabled.value,
     fullWidth: tabs?.fullWidth,
+    iconPosition: tabs?.iconPosition,
     className: props.className
   })
 );
@@ -87,7 +90,7 @@ const onClick = () => {
       v-if="props.icon"
       :name="props.icon"
       :size="iconSize"
-      class="shrink-0"
+      :class="classes.icon"
       aria-hidden="true"
       data-st-tab-icon
     />

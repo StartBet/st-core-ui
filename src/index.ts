@@ -70,6 +70,7 @@ export type {
   StTabProps,
   StTabsAlign,
   StTabsColor,
+  StTabsIconPosition,
   StTabsProps,
   StTabsSize,
   StTabsVariant,

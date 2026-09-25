@@ -20,6 +20,7 @@ import {
   resolveNextTabIndex,
   stTabsContextKey,
   ST_TABS_DEFAULT_COLOR,
+  ST_TABS_DEFAULT_ICON_POSITION,
   ST_TABS_DEFAULT_SIZE,
   ST_TABS_DEFAULT_VARIANT,
   ST_TABS_NAV_KEYS
@@ -34,6 +35,7 @@ const props = withDefaults(defineProps<StTabsProps>(), {
   color: ST_TABS_DEFAULT_COLOR,
   align: 'start',
   fullWidth: false,
+  iconPosition: ST_TABS_DEFAULT_ICON_POSITION,
   disabled: false,
   ariaLabel: 'Abas',
   className: '',
@@ -87,6 +89,7 @@ const context = reactive<StTabsContext>({
   size: props.size,
   color: props.color,
   fullWidth: props.fullWidth,
+  iconPosition: props.iconPosition,
   disabled: props.disabled,
   isActive,
   select,
@@ -102,14 +105,16 @@ watch(
       props.size,
       props.color,
       props.fullWidth,
+      props.iconPosition,
       props.disabled
     ] as const,
-  ([value, variant, size, color, fullWidth, disabled]) => {
+  ([value, variant, size, color, fullWidth, iconPosition, disabled]) => {
     context.activeValue = value;
     context.variant = variant;
     context.size = size;
     context.color = color;
     context.fullWidth = fullWidth;
+    context.iconPosition = iconPosition;
     context.disabled = disabled;
   }
 );
@@ -149,6 +154,7 @@ const classes = computed(() =>
     size: props.size,
     align: props.align,
     fullWidth: props.fullWidth,
+    iconPosition: props.iconPosition,
     className: props.className,
     listClassName: props.listClassName
   })
