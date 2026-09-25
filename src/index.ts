@@ -4,6 +4,7 @@ export { default as StAccordionGroup } from './components/accordions/accordion-g
 export { default as StAvatar } from './components/avatars/avatar';
 export { default as StAvatarGroup } from './components/avatars/avatar-group';
 export { default as StBadge } from './components/badge';
+export { default as StBanner } from './components/banner';
 export { default as StBullets } from './components/bullets';
 export { default as StButton } from './components/buttons/button';
 export { default as StButtonGroup } from './components/buttons/button-group';
@@ -83,6 +84,7 @@ export type {
   StTabValue
 } from './components/tabs/tabs';
 export type { StAlertProps, StAlertStatus } from './components/alert';
+export type { StBannerProps, StBannerStatus } from './components/banner';
 export type {
   StToastEntry,
   StToastOptions,
