@@ -39,6 +39,9 @@ describe('tailwind theme tokens', () => {
     expect(stTailwindTheme.colors.st['neutral-tint'][950]).toBe(
       'var(--st-neutral-tint-color-950)'
     );
+    expect(stTailwindTheme.colors.st['neutral-tint-din-scale'][300]).toBe(
+      'var(--st-neutral-tint-din-scale-300)'
+    );
     expect(stTailwindTheme.fontFamily['st-heading']).toEqual([
       '"Base Neue Condensed"',
       'sans-serif'

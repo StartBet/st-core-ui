@@ -208,7 +208,9 @@ export const stTailwindTheme = {
       'neutral-tint': scale('neutral-tint-color', neutralScaleValues),
       ...createScaleGroup({
         'shadow-scale': 'shadow-scale',
-        'light-scale': 'light-scale'
+        'light-scale': 'light-scale',
+        'neutral-tint-bright-scale': 'neutral-tint-bright-scale',
+        'neutral-tint-din-scale': 'neutral-tint-din-scale'
       })
     }
   },
