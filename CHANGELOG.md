@@ -1,3 +1,10 @@
+## [0.39.2](https://github.com/StartBet/st-core-ui/compare/v0.39.1...v0.39.2) (2026-09-25)
+
+
+### Bug Fixes
+
+* **release:** republish package to npm with the new token ([5be1cd0](https://github.com/StartBet/st-core-ui/commit/5be1cd0a41335c2be3fc7e25eb17a1b4be11d50b))
+
 ## [0.39.1](https://github.com/StartBet/st-core-ui/compare/v0.39.0...v0.39.1) (2026-09-25)
 
 
