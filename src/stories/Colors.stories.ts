@@ -72,6 +72,12 @@ const primaryPaletteDefs = [
     neutralSteps
   ],
   [
+    'Neutral Tint',
+    'neutral-tint-color',
+    'Escala neutra com leve tom do roxo da marca.',
+    neutralSteps
+  ],
+  [
     'Crema',
     'crema-color',
     'Escala crema usada no conteudo padrao do tema dark.',
