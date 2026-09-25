@@ -1,4 +1,5 @@
 export { default as StAccordion } from './components/accordions/accordion';
+export { default as StAlert } from './components/alert';
 export { default as StAccordionGroup } from './components/accordions/accordion-group';
 export { default as StAvatar } from './components/avatars/avatar';
 export { default as StAvatarGroup } from './components/avatars/avatar-group';
@@ -81,6 +82,7 @@ export type {
   StTabsVariant,
   StTabValue
 } from './components/tabs/tabs';
+export type { StAlertProps, StAlertStatus } from './components/alert';
 export type {
   StToastEntry,
   StToastOptions,
