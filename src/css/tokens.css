@@ -307,7 +307,7 @@
     --st-color-surface-3: var(--st-neutral-tint-color-200);
     --st-color-surface-4: var(--st-neutral-tint-color-250);
 
-    --st-color-surface-primary: var(--st-brand-primary-300);
+    --st-color-surface-primary: var(--st-brand-primary-400);
     --st-color-surface-secondary: var(--st-brand-secondary-300);
     --st-color-surface-info: var(--st-info-color-100);
     --st-color-surface-system: var(--st-system-color-300);
@@ -378,7 +378,7 @@
     --st-color-surface-shadow-2: var(--st-shadow-scale-700);
     --st-color-surface-shadow-3: var(--st-shadow-scale-800);
 
-    --st-color-surface-primary: var(--st-brand-primary-950);
+    --st-color-surface-primary: var(--st-brand-primary-700);
     --st-color-surface-secondary: var(--st-brand-secondary-800);
     --st-color-surface-info: var(--st-info-color-950);
     --st-color-surface-system: var(--st-system-color-900);
