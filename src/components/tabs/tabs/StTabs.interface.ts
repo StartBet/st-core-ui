@@ -8,11 +8,14 @@ export type StTabsColor = 'primary' | 'secondary';
 
 export type StTabsAlign = 'start' | 'center' | 'end';
 
+export type StTabsIconPosition = 'start' | 'top';
+
 export interface TabsClassProps {
   variant?: StTabsVariant;
   size?: StTabsSize;
   align?: StTabsAlign;
   fullWidth?: boolean;
+  iconPosition?: StTabsIconPosition;
   className?: string;
   listClassName?: string;
 }
@@ -30,6 +33,8 @@ export interface StTabsProps extends TabsClassProps {
   align?: StTabsAlign;
   /** Distribui as abas igualmente na largura disponivel. */
   fullWidth?: boolean;
+  /** Posicao do icone em relacao ao texto: ao lado (`start`) ou acima (`top`). */
+  iconPosition?: StTabsIconPosition;
   /** Bloqueia todas as abas. */
   disabled?: boolean;
   /** Rotulo da lista de abas. */
@@ -47,6 +52,7 @@ export interface TabClassProps {
   active?: boolean;
   disabled?: boolean;
   fullWidth?: boolean;
+  iconPosition?: StTabsIconPosition;
   className?: string;
 }
 
@@ -55,7 +61,7 @@ export interface StTabProps {
   value: StTabValue;
   /** Texto da aba; o slot padrao tem prioridade. */
   label?: string;
-  /** Icone opcional a esquerda do texto. */
+  /** Icone opcional ao lado ou acima do texto, conforme `iconPosition`. */
   icon?: string;
   /** Bloqueia esta aba. */
   disabled?: boolean;
@@ -78,6 +84,7 @@ export interface StTabsContext {
   size: StTabsSize;
   color: StTabsColor;
   fullWidth: boolean;
+  iconPosition: StTabsIconPosition;
   disabled: boolean;
   isActive: (value: StTabValue) => boolean;
   select: (value: StTabValue) => void;

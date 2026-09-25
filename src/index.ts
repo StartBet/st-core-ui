@@ -1,8 +1,14 @@
 export { default as StAccordion } from './components/accordions/accordion';
+export { default as StAlert } from './components/alert';
 export { default as StAccordionGroup } from './components/accordions/accordion-group';
 export { default as StAvatar } from './components/avatars/avatar';
 export { default as StAvatarGroup } from './components/avatars/avatar-group';
 export { default as StBadge } from './components/badge';
+export { default as StBanner } from './components/banner';
+export {
+  default as StBreadcrumb,
+  buildBreadcrumbSchema
+} from './components/breadcrumb';
 export { default as StBullets } from './components/bullets';
 export { default as StButton } from './components/buttons/button';
 export { default as StButtonGroup } from './components/buttons/button-group';
@@ -29,7 +35,12 @@ export { default as StThemeProvider } from './components/theme-provider';
 export { default as StToast } from './components/toasts/toast';
 export { default as StToastContainer } from './components/toasts/toast-container';
 export { default as StTooltip } from './components/tooltip';
-export { default as StIcon } from './components/icon';
+export {
+  default as StIcon,
+  stIconRendererKey,
+  toIconifyName
+} from './components/icon';
+export type { StIconLibrary, StIconSize } from './components/icon';
 export { default as StPaper } from './components/paper';
 export { default as StProgressBar } from './components/progress-bar';
 export { default as StTypography } from './components/typography';
@@ -70,11 +81,19 @@ export type {
   StTabProps,
   StTabsAlign,
   StTabsColor,
+  StTabsIconPosition,
   StTabsProps,
   StTabsSize,
   StTabsVariant,
   StTabValue
 } from './components/tabs/tabs';
+export type { StAlertProps, StAlertStatus } from './components/alert';
+export type { StBannerProps, StBannerStatus } from './components/banner';
+export type {
+  StBreadcrumbItem,
+  StBreadcrumbProps,
+  StBreadcrumbSchemaOptions
+} from './components/breadcrumb';
 export type {
   StToastEntry,
   StToastOptions,

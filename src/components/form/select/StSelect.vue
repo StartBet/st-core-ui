@@ -473,7 +473,7 @@ export default defineComponent({
                         [
                           h(StIcon, {
                             name: fieldIcon.value as string,
-                            size: 2,
+                            size: 3,
                             ariaLabel: 'icon'
                           })
                         ]

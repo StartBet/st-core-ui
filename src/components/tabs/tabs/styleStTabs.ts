@@ -4,6 +4,7 @@ import type {
   StTabsAlign,
   StTabsColor,
   StTabsContext,
+  StTabsIconPosition,
   StTabsSize,
   StTabsVariant,
   TabClassProps,
@@ -19,6 +20,8 @@ export const ST_TABS_DEFAULT_VARIANT: StTabsVariant = 'underline';
 export const ST_TABS_DEFAULT_SIZE: StTabsSize = 'medium';
 
 export const ST_TABS_DEFAULT_COLOR: StTabsColor = 'primary';
+
+export const ST_TABS_DEFAULT_ICON_POSITION: StTabsIconPosition = 'start';
 
 /** Teclas que movem o foco dentro da lista, no padrao ARIA de tabs. */
 export const ST_TABS_NAV_KEYS = [
@@ -46,35 +49,52 @@ export const resolveNextTabIndex = (
 
 type TabsSizeTokens = {
   tab: string;
+  /** Altura livre e respiro vertical quando o icone fica acima do texto. */
+  stackedTab: string;
   text: string;
+  /** Texto menor no empilhado, para o rotulo nao disputar com o icone. */
+  stackedText: string;
   icon: StIconSize;
+  /** Icone maior no empilhado, onde ele vira o destaque da aba. */
+  stackedIcon: StIconSize;
   gap: string;
 };
 
 const sizeTokens: Record<StTabsSize, TabsSizeTokens> = {
   small: {
     tab: 'h-st-4 px-st-2',
+    stackedTab: 'min-h-st-4 px-st-2 py-[4px]',
     text: 'text-st-body-small',
+    stackedText: 'text-st-xxs',
     icon: 2,
+    stackedIcon: 6,
     gap: 'gap-[6px]'
   },
   medium: {
     tab: 'h-st-5 px-st-2',
+    stackedTab: 'min-h-st-5 px-st-2 py-st-1',
     text: 'text-st-body-medium',
+    stackedText: 'text-st-xs',
     icon: 3,
+    stackedIcon: 6,
     gap: 'gap-st-1'
   },
   large: {
     tab: 'h-st-6 px-st-3',
+    stackedTab: 'min-h-st-6 px-st-3 py-st-1',
     text: 'text-st-body-large',
+    stackedText: 'text-st-sm',
     icon: 4,
+    stackedIcon: 7,
     gap: 'gap-st-1'
   }
 };
 
 export const resolveTabIconSize = (
-  size: StTabsSize = ST_TABS_DEFAULT_SIZE
-): StIconSize => sizeTokens[size].icon;
+  size: StTabsSize = ST_TABS_DEFAULT_SIZE,
+  iconPosition: StTabsIconPosition = ST_TABS_DEFAULT_ICON_POSITION
+): StIconSize =>
+  iconPosition === 'top' ? sizeTokens[size].stackedIcon : sizeTokens[size].icon;
 
 const alignClasses: Record<StTabsAlign, string> = {
   start: 'justify-start',
@@ -115,6 +135,7 @@ export const buildTabsClasses = (props: TabsClassProps) => {
     variant = ST_TABS_DEFAULT_VARIANT,
     align = 'start',
     fullWidth = false,
+    iconPosition = ST_TABS_DEFAULT_ICON_POSITION,
     className,
     listClassName
   } = props;
@@ -127,8 +148,13 @@ export const buildTabsClasses = (props: TabsClassProps) => {
    * A lista rola na horizontal quando as abas nao cabem, entao muitas abas em
    * tela estreita nao quebram o layout.
    */
+  /**
+   * No empilhado as abas esticam ate a mais alta: uma aba so com icone, sem
+   * rotulo, fica com a mesma altura das demais.
+   */
   const listBase = [
-    'flex w-full items-center overflow-x-auto',
+    'flex w-full overflow-x-auto',
+    iconPosition === 'top' ? 'items-stretch' : 'items-center',
     '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
     fullWidth ? 'justify-stretch' : alignClasses[align]
   ].join(' ');
@@ -155,10 +181,13 @@ export const buildTabClasses = (props: TabClassProps) => {
     active = false,
     disabled = false,
     fullWidth = false,
+    iconPosition = ST_TABS_DEFAULT_ICON_POSITION,
     className
   } = props;
 
   const tokens = sizeTokens[size];
+
+  const stacked = iconPosition === 'top';
 
   const tokensVariant = variantClasses[variant];
 
@@ -167,9 +196,10 @@ export const buildTabClasses = (props: TabClassProps) => {
     'm-0 font-semibold',
     'transition-colors duration-200 ease-out',
     'focus:outline-none focus-visible:ring-2 focus-visible:ring-st-focus focus-visible:ring-offset-2 focus-visible:ring-offset-st-surface-0',
-    tokens.tab,
-    tokens.text,
-    tokens.gap,
+    stacked ? 'flex-col' : undefined,
+    stacked ? tokens.stackedTab : tokens.tab,
+    stacked ? tokens.stackedText : tokens.text,
+    stacked ? 'gap-[4px]' : tokens.gap,
     fullWidth ? 'flex-1' : undefined,
     disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
   ]
@@ -190,7 +220,10 @@ export const buildTabClasses = (props: TabClassProps) => {
     .filter(Boolean)
     .join(' ');
 
-  return { tab };
+  /** O icone fica sempre em `content-secondary`, em qualquer disposicao e estado. */
+  const icon = 'shrink-0 text-st-content-secondary';
+
+  return { tab, icon };
 };
 
 export const buildTabPanelClasses = (props: { className?: string }) =>

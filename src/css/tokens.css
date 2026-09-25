@@ -46,6 +46,27 @@
     --st-neutral-color-900: #171717;
     --st-neutral-color-950: #0a0a0a;
 
+    --st-neutral-tint-color-0: #ffffff;
+    --st-neutral-tint-color-50: #fcf7ff;
+    --st-neutral-tint-color-100: #f7f2ff;
+    --st-neutral-tint-color-150: #f0e9ff;
+    --st-neutral-tint-color-200: #e8e1f9;
+    --st-neutral-tint-color-250: #dfd7f3;
+    --st-neutral-tint-color-300: #d8cfec;
+    --st-neutral-tint-color-350: #c0b6d9;
+    --st-neutral-tint-color-400: #a89cc3;
+    --st-neutral-tint-color-450: #9083ac;
+    --st-neutral-tint-color-500: #786b94;
+    --st-neutral-tint-color-550: #675a81;
+    --st-neutral-tint-color-600: #574a6f;
+    --st-neutral-tint-color-650: #4e4265;
+    --st-neutral-tint-color-700: #44395a;
+    --st-neutral-tint-color-750: #372d4a;
+    --st-neutral-tint-color-800: #29213a;
+    --st-neutral-tint-color-850: #21192f;
+    --st-neutral-tint-color-900: #1a1326;
+    --st-neutral-tint-color-950: #0c0714;
+
     --st-crema-color-100: #f5f0de;
     --st-crema-color-200: #eee4df;
     --st-crema-color-300: #e7d8e0;
@@ -156,6 +177,28 @@
     --st-din-scale-900: rgba(0, 0, 0, 0.64);
     --st-din-scale-950: rgba(0, 0, 0, 0.72);
 
+    --st-neutral-tint-bright-scale-100: rgba(216, 207, 236, 0.04);
+    --st-neutral-tint-bright-scale-200: rgba(216, 207, 236, 0.08);
+    --st-neutral-tint-bright-scale-300: rgba(216, 207, 236, 0.16);
+    --st-neutral-tint-bright-scale-400: rgba(216, 207, 236, 0.24);
+    --st-neutral-tint-bright-scale-500: rgba(216, 207, 236, 0.32);
+    --st-neutral-tint-bright-scale-600: rgba(216, 207, 236, 0.4);
+    --st-neutral-tint-bright-scale-700: rgba(216, 207, 236, 0.48);
+    --st-neutral-tint-bright-scale-800: rgba(216, 207, 236, 0.56);
+    --st-neutral-tint-bright-scale-900: rgba(216, 207, 236, 0.64);
+    --st-neutral-tint-bright-scale-950: rgba(216, 207, 236, 0.72);
+
+    --st-neutral-tint-din-scale-100: rgba(12, 7, 20, 0.04);
+    --st-neutral-tint-din-scale-200: rgba(12, 7, 20, 0.08);
+    --st-neutral-tint-din-scale-300: rgba(12, 7, 20, 0.16);
+    --st-neutral-tint-din-scale-400: rgba(12, 7, 20, 0.24);
+    --st-neutral-tint-din-scale-500: rgba(12, 7, 20, 0.32);
+    --st-neutral-tint-din-scale-600: rgba(12, 7, 20, 0.4);
+    --st-neutral-tint-din-scale-700: rgba(12, 7, 20, 0.48);
+    --st-neutral-tint-din-scale-800: rgba(12, 7, 20, 0.56);
+    --st-neutral-tint-din-scale-900: rgba(12, 7, 20, 0.64);
+    --st-neutral-tint-din-scale-950: rgba(12, 7, 20, 0.72);
+
     --st-blue-color-100: #dbeafe;
     --st-blue-color-200: #bfdbfe;
     --st-blue-color-300: #93c5fd;
@@ -258,13 +301,13 @@
     --st-color-positive: var(--st-positive-color-500);
     --st-color-negative: var(--st-negative-color-500);
 
-    --st-color-surface-0: var(--st-neutral-color-0);
-    --st-color-surface-1: var(--st-neutral-color-100);
-    --st-color-surface-2: var(--st-neutral-color-150);
-    --st-color-surface-3: var(--st-neutral-color-200);
-    --st-color-surface-4: var(--st-neutral-color-250);
+    --st-color-surface-0: var(--st-neutral-tint-color-0);
+    --st-color-surface-1: var(--st-neutral-tint-color-100);
+    --st-color-surface-2: var(--st-neutral-tint-color-150);
+    --st-color-surface-3: var(--st-neutral-tint-color-200);
+    --st-color-surface-4: var(--st-neutral-tint-color-250);
 
-    --st-color-surface-primary: var(--st-brand-primary-300);
+    --st-color-surface-primary: var(--st-brand-primary-400);
     --st-color-surface-secondary: var(--st-brand-secondary-300);
     --st-color-surface-info: var(--st-info-color-100);
     --st-color-surface-system: var(--st-system-color-300);
@@ -277,9 +320,9 @@
     --st-color-surface-shadow-2: var(--st-shadow-scale-700);
     --st-color-surface-shadow-3: var(--st-shadow-scale-800);
 
-    --st-color-content-default: var(--st-brand-primary-950);
-    --st-color-content-disable: var(--st-brand-primary-700);
-    --st-color-content-ghost: var(--st-brand-primary-600);
+    --st-color-content-default: var(--st-neutral-tint-color-900);
+    --st-color-content-disable: var(--st-neutral-tint-color-650);
+    --st-color-content-ghost: var(--st-neutral-tint-color-550);
     --st-color-content-bright: var(--st-neutral-color-0);
     --st-color-content-din: var(--st-neutral-color-950);
 
@@ -291,9 +334,9 @@
     --st-color-content-positive: var(--st-positive-color-800);
     --st-color-content-negative: var(--st-negative-color-900);
 
-    --st-color-border-1: var(--st-din-scale-300);
-    --st-color-border-2: var(--st-din-scale-400);
-    --st-color-border-3: var(--st-din-scale-500);
+    --st-color-border-1: var(--st-neutral-tint-din-scale-300);
+    --st-color-border-2: var(--st-neutral-tint-din-scale-400);
+    --st-color-border-3: var(--st-neutral-tint-din-scale-500);
 
     --st-color-focus: var(--st-purple-color-400);
     --st-color-pressed: var(--st-shadow-scale-400);
@@ -324,18 +367,18 @@
     --st-color-positive: var(--st-positive-color-500);
     --st-color-negative: var(--st-negative-color-500);
 
-    --st-color-surface-0: var(--st-brand-primary-600);
-    --st-color-surface-1: var(--st-brand-primary-700);
-    --st-color-surface-2: var(--st-brand-primary-800);
-    --st-color-surface-3: var(--st-brand-primary-900);
-    --st-color-surface-4: var(--st-brand-primary-950);
+    --st-color-surface-0: var(--st-neutral-tint-color-750);
+    --st-color-surface-1: var(--st-neutral-tint-color-800);
+    --st-color-surface-2: var(--st-neutral-tint-color-850);
+    --st-color-surface-3: var(--st-neutral-tint-color-900);
+    --st-color-surface-4: var(--st-neutral-tint-color-950);
 
     --st-color-surface-shadow-0: var(--st-shadow-scale-500);
     --st-color-surface-shadow-1: var(--st-shadow-scale-600);
     --st-color-surface-shadow-2: var(--st-shadow-scale-700);
     --st-color-surface-shadow-3: var(--st-shadow-scale-800);
 
-    --st-color-surface-primary: var(--st-brand-primary-950);
+    --st-color-surface-primary: var(--st-brand-primary-700);
     --st-color-surface-secondary: var(--st-brand-secondary-800);
     --st-color-surface-info: var(--st-info-color-950);
     --st-color-surface-system: var(--st-system-color-900);
@@ -343,9 +386,9 @@
     --st-color-surface-positive: var(--st-positive-color-800);
     --st-color-surface-negative: var(--st-negative-color-900);
 
-    --st-color-content-default: var(--st-crema-color-100);
-    --st-color-content-disable: var(--st-brand-primary-300);
-    --st-color-content-ghost: var(--st-brand-primary-400);
+    --st-color-content-default: var(--st-neutral-tint-color-100);
+    --st-color-content-disable: var(--st-neutral-tint-color-300);
+    --st-color-content-ghost: var(--st-neutral-tint-color-400);
     --st-color-content-bright: var(--st-neutral-color-0);
     --st-color-content-din: var(--st-neutral-color-950);
 
@@ -357,9 +400,9 @@
     --st-color-content-positive: var(--st-positive-color-400);
     --st-color-content-negative: var(--st-negative-color-400);
 
-    --st-color-border-1: var(--st-light-scale-400);
-    --st-color-border-2: var(--st-light-scale-500);
-    --st-color-border-3: var(--st-light-scale-600);
+    --st-color-border-1: var(--st-neutral-tint-bright-scale-400);
+    --st-color-border-2: var(--st-neutral-tint-bright-scale-500);
+    --st-color-border-3: var(--st-neutral-tint-bright-scale-600);
 
     --st-color-focus: var(--st-purple-color-400);
     --st-color-pressed: var(--st-light-scale-300);

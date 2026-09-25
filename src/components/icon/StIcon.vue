@@ -5,9 +5,14 @@ import {
   type IconDefinition
 } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 
 import type { StIconLibrary, StIconSize } from './StIcon.interface';
+import {
+  stIconRendererKey,
+  toFontAwesomeLookup,
+  toIconifyName
+} from './resolveIconName';
 import { buildIconClasses } from './styleStIcon';
 
 const props = withDefaults(
@@ -24,33 +29,29 @@ const props = withDefaults(
   }
 );
 
+/**
+ * Quando a aplicacao entrega um renderizador (o `Icon` do `@nuxt/icon`, por
+ * exemplo), ele desenha o icone e o Font Awesome embutido fica de fora. Sem
+ * renderizador, como no Storybook e nos testes, o Font Awesome segue valendo.
+ */
+const renderer = inject(stIconRendererKey, null);
+
 const classes = computed(() => buildIconClasses(props));
 
-const normalizeName = (name: string) =>
-  name.trim().toLowerCase().split('_').join('-');
-
-const parseIcon = (value: string, fallbackLib: StIconLibrary) => {
-  const raw = value.trim();
-  const index = raw.indexOf(':');
-
-  if (index <= 0) return { lib: fallbackLib, name: raw };
-
-  const lib = normalizeName(raw.slice(0, index)) as StIconLibrary;
-  const name = raw.slice(index + 1);
-
-  return { lib, name };
-};
+const iconifyName = computed(() => toIconifyName(props.name, props.lib));
 
 const icon = computed<IconDefinition | undefined>(() => {
-  const parsed = parseIcon(props.name, props.lib);
-  const iconName = normalizeName(parsed.name);
-  const prefix = parsed.lib === 'fab' ? 'fab' : 'fas';
-  const definition = findIconDefinition({
-    prefix,
-    iconName: iconName as IconName
-  });
+  if (renderer) return undefined;
 
-  return definition ?? undefined;
+  const lookup = toFontAwesomeLookup(props.name, props.lib);
+  if (!lookup) return undefined;
+
+  return (
+    findIconDefinition({
+      prefix: lookup.prefix,
+      iconName: lookup.iconName as IconName
+    }) ?? undefined
+  );
 });
 </script>
 
@@ -60,8 +61,16 @@ const icon = computed<IconDefinition | undefined>(() => {
     :aria-label="props.ariaLabel"
     v-bind="$attrs"
   >
+    <component
+      :is="renderer"
+      v-if="renderer"
+      :name="iconifyName"
+      :class="classes.glyph"
+      :aria-label="props.ariaLabel"
+      data-st-icon-renderer
+    />
     <FontAwesomeIcon
-      v-if="icon"
+      v-else-if="icon"
       :icon="icon"
       :class="classes.glyph"
       :aria-label="props.ariaLabel"

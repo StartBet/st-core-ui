@@ -46,16 +46,16 @@ import { StOption, StSelect } from '@startbet/st-core-ui';
 
 ## Estados visuais
 
-O campo tem canto arredondado (`rounded-st-1`) e um contêiner circular de ícone à esquerda. São quatro estados, resolvidos nesta ordem de prioridade:
+O campo tem fundo `bg-st-surface-1`, altura `h-st-5`, canto arredondado (`rounded-st-1`) e um ícone solto à esquerda, sem contêiner, no tamanho `3` do `StIcon` (`st-base`). Com ícone, o texto começa em `pl-st-5`. No foco, borda e anel usam `st-focus`. São quatro estados, resolvidos nesta ordem de prioridade:
 
-| Estado     | Quando ocorre                 | Borda                | Ícone no círculo | Círculo                                           |
-| ---------- | ----------------------------- | -------------------- | ---------------- | ------------------------------------------------- |
-| `disabled` | `disabled`                    | `border-st-border-2` | `ban`            | `bg-st-surface-1 text-st-content-ghost`           |
-| `error`    | campo inválido                | `border-st-negative` | `xmark`          | `bg-st-surface-negative text-st-content-negative` |
-| `success`  | válido e com `messageSuccess` | `border-st-positive` | `check`          | `bg-st-surface-positive text-st-content-positive` |
-| `default`  | demais casos                  | `border-st-border-2` | valor de `icon`  | `bg-st-primary text-st-secondary`                 |
+| Estado     | Quando ocorre                 | Borda                | Ícone           | Cor do ícone               |
+| ---------- | ----------------------------- | -------------------- | --------------- | -------------------------- |
+| `disabled` | `disabled`                    | `border-st-border-2` | `ban`           | `text-st-content-ghost`    |
+| `error`    | campo inválido                | `border-st-negative` | `xmark`         | `text-st-content-negative` |
+| `success`  | válido e com `messageSuccess` | `border-st-positive` | `check`         | `text-st-content-positive` |
+| `default`  | demais casos                  | `border-st-border-2` | valor de `icon` | `text-st-secondary`        |
 
-Nos estados `error`, `success` e `disabled` o ícone de estado substitui o valor de `icon`, e o círculo é exibido mesmo sem a prop `icon`. As mensagens auxiliares recebem um ícone à esquerda: `circle-info`, `circle-exclamation` e `circle-check`.
+Nos estados `error`, `success` e `disabled` o ícone de estado substitui o valor de `icon`, e o ícone é exibido mesmo sem a prop `icon`. As mensagens auxiliares recebem um ícone à esquerda: `circle-info`, `circle-exclamation` e `circle-check`.
 
 ## Exemplo básico
 

@@ -33,13 +33,6 @@ const stateBorder: Record<StFieldState, string> = {
   disabled: 'border-st-border-2'
 };
 
-const stateIconContainer: Record<StFieldState, string> = {
-  default: 'bg-st-primary text-st-secondary',
-  error: 'bg-st-surface-negative text-st-content-negative',
-  success: 'bg-st-surface-positive text-st-content-positive',
-  disabled: 'bg-st-surface-1 text-st-content-ghost'
-};
-
 export const fieldMessageIcon = {
   info: 'circle-info',
   danger: 'circle-exclamation',
@@ -62,10 +55,17 @@ export const resolveFieldIcon = (state: StFieldState, icon?: string) =>
 
 export const getFieldBorderClass = (state: StFieldState) => stateBorder[state];
 
-export const buildFieldIconClasses = (state: StFieldState) =>
+const stateIconColor: Record<StFieldState, string> = {
+  default: 'text-st-secondary',
+  error: 'text-st-content-negative',
+  success: 'text-st-content-positive',
+  disabled: 'text-st-content-ghost'
+};
+
+export const buildFieldBareIconClasses = (state: StFieldState) =>
   [
-    'absolute inset-st-1 flex w-st-4 items-center justify-center rounded-st-1',
-    stateIconContainer[state]
+    'pointer-events-none absolute left-st-xs top-1/2 flex -translate-y-1/2 items-center justify-center',
+    stateIconColor[state]
   ].join(' ');
 
 export const buildFieldMessageClasses = () => {

@@ -211,7 +211,7 @@ watch(
 
     <div :class="classes.inputContainer">
       <div v-if="hasIcon" :class="classes.iconContainer" aria-hidden="true">
-        <StIcon :name="fieldIcon as string" :size="2" aria-label="icon" />
+        <StIcon :name="fieldIcon as string" :size="3" aria-label="icon" />
       </div>
 
       <input

@@ -72,11 +72,12 @@ const primaryPaletteDefs = [
     neutralSteps
   ],
   [
-    'Crema',
-    'crema-color',
-    'Escala crema usada no conteudo padrao do tema dark.',
-    toneSteps
+    'Neutral Tint',
+    'neutral-tint-color',
+    'Escala neutra com leve tom do roxo da marca.',
+    neutralSteps
   ],
+  ['Crema', 'crema-color', 'Escala crema de apoio.', toneSteps],
   ['Info', 'info-color', 'Escala base de informacao.', toneSteps],
   ['System', 'system-color', 'Escala sistemica de apoio.', toneSteps],
   ['Positive', 'positive-color', 'Escala de confirmacao e sucesso.', toneSteps],
@@ -104,6 +105,18 @@ const primaryPaletteDefs = [
     'Din Scale',
     'din-scale',
     'Escala translucida escura derivada do preto.',
+    toneSteps
+  ],
+  [
+    'Neutral Tint Bright Scale',
+    'neutral-tint-bright-scale',
+    'Escala translucida clara derivada da Neutral Tint 300.',
+    toneSteps
+  ],
+  [
+    'Neutral Tint Din Scale',
+    'neutral-tint-din-scale',
+    'Escala translucida escura derivada da Neutral Tint 950.',
     toneSteps
   ],
   ['Blue', 'blue-color', 'Escala cromatica azul.', toneSteps],

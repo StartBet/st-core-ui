@@ -81,6 +81,9 @@ describe('styleStTabs', () => {
     expect(resolveTabIconSize()).toBe(3);
     expect(resolveTabIconSize('small')).toBe(2);
     expect(resolveTabIconSize('large')).toBe(4);
+    expect(resolveTabIconSize('small', 'top')).toBe(6);
+    expect(resolveTabIconSize('medium', 'top')).toBe(6);
+    expect(resolveTabIconSize('large', 'top')).toBe(7);
   });
 
   it('usa trilho na underline e fundo na pill', () => {
@@ -142,6 +145,36 @@ describe('styleStTabs', () => {
   it('estica as abas com fullWidth', () => {
     expect(buildTabClasses({ fullWidth: true }).tab).toContain('flex-1');
     expect(buildTabClasses({}).tab).not.toContain('flex-1');
+  });
+
+  it('empilha icone e texto com iconPosition top', () => {
+    const stacked = buildTabClasses({ iconPosition: 'top' }).tab;
+
+    expect(stacked).toContain('flex-col');
+    expect(stacked).toContain('min-h-st-5');
+    expect(stacked).toContain('gap-[4px]');
+    expect(stacked).toContain('text-st-xs');
+    expect(stacked).not.toContain('text-st-body-medium');
+    expect(
+      buildTabClasses({ iconPosition: 'top', size: 'small' }).tab
+    ).toContain('text-st-xxs');
+    expect(
+      buildTabClasses({ iconPosition: 'top', size: 'large' }).tab
+    ).toContain('text-st-sm');
+    expect(stacked).not.toContain(' h-st-5');
+
+    const inline = buildTabClasses({}).tab;
+
+    expect(buildTabClasses({ iconPosition: 'top' }).icon).toContain(
+      'text-st-content-secondary'
+    );
+    expect(
+      buildTabClasses({ iconPosition: 'top', active: true }).icon
+    ).toContain('text-st-content-secondary');
+    expect(buildTabClasses({}).icon).toContain('text-st-content-secondary');
+
+    expect(inline).not.toContain('flex-col');
+    expect(inline).toContain('h-st-5');
   });
 });
 
@@ -253,6 +286,26 @@ describe('StTabs', () => {
     expect(wrapper.find('[data-st-tabs-list]').classes()).toContain(
       'rounded-full'
     );
+  });
+
+  it('estica as abas na lista empilhada para igualar a altura', () => {
+    expect(buildTabsClasses({ iconPosition: 'top' }).list).toContain(
+      'items-stretch'
+    );
+    expect(buildTabsClasses({}).list).toContain('items-center');
+    expect(buildTabsClasses({}).list).not.toContain('items-stretch');
+  });
+
+  it('propaga iconPosition para as abas', async () => {
+    const wrapper = mountTabs({ modelValue: 'aovivo', iconPosition: 'top' });
+
+    expect(tabs(wrapper)[0].classes()).toContain('flex-col');
+
+    await wrapper.setProps({
+      tabsProps: { modelValue: 'aovivo', iconPosition: 'start' }
+    });
+
+    expect(tabs(wrapper)[0].classes()).not.toContain('flex-col');
   });
 
   it('renderiza icone e slot no lugar do label', () => {

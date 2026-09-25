@@ -35,8 +35,14 @@ const mercados = [
   },
   {
     value: 'bilhetes',
-    label: 'Meus bilhetes',
+    label: 'Bilhetes',
     icon: 'receipt',
+    text: '3 bilhetes abertos e 18 liquidados nos ultimos 30 dias.'
+  },
+  {
+    value: 'opt',
+    label: '',
+    icon: 'dice',
     text: '3 bilhetes abertos e 18 liquidados nos ultimos 30 dias.'
   }
 ];
@@ -52,6 +58,7 @@ const meta = {
     color: 'primary',
     align: 'start',
     fullWidth: false,
+    iconPosition: 'start',
     disabled: false,
     className: ''
   },
@@ -71,6 +78,10 @@ const meta = {
     align: {
       control: 'radio',
       options: ['start', 'center', 'end']
+    },
+    iconPosition: {
+      control: 'radio',
+      options: ['start', 'top']
     },
     className: { control: 'text' }
   },
@@ -207,6 +218,58 @@ export const WithIcons: Story = {
     template: `
       <div class="w-full max-w-st-96 p-st-3">
         <StTabs v-model="ativa" variant="pill">
+          <template #tabs>
+            <StTab
+              v-for="item in mercados"
+              :key="item.value"
+              :value="item.value"
+              :label="item.label"
+              :icon="item.icon"
+            />
+          </template>
+          <StTabPanel
+            v-for="item in mercados"
+            :key="item.value"
+            :value="item.value"
+          >
+            {{ item.text }}
+          </StTabPanel>
+        </StTabs>
+      </div>
+    `
+  })
+};
+
+export const IconTop: Story = {
+  name: 'Icone acima do texto',
+  render: () => ({
+    components: { StTabs, StTab, StTabPanel },
+    setup() {
+      const ativa = ref('aovivo');
+
+      return { mercados, ativa };
+    },
+    template: `
+      <div class="flex w-full max-w-st-56 flex-col gap-st-4 p-st-3">
+        <StTabs
+          v-model="ativa"
+          variant="pill"
+          size="small"
+          icon-position="top"
+          full-width
+        >
+          <template #tabs>
+            <StTab
+              v-for="item in mercados"
+              :key="item.value"
+              :value="item.value"
+              :label="item.label"
+              :icon="item.icon"
+            />
+          </template>
+        </StTabs>
+
+        <StTabs v-model="ativa" size="small" icon-position="top" full-width>
           <template #tabs>
             <StTab
               v-for="item in mercados"
